@@ -12,6 +12,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   @Output() gameEnd = new EventEmitter<number[]>();
   @Input() gameRun: number;
   @Input() game: Game;
+  @Input() gamePaused: boolean;
 
   scoreHistory: number[] = [];
   score = 0;
@@ -82,7 +83,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
 
   addGuess(guess: Move) {
     // If the game is over we do nothing else.
-    if (this.gameEnded) {
+    if (this.gameEnded || this.gamePaused) {
       return;
     }
 
@@ -90,6 +91,10 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   }
 
   removeGuess(guess: Move) {
+    if (this.gameEnded || this.gamePaused) {
+      return;
+    }
+
     // Find index of guess that matches the input guess and remove it from the guesses.
     for (let i = 0; i < this.guesses.length; i++) {
       if (this.guesses[i].row === guess.row && this.guesses[i].column === guess.column) {
@@ -101,7 +106,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
 
   processGuesses() {
     // If the game is over we do nothing else.
-    if (this.gameEnded) {
+    if (this.gameEnded || this.gamePaused) {
       return;
     }
 

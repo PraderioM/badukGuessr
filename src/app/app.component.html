@@ -12,6 +12,7 @@
 <app-central-section (showScore)="updateAndShowScore($event)"
                      (gameEnd)="endGame($event)"
                      [gameRun]="gameRun"
+                     [gamePaused]="isGamePaused()"
                      [game]="game">
 
 </app-central-section>

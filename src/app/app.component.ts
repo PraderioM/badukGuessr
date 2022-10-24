@@ -85,4 +85,8 @@ export class AppComponent {
     }
     this.hideScoreView();
   }
+
+  isGamePaused() {
+    return this.showInfo || this.showWelcome || this.showIntroduction || this.showScore;
+  }
 }
