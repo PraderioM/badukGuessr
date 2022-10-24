@@ -5,5 +5,5 @@ gulp.task("default", () => {
   return gulp
     .src("./dist/*/*.html")
     .pipe(inline())
-    .pipe(gulp.dest("./single-dist"));
+    .pipe(gulp.dest("./docs"));
 });
