@@ -19,8 +19,17 @@
     </div>
   </div>
   <div class="guess_button_parent">
-    <button [ngClass]="getGuessButtonClass()" (click)="this.resolveMove.emit();">
-      {{getGuessButtonText()}}
+
+    <button class="control_button move_button" (click)="this.navigateGame.emit(-1);">
+      &#9664;&#9664;
+    </button>
+    <button *ngIf="!isReviewing"
+            [ngClass]="{control_button: true, guess_button: true, inactive: guesses.length == 0}"
+            (click)="this.resolveGuess.emit();">
+      GUESS
+    </button>
+    <button class="control_button move_button" (click)="this.navigateGame.emit(1);">
+      &#9654;&#9654;
     </button>
   </div>
 </div>

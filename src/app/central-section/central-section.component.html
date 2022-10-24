@@ -14,9 +14,11 @@
                [guesses]="guesses">
     </app-board>
 
-    <app-guess-bar (resolveMove)="processGuesses()"
+    <app-guess-bar (resolveGuess)="processGuesses()"
+                   (navigateGame)="changeGameMove($event)"
                    [guesses]="guesses"
-                   [correctGuess]="correctGuess">
+                   [correctGuess]="correctGuess"
+                   [isReviewing]="moveNumber<maxMoveNumber || moveNumber >= game.lastMove + 1">
     </app-guess-bar>
   </div>
 

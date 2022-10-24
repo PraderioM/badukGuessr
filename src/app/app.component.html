@@ -10,7 +10,6 @@
 
 <!--Main screen-->
 <app-central-section (showScore)="updateAndShowScore($event)"
-                     (gameEnd)="endGame($event)"
                      [gameRun]="gameRun"
                      [gamePaused]="isGamePaused()"
                      [game]="game">
@@ -18,7 +17,7 @@
 </app-central-section>
 
 <!--Welcome popup-->
-<app-welcome *ngIf="showWelcome"
+<app-welcome *ngIf="welcomeVisible"
              (startGame)="closeWelcomeAndStartGame()"
              (showIntroduction)="closeWelcomeAndShowIntroduction()"
              [blackPlayerName]="game.blackPlayerName"
@@ -29,21 +28,21 @@
 </app-welcome>
 
 <!--Introduction popup-->
-<app-introduction *ngIf="showIntroduction"
+<app-introduction *ngIf="introductionVisible"
                   (startGame)="closeIntroductionAndStartGame()">
 </app-introduction>
 
 <!--Score popup-->
-<div *ngIf="showScore" id="score_background"></div>
-<app-score *ngIf="showScore"
+<div *ngIf="scoreVisible" id="score_background"></div>
+<app-score *ngIf="scoreVisible"
            [lastMove]="game.lastMove"
            [scoreHistory]="scoreHistory"
            (closeTab)="hideScoreView()"
            (restartGame)="closeScoreTabAndRestart()"></app-score>
 
 <!--Info popup-->
-<div *ngIf="showInfo" id="info_background" (click)="hideInfoView();"></div>
-<app-info *ngIf="showInfo"
+<div *ngIf="infoVisible" id="info_background" (click)="hideInfoView();"></div>
+<app-info *ngIf="infoVisible"
           (closeInfo)="hideInfoView()"
           [blackPlayerName]="game.blackPlayerName"
           [whitePlayerName]="game.whitePlayerName"

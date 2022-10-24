@@ -9,21 +9,20 @@ import {getDailyGame} from './games/game.collection';
 })
 export class AppComponent {
   title = 'baduk-guesser';
-  showInfo = false;
-  showWelcome = true;
-  showIntroduction = false;
-  showScore = false;
-  gameEnded = false;
+  infoVisible = false;
+  welcomeVisible = true;
+  introductionVisible = false;
+  scoreVisible = false;
   scoreHistory: number[] = [];
   gameRun = 0;
   game: Game = getDailyGame();
 
   showInfoView() {
-    this.showInfo = true;
+    this.infoVisible = true;
   }
 
   hideInfoView() {
-    this.showInfo = false;
+    this.infoVisible = false;
   }
 
   startGame() {
@@ -42,7 +41,7 @@ export class AppComponent {
   }
 
   hideWelcomeView() {
-    this.showWelcome = false;
+    this.welcomeVisible = false;
   }
 
   // Introduction tab functions.
@@ -52,20 +51,20 @@ export class AppComponent {
   }
 
   showIntroductionView() {
-    this.showIntroduction = true;
+    this.introductionVisible = true;
   }
 
   hideIntroductionView() {
-    this.showIntroduction = false;
+    this.introductionVisible = false;
   }
 
   // Score tab functions.
   showScoreView() {
-    this.showScore = true;
+    this.scoreVisible = true;
   }
 
   hideScoreView() {
-    this.showScore = false;
+    this.scoreVisible = false;
   }
 
   updateAndShowScore(scoreHistory: number[]) {
@@ -74,19 +73,15 @@ export class AppComponent {
   }
 
   endGame(scoreHistory: number[]) {
-    this.gameEnded = true;
     this.updateAndShowScore(scoreHistory);
   }
 
   closeScoreTabAndRestart() {
-    if (this.gameEnded) {
-      this.gameEnded = false;
-      this.gameRun += 1;
-    }
+    this.gameRun += 1;
     this.hideScoreView();
   }
 
   isGamePaused() {
-    return this.showInfo || this.showWelcome || this.showIntroduction || this.showScore;
+    return this.infoVisible || this.welcomeVisible || this.introductionVisible || this.scoreVisible;
   }
 }

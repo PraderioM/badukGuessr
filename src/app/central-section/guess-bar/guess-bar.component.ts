@@ -8,9 +8,11 @@ import {Move} from '../../games/models';
   styleUrls: ['./guess-bar.component.css']
 })
 export class GuessBarComponent implements OnInit {
-  @Output() resolveMove = new EventEmitter<void>();
+  @Output() resolveGuess = new EventEmitter<void>();
+  @Output() navigateGame = new EventEmitter<number>();
   @Input() guesses: Move[];
   @Input() correctGuess;
+  @Input() isReviewing;
   guessColors = ['rgb(130, 194, 149)', 'rgb(146, 208, 149)', 'rgb(168, 217, 170)', 'rgb(190, 227, 191)'];
   allWrongGuessColor = 'rgb(255, 137, 158)';
   wrongGuessColor = 'rgb(204, 204, 204)';
@@ -20,14 +22,6 @@ export class GuessBarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
-
-  getGuessButtonClass() {
-    return {
-      guess_button: true,
-      guessing: this.guesses.length > 0,
-      skipping: this.guesses.length === 0
-    };
   }
 
   getGuessWidth(i: number) {
@@ -47,10 +41,6 @@ export class GuessBarComponent implements OnInit {
 
   isCorrectGuess(i: number) {
     return this.correctGuess === i;
-  }
-
-  getGuessButtonText() {
-    return this.guesses.length === 0 ? 'SKIP' : 'GUESS';
   }
 
   getEarnedPointsText() {

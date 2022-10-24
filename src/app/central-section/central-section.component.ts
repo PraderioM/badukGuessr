@@ -9,7 +9,6 @@ import {Game, Move} from '../games/models';
 })
 export class CentralSectionComponent implements OnInit, OnChanges {
   @Output() showScore = new EventEmitter<number[]>();
-  @Output() gameEnd = new EventEmitter<number[]>();
   @Input() gameRun: number;
   @Input() game: Game;
   @Input() gamePaused: boolean;
@@ -17,6 +16,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   scoreHistory: number[] = [];
   score = 0;
   moveNumber = 0;
+  maxMoveNumber = 0;
   gameEnded = false;
   nextMoveDelay = 500;
   guesses: Move[] = [];
@@ -29,7 +29,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.gameRun.firstChange) {
+    if (changes.gameRun === undefined || changes.gameRun.firstChange) {
       return;
     }
 
@@ -47,6 +47,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     this.scoreHistory = [];
     this.score = 0;
     this.moveNumber = 0;
+    this.maxMoveNumber = 0;
     this.gameEnded = false;
   }
 
@@ -62,20 +63,29 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     }
   }
 
-  goToNextMove() {
-    this.moveNumber += 1;
+  changeGameMove(moveChange: number) {
+    if (this.gamePaused) {
+      return;
+    }
+
+    this.moveNumber += moveChange;
+    this.moveNumber = Math.max(this.moveNumber, 0);
+    this.moveNumber = Math.min(this.moveNumber, this.game.lastMove + 1);
+    this.maxMoveNumber = Math.max(this.moveNumber, this.maxMoveNumber);
     this.restartGuesses();
 
     // If the game is over we show progress and end game.
     if (this.moveNumber === this.game.lastMove + 1) {
-      this.scoreHistory.push(this.score);
-      this.gameEnd.emit(this.scoreHistory);
+      if (!this.gameEnded) {
+        this.scoreHistory.push(this.score);
+        this.showScore.emit(this.scoreHistory);
+      }
       this.gameEnded = true;
       return;
     }
 
     // We periodically show score progress.
-    if (this.moveNumber >= showScoreFrequency && this.moveNumber % showScoreFrequency === 0) {
+    if (this.maxMoveNumber === this.moveNumber && this.moveNumber >= showScoreFrequency && this.moveNumber % showScoreFrequency === 0) {
       this.scoreHistory.push(this.score);
       this.showScore.emit(this.scoreHistory);
     }
@@ -110,12 +120,6 @@ export class CentralSectionComponent implements OnInit, OnChanges {
       return;
     }
 
-    // If there are no guesses then we just go to the next move. No need to update score.
-    if (this.guesses.length === 0) {
-      this.goToNextMove();
-      return;
-    }
-
     // Get the correct guess if any.
     this.correctGuess = maxGuesses; // If no correct guesses this marks it.
     const nextMove = this.game.getMove(this.moveNumber);
@@ -135,5 +139,9 @@ export class CentralSectionComponent implements OnInit, OnChanges {
 
   getCurrentMoves() {
     return this.game.getCurrentMoves(this.moveNumber);
+  }
+
+  goToNextMove() {
+    return this.changeGameMove(1);
   }
 }
