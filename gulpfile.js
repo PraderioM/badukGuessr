@@ -3,7 +3,7 @@ const inline = require("gulp-inline");
 
 gulp.task("default", () => {
   return gulp
-    .src("./dist/*/*.html")
+    .src("./dist/baduk-guesser/*.html")
     .pipe(inline())
     .pipe(gulp.dest("./docs"));
 });
