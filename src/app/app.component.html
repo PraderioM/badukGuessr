@@ -38,7 +38,8 @@
 <app-score *ngIf="showScore"
            [lastMove]="game.lastMove"
            [scoreHistory]="scoreHistory"
-           (closeTab)="closeScoreTabAndContinue()"></app-score>
+           (closeTab)="hideScoreView()"
+           (restartGame)="closeScoreTabAndRestart()"></app-score>
 
 <!--Info popup-->
 <div *ngIf="showInfo" id="info_background" (click)="hideInfoView();"></div>

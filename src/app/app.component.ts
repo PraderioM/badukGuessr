@@ -78,7 +78,7 @@ export class AppComponent {
     this.updateAndShowScore(scoreHistory);
   }
 
-  closeScoreTabAndContinue() {
+  closeScoreTabAndRestart() {
     if (this.gameEnded) {
       this.gameEnded = false;
       this.gameRun += 1;
