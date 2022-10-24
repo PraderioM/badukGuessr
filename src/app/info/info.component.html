@@ -1,0 +1,52 @@
+<div id="info" class="popup">
+  <h2>TODAY'S GAME</h2>
+  <div style="height: 18px;"></div>
+  <div style="display: flex; flex-flow: row;">
+    <div style="flex: 0%; height: 10px"></div>
+    <div id="players_name_parent" style="white-space: nowrap; width: auto;">
+      <div class="stone_black_player"></div><div class="player_name"><b>{{blackPlayerName}}</b> {{blackPlayerRank}}</div>
+      <br>
+      <div class="stone_white_player"></div><div class="player_name"><b>{{whitePlayerName}}</b> {{whitePlayerRank}}</div>
+    </div>
+    <div style="flex: 0%; height: 10px"></div>
+  </div>
+  <div style="height: 8px;"></div>
+  <div class="player_name" style="display: block; font-size: 19px;">Played on <b>{{gameDate}}</b></div>
+  <div style="height: 20px;"></div>
+  <div style="width: 250px; height: 1px; background-color: black;"></div>
+  <div style="height: 20px;"></div>
+  <h2>HOW TO PLAY</h2>
+  <div style="height: 16px;"></div>
+  <p>
+    <strong>Baduk Guessr</strong> allows you to study professional
+    <a href="https://en.wikipedia.org/wiki/Go_(game)" target="_blank">games of Go</a> in a fun way, trying to get the
+    highest score possible. In every move, pick one (<strong>A</strong>) or more moves (up to <strong>D</strong>)
+    as potential next moves. Then, click "guess". If one of your guesses is correct, you earn points. The less options
+    you pick, the most points you get if you are correct.
+  </p>
+  <div style="height: 8px;"></div>
+  <p>
+    You can <strong>share</strong> your total score with your friends when you reach
+    <strong>50 moves</strong> (opening), <strong>100 moves</strong> (middle-game) or the end of the game.
+  </p>
+  <div style="height: 8px;"></div>
+  <p>
+    <strong>Have fun!</strong>
+  </p>
+  <div style="height: 20px;"></div>
+  <div style="width: 250px; height: 1px; background-color: black;"></div>
+  <div style="height: 20px;"></div>
+  <h2>ABOUT ME</h2>
+  <div style="height: 16px;"></div>
+  <div id="info_photo"></div>
+  <div style="height: 33px;"></div>
+  <p>
+    <strong>Hi!</strong> My name is Javier González. I developed <strong>Baduk Guessr</strong> in the wonderful
+    <a href="https://apply.baduk.club/" target="_blank">Baduk House</a>, in june 2022. This project has been possible
+    thanks to <a href="https://baduk.club/welcome" target="_blank">Baduk Club</a> and the
+    <a href="https://www.instagram.com/club_go_canarias/" target="_blank">GoFio - Club de Go de Canarias</a>.
+    You can e-mail me at <a style="font-weight: 300;" href="mailto:javierglezvega@gmail.com">javierglezvega@gmail.com</a>.
+  </p>
+  <div style="height: 20px;"></div>
+  <button class="button_blue" (click)="closeInfo.emit();">CLOSE</button>
+</div>

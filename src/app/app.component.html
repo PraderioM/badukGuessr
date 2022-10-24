@@ -1,0 +1,51 @@
+<!--Logo-->
+<div id="logo_bar">
+  <div id="logo">
+    Baduk<br>guessr
+  </div>
+</div>
+
+<!--info button-->
+<button id="info_button" (click)="showInfoView();">i</button>
+
+<!--Main screen-->
+<app-central-section (showScore)="updateAndShowScore($event)"
+                     (gameEnd)="endGame($event)"
+                     [gameRun]="gameRun"
+                     [game]="game">
+
+</app-central-section>
+
+<!--Welcome popup-->
+<app-welcome *ngIf="showWelcome"
+             (startGame)="closeWelcomeAndStartGame()"
+             (showIntroduction)="closeWelcomeAndShowIntroduction()"
+             [blackPlayerName]="game.blackPlayerName"
+             [whitePlayerName]="game.whitePlayerName"
+             [blackPlayerRank]="game.blackPlayerRank"
+             [whitePlayerRank]="game.whitePlayerRank"
+             [gameDate]="game.date.toDateString()">
+</app-welcome>
+
+<!--Introduction popup-->
+<app-introduction *ngIf="showIntroduction"
+                  (startGame)="closeIntroductionAndStartGame()">
+</app-introduction>
+
+<!--Score popup-->
+<div *ngIf="showScore" id="score_background"></div>
+<app-score *ngIf="showScore"
+           [lastMove]="game.lastMove"
+           [scoreHistory]="scoreHistory"
+           (closeTab)="closeScoreTabAndContinue()"></app-score>
+
+<!--Info popup-->
+<div *ngIf="showInfo" id="info_background" (click)="hideInfoView();"></div>
+<app-info *ngIf="showInfo"
+          (closeInfo)="hideInfoView()"
+          [blackPlayerName]="game.blackPlayerName"
+          [whitePlayerName]="game.whitePlayerName"
+          [blackPlayerRank]="game.blackPlayerRank"
+          [whitePlayerRank]="game.whitePlayerRank"
+          [gameDate]="game.date.toDateString()">
+</app-info>

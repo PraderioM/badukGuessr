@@ -1,0 +1,63 @@
+<!--Board itself.-->
+<div id="board_master">
+  <div id="board_shadow"></div>
+  <svg width="100%" height="100%" viewBox="0 0 200 220">
+    <path fill="#FFE3C3" d="M 5 5 L 195 5 L 195 195 L 5 195 Z"/>
+    <path fill="#CAAA92" d="M 5 195 L 195 195 L 182 205 L 18 205 Z"/>
+    <path fill="#915F4A" d="M 35 205 l 5 0 c 0 0 0 3 1 5 c -1 -2 -4 -4 -6 -5"/>
+    <path fill="#B87F6E" d="M 40 205 l 15 0 c 0 0 0 3 -1 5 c -2 -1 -4 -1.3 -6.5 -1.3 c -2.5 0 -5 .3 -6.5 1.3 c -1 -2 -1 -5 -1 -5"/>
+    <path fill="#915F4A" d="M 55 205 l 5 0 c -2 1 -5 3 -6 5 c 1 -2 1 -5 1 -5"/>
+    <path fill="#915F4A" d="M 140 205 l 5 0 c 0 0 0 3 1 5 c -1 -2 -4 -4 -6 -5"/>
+    <path fill="#B87F6E" d="M 145 205 l 15 0 c 0 0 0 3 -1 5 c -2 -1 -4 -1.3 -6.5 -1.3 c -2.5 0 -5 .3 -6.5 1.3 c -1 -2 -1 -5 -1 -5"/>
+    <path fill="#915F4A" d="M 160 205 l 5 0 c -2 1 -5 3 -6 5 c 1 -2 1 -5 1 -5"/>
+    <circle fill="black" cx="040" cy="040" r=".8"/>
+    <circle fill="black" cx="100" cy="040" r=".8"/>
+    <circle fill="black" cx="160" cy="040" r=".8"/>
+    <circle fill="black" cx="040" cy="100" r=".8"/>
+    <circle fill="black" cx="100" cy="100" r=".8"/>
+    <circle fill="black" cx="160" cy="100" r=".8"/>
+    <circle fill="black" cx="040" cy="160" r=".8"/>
+    <circle fill="black" cx="100" cy="160" r=".8"/>
+    <circle fill="black" cx="160" cy="160" r=".8"/>
+    <path fill="none" stroke="black" stroke-width=".3" d="M 010 010 L 190 010 L 190 190 L 010 190 Z M 010 020 L 190 020 M 010 030 L 190 030 M 010 040 L 190 040 M 010 050 L 190 050 M 010 060 L 190 060 M 010 070 L 190 070 M 010 080 L 190 080 M 010 090 L 190 090 M 010 100 L 190 100 M 010 110 L 190 110 M 010 120 L 190 120 M 010 130 L 190 130 M 010 140 L 190 140 M 010 150 L 190 150 M 010 160 L 190 160 M 010 170 L 190 170 M 010 180 L 190 180 M 020 010 L 020 190 M 030 010 L 030 190 M 040 010 L 040 190 M 050 010 L 050 190 M 060 010 L 060 190 M 070 010 L 070 190 M 080 010 L 080 190 M 090 010 L 090 190 M 100 010 L 100 190 M 110 010 L 110 190 M 120 010 L 120 190 M 130 010 L 130 190 M 140 010 L 140 190 M 150 010 L 150 190 M 160 010 L 160 190 M 170 010 L 170 190 M 180 010 L 180 190"/>
+  </svg>
+</div>
+
+<div id="stones_master">
+
+  <!--Hovering stone.-->
+  <div *ngIf="showHoveringStone()"
+       [ngClass]="getHoveringStoneClass()"
+       [ngStyle]="{'top': (hoveringRow+1)*5+'%', 'left': (hoveringColumn+1)*5+'%'}">
+  </div>
+
+  <!--Played stones.-->
+  <div *ngFor="let stone of stonesInBoard"
+       [ngClass]="getStoneClass(stone.color)"
+       [ngStyle]="{'top': (stone.row+1)*5+ '%' , 'left': (stone.column+1)*5+'%'}">
+    <div *ngIf="stone.entrance === moveNumber - 1"
+         class="last-stone-dot"
+         [ngStyle]="{'background-color': getLastStoneDotColor()}"></div>
+  </div>
+
+  <!--Guesses-->
+  <div *ngFor="let guess of guesses; let i = index"
+       class="intersection letter_on_board"
+       [ngStyle]="{'top': (guess.row+1)*5+'%', 'left': (guess.column+1)*5+'%'}">
+      &nbsp;{{getGuessLetter(i, guess)}}&nbsp;
+  </div>
+
+  <!--All intersections in the board used for processing click.-->
+  <div id="clickable_intersections">
+    <div *ngFor="let position of positions"
+         class="intersection"
+         [ngStyle]="{'top': (position[0]+1)*5+'%', 'left': (position[1]+1)*5+'%', 'z-index': 2}"
+         (click)="processGuess(position[0], position[1])"
+         (mouseenter)="setHoveringCell(position[0], position[1])"
+         (mouseleave)="removeHoveringCell(position[0], position[1])">
+    </div>
+  </div>
+
+  <!--A separation.-->
+  <div id="lock_board_layer"></div>
+</div>

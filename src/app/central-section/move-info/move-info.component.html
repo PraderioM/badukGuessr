@@ -1,0 +1,22 @@
+<div class="move_info_master">
+  <!--Message displayed during setup-->
+  <div *ngIf="moveNumber<startingMoves && gameStarted" class="player_info player_parent">
+    <div style="display: inline-block; width: 2.5%;"></div>
+    Loading first moves
+  </div>
+
+  <!--Message displayed afterwards.-->
+  <!--Player color and move number.-->
+  <div *ngIf="moveNumber>=startingMoves" class="player_info player_parent">
+    <div class="stone_to_play" [ngStyle]="getStoneColorStyle()"></div>
+    {{getPlayingColor()}} to play
+    <div class="vertical_bar"></div>
+    <span class="number_of_moves">MOVE <span>{{moveNumber + 1}}</span></span>
+  </div>
+
+  <!--Current score.-->
+  <div *ngIf="moveNumber>=startingMoves" class="player_info score_parent">
+    SCORE
+    <div class="total_score">{{score}}</div>
+  </div>
+</div>

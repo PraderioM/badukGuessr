@@ -1,0 +1,85 @@
+.move_info_master {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 8%;
+  overflow: hidden;
+}
+
+.move_loading {
+  font-family: 'Secular One', sans-serif;
+  width: 100%;
+  font-size: 2.5vh;
+  text-align: left;
+  line-height: 1.5em;
+  color: black;
+}
+
+.player_parent {
+  font-family: 'Secular One', sans-serif;
+  width: 100%;
+  font-size: 2.5vh;
+  text-align: left;
+  line-height: 1.5em;
+  color: black;
+}
+
+.stone_to_play {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  width: 3vh;
+  height: 3vh;
+  border-radius: 50%;
+  margin-left: 2.5%;
+  margin-right: 1.6%;
+  margin-top: -.5%;
+  box-shadow: 0px 0px 1px black;
+  transform: rotate(225deg);
+  background-position: 7px 50%;
+}
+
+.player_info {
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translate(0%,-35%);
+  height: 50%;
+  animation-name: animation_player_info_appears;
+  animation-duration: .25s;
+}
+
+.total_score {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  font-family: 'Catamaran', sans-serif;
+  font-size: 5vh;
+  color: #2E93F2;
+  font-weight: 900;
+  margin-left: 5px;
+}
+
+.number_of_moves {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.1vh;
+  line-height: 1.5em;
+}
+
+
+@media screen and (max-width: 800px) {
+  .move_info_master {position: relative; height: 50px;}
+  .player_parent {font-size: 16px;}
+  .number_of_moves {font-size: 15px;}
+  .stone_to_play {width: 20px; height: 20px;}
+  .total_score_parent {font-size: 15px;}
+  .score_parent{font-size: 15px;}
+  .total_score {font-size: 40px;}
+}
+
+@keyframes animation_player_info_appears {
+  0% {opacity: 0; top: 150%;}
+  100% {opacity: 1; top: 50%;}
+}

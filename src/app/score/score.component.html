@@ -1,0 +1,11 @@
+<div id="score_summary" class="popup">
+  <div id="score_total_score"></div>
+  <div style="height: 20px;"></div>
+  <div *ngFor="let score of scoreHistory; let i = index;">
+    <h2>{{getScoreText(score, i)}}</h2>
+    <div style="height: 20px;"></div>
+  </div>
+<!--  <button class="button_white">SHARE SCORE</button>-->
+<!--  <div style="height: 20px;"></div>-->
+  <button id="button_medley_001" class="button_blue" (click)="closeTab.emit()">{{getCloseText()}}</button>
+</div>

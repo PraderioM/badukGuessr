@@ -1,0 +1,24 @@
+<div id="flex_master">
+  <div class="separator_flex"></div>
+
+  <div id="screen_master">
+    <app-move-info [moveNumber]="moveNumber"
+                   [score]="score"
+                   [gameStarted]="gameRun>0">
+    </app-move-info>
+
+    <app-board (addGuess)="addGuess($event)"
+               (removeGuess)="removeGuess($event)"
+               [moveNumber]="moveNumber"
+               [stonesInBoard]="getCurrentMoves()"
+               [guesses]="guesses">
+    </app-board>
+
+    <app-guess-bar (resolveMove)="processGuesses()"
+                   [guesses]="guesses"
+                   [correctGuess]="correctGuess">
+    </app-guess-bar>
+  </div>
+
+  <div class="separator_flex"></div>
+</div>
