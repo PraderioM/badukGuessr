@@ -1,7 +1,8 @@
 import {Game} from './models';
 import {leeSedolHongJansik20030423} from './lee.sedol.hong.jansik.2003.04.23';
+import {parkSeungmunOhKyuchul20221024} from './park.seungmun.oh.kyuchul.2022.10.24';
 
-const startingDate = new Date(2022, 10, 24, 0, 0, 0, 0);
+const startingDate = new Date(2022, 9, 24, 0, 0, 0, 0);
 const startingUTC = getUTCFromDate(startingDate);
 
 function getUTCFromDate(date: Date) {
@@ -21,4 +22,4 @@ export function getDailyGame() {
 
 
 // Todo add more games.
-const allGames: Game[] = [leeSedolHongJansik20030423];
+const allGames: Game[] = [leeSedolHongJansik20030423, parkSeungmunOhKyuchul20221024];
