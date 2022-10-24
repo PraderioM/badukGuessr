@@ -8,6 +8,7 @@ import {showScoreFrequency} from '../central-section/utils';
 })
 export class ScoreComponent implements OnInit {
   @Output() closeTab = new EventEmitter<void>();
+  @Output() restartGame = new EventEmitter<void>();
   @Input() lastMove: number;
   @Input() scoreHistory: number[];
 
@@ -16,9 +17,20 @@ export class ScoreComponent implements OnInit {
   ngOnInit() {
   }
 
+  hasGameEnded() {
+    return showScoreFrequency * this.scoreHistory.length >= this.lastMove + 1;
+  }
+
   getCloseText() {
-    const gameEnded = showScoreFrequency * this.scoreHistory.length >= this.lastMove;
-    return gameEnded ? 'RESTART' : 'CONTINUE';
+    return this.hasGameEnded() ? 'RESTART' : 'CONTINUE';
+  }
+
+  processContinueClick() {
+    if (this.hasGameEnded()) {
+      this.restartGame.emit();
+    } else {
+      this.closeTab.emit();
+    }
   }
 
   getScoreText(score: number, i: number) {
