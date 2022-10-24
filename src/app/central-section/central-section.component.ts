@@ -68,10 +68,21 @@ export class CentralSectionComponent implements OnInit, OnChanges {
       return;
     }
 
-    this.moveNumber += moveChange;
+    // If we are moving forward fast we do not want to move past the last move we saw unless we are already there.
+    if (moveChange > 1 && this.moveNumber < this.maxMoveNumber) {
+      this.moveNumber = Math.min(this.moveNumber + moveChange, this.maxMoveNumber);
+    } else { // Otherwise we update the move number normally.
+      this.moveNumber += moveChange;
+    }
+
+    // Sanity check to make sure move number is not out of bounds.
     this.moveNumber = Math.max(this.moveNumber, 0);
     this.moveNumber = Math.min(this.moveNumber, this.game.lastMove + 1);
+
+    // Update last checkpoint.
     this.maxMoveNumber = Math.max(this.moveNumber, this.maxMoveNumber);
+
+    // Guesses are reset every time move changes.
     this.restartGuesses();
 
     // If the game is over we show progress and end game.
@@ -85,8 +96,10 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     }
 
     // We periodically show score progress.
-    if (this.maxMoveNumber === this.moveNumber && this.moveNumber >= showScoreFrequency && this.moveNumber % showScoreFrequency === 0) {
-      this.scoreHistory.push(this.score);
+    if (this.maxMoveNumber === this.moveNumber && this.moveNumber >= showScoreFrequency * (this.scoreHistory.length + 1)) {
+      while (this.moveNumber >= showScoreFrequency * (this.scoreHistory.length + 1)) {
+        this.scoreHistory.push(this.score);
+      }
       this.showScore.emit(this.scoreHistory);
     }
   }
