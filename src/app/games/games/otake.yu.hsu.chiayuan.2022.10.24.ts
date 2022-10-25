@@ -1,4 +1,4 @@
-import { Game, Move } from './models';
+import { Game, Move } from '../models';
 
 export const otakeYuHsuChiayuan20221024 = new Game(
         'Otake Yu',

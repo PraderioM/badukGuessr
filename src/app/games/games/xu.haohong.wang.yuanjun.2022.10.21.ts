@@ -1,4 +1,4 @@
-import { Game, Move } from './models';
+import { Game, Move } from '../models';
 
 export const xuHaohongWangYuanjun20221021 = new Game(
         'Xu Haohong',

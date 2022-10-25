@@ -1,4 +1,4 @@
-import { Game, Move } from './models';
+import { Game, Move } from '../models';
 
 export const linShuyangLinJunyan20221023 = new Game(
         'Lin Shuyang',
