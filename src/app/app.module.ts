@@ -11,6 +11,7 @@ import { GuessBarComponent } from './central-section/guess-bar/guess-bar.compone
 import { WelcomeComponent } from './welcome/welcome.component';
 import { IntroductionComponent } from './introduction/introduction.component';
 import { ScoreComponent } from './score/score.component';
+import { ReviewConcludedComponent } from './review-concluded/review-concluded.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ScoreComponent } from './score/score.component';
     GuessBarComponent,
     WelcomeComponent,
     IntroductionComponent,
-    ScoreComponent
+    ScoreComponent,
+    ReviewConcludedComponent
   ],
   imports: [
     BrowserModule,

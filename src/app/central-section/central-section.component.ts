@@ -9,6 +9,7 @@ import {Game, Move} from '../games/models';
 })
 export class CentralSectionComponent implements OnInit, OnChanges {
   @Output() showScore = new EventEmitter<number[]>();
+  @Output() reviewConcluded = new EventEmitter<void>();
   @Input() gameRun: number;
   @Input() game: Game;
   @Input() gamePaused: boolean;
@@ -68,6 +69,9 @@ export class CentralSectionComponent implements OnInit, OnChanges {
       return;
     }
 
+    // Check if user was reviewing previous moves.
+    const wasReviewing = this.moveNumber < this.maxMoveNumber;
+
     // If we are moving forward fast we do not want to move past the last move we saw unless we are already there.
     if (moveChange > 1 && this.moveNumber < this.maxMoveNumber) {
       this.moveNumber = Math.min(this.moveNumber + moveChange, this.maxMoveNumber);
@@ -81,6 +85,11 @@ export class CentralSectionComponent implements OnInit, OnChanges {
 
     // Update last checkpoint.
     this.maxMoveNumber = Math.max(this.moveNumber, this.maxMoveNumber);
+
+    // If last checkpoint was reached after a review we trigger an event to show a popup with this information.
+    if (wasReviewing && this.moveNumber === this.maxMoveNumber) {
+      this.reviewConcluded.emit();
+    }
 
     // Guesses are reset every time move changes.
     this.restartGuesses();

@@ -10,11 +10,15 @@
 
 <!--Main screen-->
 <app-central-section (showScore)="updateAndShowScore($event)"
+                     (reviewConcluded)="showReviewConcludedView()"
                      [gameRun]="gameRun"
                      [gamePaused]="isGamePaused()"
                      [game]="game">
 
 </app-central-section>
+
+<app-review-concluded *ngIf="reviewConcludedVisible"
+                      (closeTab)="hideReviewConcludedView()"></app-review-concluded>
 
 <!--Welcome popup-->
 <app-welcome *ngIf="welcomeVisible"

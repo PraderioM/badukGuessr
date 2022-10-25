@@ -36,11 +36,11 @@
   width: 100vw;
   height: 100vh;
 }
-#score_summary {
+.score_summary {
   display: block;
   animation-name: animation_popup_appears;
 }
-#score_summary_background {
+.score_summary_background {
   display: block;
   position: fixed;
   left: 0;
@@ -48,7 +48,7 @@
   width: 100vw;
   height: 100vh;
 }
-#score_summary_total_score {
+.score_summary_total_score {
   display: block;
   position: relative;
   margin: auto;

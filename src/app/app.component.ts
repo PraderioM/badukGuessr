@@ -12,6 +12,7 @@ export class AppComponent {
   infoVisible = false;
   welcomeVisible = true;
   introductionVisible = false;
+  reviewConcludedVisible = false;
   scoreVisible = false;
   scoreHistory: number[] = [];
   gameRun = 0;
@@ -23,6 +24,14 @@ export class AppComponent {
 
   hideInfoView() {
     this.infoVisible = false;
+  }
+
+  showReviewConcludedView() {
+    this.reviewConcludedVisible = true;
+  }
+
+  hideReviewConcludedView() {
+    this.reviewConcludedVisible = false;
   }
 
   startGame() {
@@ -72,16 +81,12 @@ export class AppComponent {
     this.showScoreView();
   }
 
-  endGame(scoreHistory: number[]) {
-    this.updateAndShowScore(scoreHistory);
-  }
-
   closeScoreTabAndRestart() {
     this.gameRun += 1;
     this.hideScoreView();
   }
 
   isGamePaused() {
-    return this.infoVisible || this.welcomeVisible || this.introductionVisible || this.scoreVisible;
+    return this.infoVisible || this.welcomeVisible || this.introductionVisible || this.scoreVisible || this.reviewConcludedVisible;
   }
 }
