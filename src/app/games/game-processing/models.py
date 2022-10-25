@@ -78,13 +78,15 @@ class Game:
 
         return out_game
 
-    def save_as_angular_game(self, out_dir: str):
+    def save_as_angular_game(self, out_dir: str, models_dir: str):
         name_components = self._get_angular_game_name_components() + ['ts']
         out_file_name = '.'.join(name_components)
         out_file_path = os.path.join(out_dir, out_file_name)
+        relative_models_path = os.path.relpath(models_dir, out_dir)
+        models_file = os.path.join(relative_models_path, 'models')
 
         name = self.get_angular_game_name()
-        preamble = "import { Game, Move } from './models';"
+        preamble = "import { Game, Move } from " + f"'{models_file}';"
         preamble = preamble + f"\n\nexport const {name} = "
         text = preamble + self.convert_to_angular_game()
         with open(out_file_path, 'w') as out_file:

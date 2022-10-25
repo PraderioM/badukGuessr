@@ -3,13 +3,15 @@ from typing import List, Tuple
 from glob import glob
 
 
-def get_in_and_out_paths(default_input_folder='../new-sgf-files/',
-                         default_output_folder='../games/') -> Tuple[List[str], str]:
+def get_in_out_and_models_paths(default_input_folder='../new-sgf-files/',
+                                default_output_folder='../games/',
+                                default_models_folder='../') -> Tuple[List[str], str, str]:
     input_folder = get_folder('input', default_input_folder)
     output_folder = get_folder('output', default_output_folder)
+    models_folder = get_folder('models', default_models_folder)
 
     # Iterate over input folder to find all sgf files in there.
-    return glob(os.path.join(input_folder, '*.sgf')), output_folder
+    return glob(os.path.join(input_folder, '*.sgf')), output_folder, models_folder
 
 
 def get_folder(folder_name: str, default_folder_path: str) -> str:
