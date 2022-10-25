@@ -4,7 +4,7 @@ from glob import glob
 
 
 def get_in_and_out_paths(default_input_folder='../new-sgf-files/',
-                         default_output_folder='../') -> Tuple[List[str], str]:
+                         default_output_folder='../games/') -> Tuple[List[str], str]:
     input_folder = get_folder('input', default_input_folder)
     output_folder = get_folder('output', default_output_folder)
 
