@@ -5,6 +5,8 @@
     <app-move-info (showScore)="showScore.emit(scoreHistory)"
                    [moveNumber]="moveNumber"
                    [score]="score"
+                   [isGameEnd]="moveNumber >= (game.lastMove + 1)"
+                   [gameResult]="game.result"
                    [isReviewing]="isReviewing()"
                    [gameStarted]="gameRun>0">
     </app-move-info>

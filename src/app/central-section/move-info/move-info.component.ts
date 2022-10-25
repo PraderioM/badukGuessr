@@ -12,6 +12,8 @@ export class MoveInfoComponent implements OnInit {
   @Input() score: number;
   @Input() gameStarted: boolean;
   @Input() isReviewing: boolean;
+  @Input() isGameEnd: boolean;
+  @Input() gameResult: string;
 
   constructor() { }
 
