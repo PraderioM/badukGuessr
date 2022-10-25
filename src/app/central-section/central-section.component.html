@@ -2,7 +2,8 @@
   <div class="separator_flex"></div>
 
   <div id="screen_master">
-    <app-move-info [moveNumber]="moveNumber"
+    <app-move-info (showScore)="showScore.emit(scoreHistory)"
+                   [moveNumber]="moveNumber"
                    [score]="score"
                    [gameStarted]="gameRun>0">
     </app-move-info>

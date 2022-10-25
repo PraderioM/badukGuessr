@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { startingMoves } from '../utils';
 
 @Component({
@@ -7,6 +7,7 @@ import { startingMoves } from '../utils';
   styleUrls: ['./move-info.component.css']
 })
 export class MoveInfoComponent implements OnInit {
+  @Output() showScore = new EventEmitter<void>();
   @Input() moveNumber: number;
   @Input() score: number;
   @Input() gameStarted: boolean;
@@ -17,21 +18,7 @@ export class MoveInfoComponent implements OnInit {
   ngOnInit() {
   }
 
-  getPlayingColor() {
-    return this.isBlackTurn() ? 'Black' : 'White';
-  }
-
   isBlackTurn() {
     return this.moveNumber % 2 === 0;
-  }
-
-  getStoneColorStyle() {
-    let gradient: string;
-    if (this.isBlackTurn()) {
-      gradient = 'radial-gradient(#cccccc, #4d4d4d, #000000, #000000)';
-    } else {
-      gradient = 'radial-gradient(white, #e6e6e6, #cecece, #d2d2d2)';
-    }
-    return {'background-image': gradient};
   }
 }
