@@ -166,4 +166,8 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   goToNextMove() {
     return this.changeGameMove(1);
   }
+
+  isReviewing() {
+    return this.moveNumber < this.maxMoveNumber || this.moveNumber >= this.game.lastMove + 1;
+  }
 }

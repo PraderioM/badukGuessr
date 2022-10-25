@@ -11,7 +11,7 @@ export class MoveInfoComponent implements OnInit {
   @Input() moveNumber: number;
   @Input() score: number;
   @Input() gameStarted: boolean;
-  startingMoves = startingMoves;
+  @Input() isReviewing: boolean;
 
   constructor() { }
 
@@ -20,5 +20,9 @@ export class MoveInfoComponent implements OnInit {
 
   isBlackTurn() {
     return this.moveNumber % 2 === 0;
+  }
+
+  showLoading() {
+    return this.moveNumber < startingMoves && this.gameStarted && !this.isReviewing;
   }
 }

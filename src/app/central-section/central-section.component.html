@@ -5,6 +5,7 @@
     <app-move-info (showScore)="showScore.emit(scoreHistory)"
                    [moveNumber]="moveNumber"
                    [score]="score"
+                   [isReviewing]="isReviewing()"
                    [gameStarted]="gameRun>0">
     </app-move-info>
 
@@ -19,7 +20,7 @@
                    (navigateGame)="changeGameMove($event)"
                    [guesses]="guesses"
                    [correctGuess]="correctGuess"
-                   [isReviewing]="moveNumber<maxMoveNumber || moveNumber >= game.lastMove + 1">
+                   [isReviewing]="isReviewing()">
     </app-guess-bar>
   </div>
 
