@@ -26,7 +26,13 @@ export class GuessBarComponent implements OnInit {
 
   getGuessWidth(i: number) {
     const n = this.guesses.length;
-    return (n - i) * 2 * (100 - (n + 1) * this.guessMargin) / (n * (n + 1));
+    const points = getGuessPoints(i, n);
+    let totalPoints = 0;
+    for (let j = 0; j < n; j++) {
+      totalPoints += getGuessPoints(j, n);
+    }
+
+    return (100 - (n + 1) * this.guessMargin) * points / totalPoints;
   }
 
   getGuessBackgroundColor(i: number) {
