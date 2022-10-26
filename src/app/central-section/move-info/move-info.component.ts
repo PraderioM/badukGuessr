@@ -27,4 +27,8 @@ export class MoveInfoComponent implements OnInit {
   showLoading() {
     return this.moveNumber < startingMoves && this.gameStarted && !this.isReviewing;
   }
+
+  showMove() {
+    return !this.showLoading() && this.gameStarted && !this.isGameEnd;
+  }
 }
