@@ -60,6 +60,7 @@
   color: #2E93F2;
   font-weight: 900;
   margin-left: 5px;
+  cursor: pointer;
 }
 
 .number_of_moves {
