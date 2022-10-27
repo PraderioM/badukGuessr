@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {getEarnedPoints, getGuessPoints, guessNames, maxGuesses} from '../utils';
+import {getAllGuessPoints, getEarnedPoints, guessNames, maxGuesses} from '../utils';
 import {Move} from '../../games/models';
 
 @Component({
@@ -18,6 +18,7 @@ export class GuessBarComponent implements OnInit {
   wrongGuessColor = 'rgb(204, 204, 204)';
   guessNames = guessNames;
   guessMargin = 2.5;
+  allGuessPoints = [];
 
   constructor() { }
 
@@ -26,13 +27,17 @@ export class GuessBarComponent implements OnInit {
 
   getGuessWidth(i: number) {
     const n = this.guesses.length;
-    const points = getGuessPoints(i, n);
-    let totalPoints = 0;
-    for (let j = 0; j < n; j++) {
-      totalPoints += getGuessPoints(j, n);
-    }
+    const relWidth: number = this.allGuessPoints[i] / this.getTotalPoints();
 
-    return (100 - (n + 1) * this.guessMargin) * points / totalPoints;
+    return (100 - (n + 1) * this.guessMargin) * relWidth;
+  }
+
+  getTotalPoints() {
+    let sum = 0;
+    for (const points of this.allGuessPoints) {
+      sum += points;
+    }
+    return sum;
   }
 
   getGuessBackgroundColor(i: number) {
@@ -62,7 +67,12 @@ export class GuessBarComponent implements OnInit {
     return '+' + points.toString();
   }
 
-  getGuessPoints(guessNumber: number) {
-    return getGuessPoints(guessNumber, this.guesses.length);
+  getGuessPoints() {
+    if (this.guesses.length === 0) {
+      this.allGuessPoints = [];
+    } else {
+      this.allGuessPoints = getAllGuessPoints(this.guesses.length);
+    }
+    return this.allGuessPoints;
   }
 }

@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="guess_bar_parent">
-    <div *ngFor="let x of guesses; let i = index" class="guess"
+    <div *ngFor="let points of getGuessPoints(); let i = index" class="guess"
          [style.width.%]="getGuessWidth(i)"
          [style.margin-left.%]="guessMargin"
          [style.background-color]="getGuessBackgroundColor(i)">
@@ -14,7 +14,7 @@
         <span *ngIf="isCorrectGuess(i)">&#10003;</span>
         <span *ngIf="!isCorrectGuess(i)">{{guessNames[i]}}</span>
         </b>&nbsp;
-        <span *ngIf="correctGuess===-1">{{getGuessPoints(i)}}</span>
+        <span *ngIf="correctGuess===-1">{{points}}</span>
       </div>
     </div>
   </div>
