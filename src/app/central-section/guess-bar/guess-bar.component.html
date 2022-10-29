@@ -1,7 +1,4 @@
-<div class="bar_and_button_master"
-     (keydown.arrowLeft)="this.navigateGame.emit(-1)"
-     (keydown.enter)="this.resolveGuess.emit();"
-     (keydown.arrowRight)="this.navigateGame.emit(1)">
+<div class="bar_and_button_master">
   <div class="animated_number_going_up_parent">
     <div *ngIf="correctGuess!==-1" class="animated_number_going_up">
       {{getEarnedPointsText()}}
@@ -30,24 +27,24 @@
   </div>
   <div style="height: 20px;"></div>
   <div class="buttons_container">
-    <button class="control_button move_button" (click)="this.navigateGame.emit(-10);">
+    <button class="control_button move_button" (click)="navigateGame.emit(-10);">
       <fa-icon [icon]="faCaretLeft"></fa-icon><fa-icon [icon]="faCaretLeft"></fa-icon>
     </button>
     <button class="control_button move_button"
-            (click)="this.navigateGame.emit(-1);">
+            (click)="navigateGame.emit(-1);">
       <fa-icon [icon]="faCaretLeft"></fa-icon>
     </button>
     <button *ngIf="!isReviewing"
             [ngClass]="{control_button: true, guess_button: true, inactive: guesses.length == 0}"
-            (click)="this.resolveGuess.emit();">
+            (click)="resolveGuess.emit();">
       GUESS
     </button>
     <button class="control_button move_button"
-            (click)="this.navigateGame.emit(1);">
+            (click)="navigateGame.emit(1);">
       <fa-icon [icon]="faCaretRight"></fa-icon>
     </button>
     <button class="control_button move_button"
-            (click)="this.navigateGame.emit(10);">
+            (click)="navigateGame.emit(10);">
       <fa-icon [icon]="faCaretRight"></fa-icon><fa-icon [icon]="faCaretRight"></fa-icon>
     </button>
   </div>
