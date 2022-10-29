@@ -28,13 +28,13 @@
   <!--Hovering stone.-->
   <div *ngIf="showHoveringStone()"
        [ngClass]="getHoveringStoneClass()"
-       [ngStyle]="{'top': (hoveringRow+1)*5+'%', 'left': (hoveringColumn+1)*5+'%'}">
+       [ngStyle]="{'top': getPos(hoveringRow)+'%', 'left': getPos(hoveringColumn)+'%'}">
   </div>
 
   <!--Played stones.-->
   <div *ngFor="let stone of stonesInBoard"
        [ngClass]="getStoneClass(stone.color)"
-       [ngStyle]="{'top': (stone.row+1)*5+ '%' , 'left': (stone.column+1)*5+'%'}">
+       [ngStyle]="{'top': getPos(stone.row)+ '%' , 'left': getPos(stone.column)+'%'}">
     <div *ngIf="stone.entrance === moveNumber - 1"
          class="last-stone-dot"
          [ngStyle]="{'background-color': getLastStoneDotColor()}"></div>
@@ -43,7 +43,7 @@
   <!--Guesses-->
   <div *ngFor="let guess of guesses; let i = index"
        class="intersection letter_on_board"
-       [ngStyle]="{'top': (guess.row+1)*5+'%', 'left': (guess.column+1)*5+'%'}">
+       [ngStyle]="{'top': getPos(guess.row)+'%', 'left': getPos(guess.column)+'%'}">
       &nbsp;{{getGuessLetter(i, guess)}}&nbsp;
   </div>
 
@@ -51,7 +51,7 @@
   <div id="clickable_intersections">
     <div *ngFor="let position of positions"
          class="intersection"
-         [ngStyle]="{'top': (position[0]+1)*5+'%', 'left': (position[1]+1)*5+'%', 'z-index': 2}"
+         [ngStyle]="{'top': getPos(position[0])+'%', 'left': getPos(position[1])+'%', 'z-index': 2}"
          (click)="processGuess(position[0], position[1])"
          (mouseenter)="setHoveringCell(position[0], position[1])"
          (mouseleave)="removeHoveringCell(position[0], position[1])">

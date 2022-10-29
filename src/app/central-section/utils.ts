@@ -1,4 +1,4 @@
-import * as matrixInverse from 'matrix-inverse';
+const matrixInverse = require('matrix-inverse');
 
 export const guessNames = ['A', 'B', 'C', 'D'];
 export const maxGuesses = guessNames.length;
@@ -63,7 +63,7 @@ function getLEMatrix(n: number, threshold: number = 1 / 2) {
     matrix.push(row);
   }
 
-  // Last row is used in order to keep the choices evened out so I try to match alternate sum with n / 2 times the last value.
+  // Last row is used in order to keep the choices evened out, so I try to match alternate sum with n / 2 times the last value.
   matrix.push(getLastRow(n));
 
   return matrix;

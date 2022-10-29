@@ -10,7 +10,8 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('baduk-guesser app is running!');
+    // @ts-ignore
+    expect(page.getTitleText()).toEqual('Baduk Guessr');
   });
 
   afterEach(async () => {

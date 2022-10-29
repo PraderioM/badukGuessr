@@ -8,11 +8,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class WelcomeComponent implements OnInit {
   @Output() startGame = new EventEmitter<void>();
   @Output() showIntroduction = new EventEmitter<void>();
-  @Input() blackPlayerRank: string;
-  @Input() whitePlayerRank: string;
-  @Input() blackPlayerName: string;
-  @Input() whitePlayerName: string;
-  @Input() gameDate: string;
+  @Input() blackPlayerRank: string = '9p';
+  @Input() whitePlayerRank: string = '9p';
+  @Input() blackPlayerName: string = 'B';
+  @Input() whitePlayerName: string = 'W';
+  @Input() gameDate: string = 'unknown';
 
   constructor() { }
 

@@ -8,12 +8,12 @@ import { startingMoves } from '../utils';
 })
 export class MoveInfoComponent implements OnInit {
   @Output() showScore = new EventEmitter<void>();
-  @Input() moveNumber: number;
-  @Input() score: number;
-  @Input() gameStarted: boolean;
-  @Input() isReviewing: boolean;
-  @Input() isGameEnd: boolean;
-  @Input() gameResult: string;
+  @Input() moveNumber: number = 0;
+  @Input() score: number = 0;
+  @Input() gameStarted: boolean = false;
+  @Input() isReviewing: boolean = false;
+  @Input() isGameEnd: boolean = false;
+  @Input() gameResult: string = 'jigo';
 
   constructor() { }
 

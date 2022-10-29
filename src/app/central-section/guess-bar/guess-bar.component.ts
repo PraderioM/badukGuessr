@@ -10,16 +10,16 @@ import {Move} from '../../games/models';
 export class GuessBarComponent implements OnInit {
   @Output() resolveGuess = new EventEmitter<void>();
   @Output() navigateGame = new EventEmitter<number>();
-  @Input() guesses: Move[];
-  @Input() correctGuess;
-  @Input() isReviewing;
+  @Input() guesses: Move[] = [];
+  @Input() correctGuess = -1;
+  @Input() isReviewing = false;
 
   guessColors = ['rgb(130, 194, 149)', 'rgb(146, 208, 149)', 'rgb(168, 217, 170)', 'rgb(190, 227, 191)'];
   allWrongGuessColor = 'rgb(255, 137, 158)';
   wrongGuessColor = 'rgb(204, 204, 204)';
   guessNames = guessNames;
   guessMargin = 2.5;
-  allGuessPoints = [];
+  allGuessPoints: number[] = [];
 
   constructor() { }
 

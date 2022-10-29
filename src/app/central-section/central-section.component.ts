@@ -1,6 +1,7 @@
 import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {startingMoves, showScoreFrequency, maxGuesses, getEarnedPoints} from './utils';
 import {Game, Move} from '../games/models';
+import {getDailyGame} from '../games/game.collection';
 
 @Component({
   selector: 'app-central-section',
@@ -11,9 +12,9 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   @Output() showScore = new EventEmitter<number[]>();
   @Output() reviewConcluded = new EventEmitter<void>();
   @Output() closePopups = new EventEmitter<void>();
-  @Input() gameRun: number;
-  @Input() game: Game;
-  @Input() gamePaused: boolean;
+  @Input() gameRun: number = 0;
+  @Input() game: Game = getDailyGame();
+  @Input() gamePaused: boolean = false;
 
   scoreHistory: number[] = [];
   score = 0;
@@ -47,15 +48,15 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.gameRun === undefined || changes.gameRun.firstChange) {
+    if (changes['gameRun'] === undefined || changes['gameRun'].firstChange) {
       return;
     }
 
-    const currentGameRun: number = changes.gameRun.currentValue;
-    const previousGameRun: number = changes.gameRun.previousValue;
+    const currentGameRun: number = changes['gameRun'].currentValue;
+    const previousGameRun: number = changes['gameRun'].previousValue;
 
     // If thief game has started we need to initialize it by playing the first moves.
-    if (previousGameRun != null && currentGameRun > previousGameRun) {
+    if (previousGameRun != undefined && currentGameRun > previousGameRun) {
       this.restartGameMeta();
       this.playFirstMoves();
     }
@@ -163,6 +164,9 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     this.correctGuess = maxGuesses; // If no correct guesses this marks it.
     const nextMove = this.game.getMove(this.moveNumber);
 
+    if (nextMove == null) {
+      return;
+    }
     for (let i = 0; i < this.guesses.length; i++) {
       if (this.guesses[i].row === nextMove.row && this.guesses[i].column === nextMove.column) {
         this.correctGuess = i;

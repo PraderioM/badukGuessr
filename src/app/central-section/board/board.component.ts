@@ -11,12 +11,12 @@ import {boardSize, guessNames, maxGuesses, startingMoves} from '../utils';
 export class BoardComponent implements OnInit {
   @Output() addGuess = new EventEmitter<Move>();
   @Output() removeGuess = new EventEmitter<Move>();
-  @Input() moveNumber: number;
-  @Input() stonesInBoard: Move[];
-  @Input() guesses: Move[];
+  @Input() moveNumber: number = 0;
+  @Input() stonesInBoard: Move[] = [];
+  @Input() guesses: Move[] = [];
 
-  hoveringColumn?: number = null;
-  hoveringRow?: number = null;
+  hoveringColumn?: number = undefined;
+  hoveringRow?: number = undefined;
   positions: number[][] = [];
 
   constructor() {
@@ -39,8 +39,8 @@ export class BoardComponent implements OnInit {
   removeHoveringCell(row: number, column: number) {
     // If the current hovering cell is still the one the mouse is leaving we remove it.
     if (this.hoveringRow === row && this.hoveringColumn === column) {
-      this.hoveringRow = null;
-      this.hoveringColumn = null;
+      this.hoveringRow = undefined;
+      this.hoveringColumn = undefined;
     }
   }
 
@@ -87,7 +87,7 @@ export class BoardComponent implements OnInit {
     }
 
     // Don't show hovering stone if there is no hovering.
-    if (this.hoveringRow === null || this.hoveringColumn === null) {
+    if (this.hoveringRow === undefined || this.hoveringColumn === undefined) {
       return false;
     }
 
@@ -130,4 +130,13 @@ export class BoardComponent implements OnInit {
   getLastStoneDotColor() {
     return this.moveNumber % 2 === 0 ? 'rgb(0,0,0,1)' : 'rgb(255,255,255,1)';
   }
+
+  getPos(dim?: number) {
+    if (dim === undefined) {
+      return 0;
+    } else {
+      return (dim + 1) * 5
+    }
+  }
+
 }

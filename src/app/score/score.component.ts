@@ -9,8 +9,8 @@ import {showScoreFrequency} from '../central-section/utils';
 export class ScoreComponent implements OnInit {
   @Output() closeTab = new EventEmitter<void>();
   @Output() restartGame = new EventEmitter<void>();
-  @Input() lastMove: number;
-  @Input() scoreHistory: number[];
+  @Input() lastMove: number = 361;
+  @Input() scoreHistory: number[] = [];
 
   constructor() { }
 

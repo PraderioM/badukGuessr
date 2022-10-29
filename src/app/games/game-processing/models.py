@@ -14,7 +14,7 @@ class Move:
         self._capture = capture
 
     def convert_to_angular_game(self) -> str:
-        capture_text = 'null' if self._capture is None else self._capture
+        capture_text = 'undefined' if self._capture is None else self._capture
         return f"new Move('{self._color}', {self._row}, {self._column}, {self._entrance}, {capture_text})"
 
     def add_capture(self, capture: int):
