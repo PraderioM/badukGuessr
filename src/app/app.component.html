@@ -39,7 +39,7 @@
 </app-introduction>
 
 <!--Score popup-->
-<div *ngIf="scoreVisible" class="popup_background" (click)="hideScoreView();"></div>
+<!--<div *ngIf="scoreVisible" class="popup_background" (click)="hideScoreView();"></div>-->
 <app-score *ngIf="scoreVisible"
            [lastMove]="game.lastMove"
            [scoreHistory]="scoreHistory"
