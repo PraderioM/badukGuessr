@@ -10,6 +10,16 @@ import {yangKaiwenTongMengcheng20221024} from './games/yang.kaiwen.tong.mengchen
 import {liQinchengShiYue20221024} from './games/li.qincheng.shi.yue.2022.10.24';
 import {paekSeonghoAnKwanwuk20221021} from './games/paek.seongho.an.kwanwuk.2022.10.21';
 import {yuZhengqiIyamaYuta20221021} from './games/yu.zhengqi.iyama.yuta.2022.10.21';
+import {yuZhiyingLeeHyungjin20221028} from './games/yu.zhiying.lee.hyungjin.2022.10.28';
+import {konishiKazukoYoshiharaYukari20221027} from './games/konishi.kazuko.yoshihara.yukari.2022.10.27';
+import {liXuanhaoKimMyounghoon20221028} from './games/li.xuanhao.kim.myounghoon.2022.10.28';
+import {keJieParkJunghwan20221028} from './games/ke.jie.park.junghwan.2022.10.28';
+import {xieYiminNakamuraSumire20221027} from './games/xie.yimin.nakamura.sumire.2022.10.27';
+import {tangWeixingYooOhseong20221027} from './games/tang.weixing.yoo.ohseong.2022.10.27';
+import {yamashitaKeigoTakaoShinji20221027} from './games/yamashita.keigo.takao.shinji.2022.10.27';
+import {dangYifeiByunSangil20221028} from './games/dang.yifei.byun.sangil.2022.10.28';
+import {fanTingyuKangDongyun20221028} from './games/fan.tingyu.kang.dongyun.2022.10.28';
+import {yangDingxinShinMinjun20221027} from './games/yang.dingxin.shin.minjun.2022.10.27';
 
 const startingDate = new Date(2022, 9, 24, 0, 0, 0, 0);
 const startingUTC = getUTCFromDate(startingDate);
@@ -42,5 +52,15 @@ const allGames: Game[] = [
   yangKaiwenTongMengcheng20221024,
   liQinchengShiYue20221024,
   paekSeonghoAnKwanwuk20221021,
-  yuZhengqiIyamaYuta20221021
+  yuZhengqiIyamaYuta20221021,
+  yuZhiyingLeeHyungjin20221028,
+  konishiKazukoYoshiharaYukari20221027,
+  liXuanhaoKimMyounghoon20221028,
+  keJieParkJunghwan20221028,
+  xieYiminNakamuraSumire20221027,
+  tangWeixingYooOhseong20221027,
+  yamashitaKeigoTakaoShinji20221027,
+  dangYifeiByunSangil20221028,
+  fanTingyuKangDongyun20221028,
+  yangDingxinShinMinjun20221027
 ];
