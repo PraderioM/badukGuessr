@@ -12,6 +12,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { IntroductionComponent } from './introduction/introduction.component';
 import { ScoreComponent } from './score/score.component';
 import { ReviewConcludedComponent } from './review-concluded/review-concluded.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ReviewConcludedComponent } from './review-concluded/review-concluded.co
     WelcomeComponent,
     IntroductionComponent,
     ScoreComponent,
-    ReviewConcludedComponent
+    ReviewConcludedComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,

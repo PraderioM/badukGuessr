@@ -14,6 +14,7 @@ export class AppComponent {
   introductionVisible = false;
   reviewConcludedVisible = false;
   scoreVisible = false;
+  confirmationVisible = false;
   scoreHistory: number[] = [];
   gameRun = 0;
   game: Game = getDailyGame();
@@ -69,13 +70,24 @@ export class AppComponent {
     this.introductionVisible = false;
   }
 
+  // Confirmation popup functions.
+  showConfirmationView() {
+    this.confirmationVisible = true;
+  }
+
+  hideConfirmationView() {
+    this.confirmationVisible = false;
+  }
+
   // Score popup functions.
   showScoreView() {
     this.scoreVisible = true;
   }
 
   hideScoreView() {
-    this.scoreVisible = false;
+    if (!this.confirmationVisible) {
+      this.scoreVisible = false;
+    }
   }
 
   updateAndShowScore(scoreHistory: number[]) {
@@ -84,6 +96,7 @@ export class AppComponent {
   }
 
   closeScoreTabAndRestart() {
+    this.hideConfirmationView();
     this.gameRun += 1;
     this.hideScoreView();
   }

@@ -44,7 +44,13 @@
            [lastMove]="game.lastMove"
            [scoreHistory]="scoreHistory"
            (closeTab)="hideScoreView()"
-           (restartGame)="closeScoreTabAndRestart()"></app-score>
+           (restartGame)="showConfirmationView()"></app-score>
+
+<!--Restart confirmation popup-->
+<app-confirmation *ngIf="confirmationVisible && scoreVisible"
+                  (cancel)="hideConfirmationView()"
+                  (confirm)="closeScoreTabAndRestart()">
+</app-confirmation>
 
 <!--Info popup-->
 <div *ngIf="infoVisible" class="popup_background" (click)="hideInfoView();"></div>
