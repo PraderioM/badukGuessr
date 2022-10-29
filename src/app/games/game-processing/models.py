@@ -163,8 +163,9 @@ class Game:
         # Check is something is captured.
         captures: List[Tuple[int, int]] = []
         for r, c in neighbours:
-            new_captures = Game._get_captures(r, c, board)
-            captures = captures + new_captures
+            if board[r][c] != color:
+                new_captures = Game._get_captures(r, c, board)
+                captures = captures + new_captures
 
         moves = Game._add_captures(moves, captures, move.entrance)
 
