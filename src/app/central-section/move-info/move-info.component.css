@@ -36,7 +36,7 @@
   margin-left: 2.5%;
   margin-right: 1.6%;
   margin-top: -.5%;
-  box-shadow: 0px 0px 1px black;
+  box-shadow: 0 0 1px black;
   transform: rotate(225deg);
   background-position: 7px 50%;
 }
@@ -69,11 +69,21 @@
   line-height: 1.5em;
 }
 
+.vertical_bar {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  width: 1px;
+  height: 80%;
+  margin: 0 10px 0 10px;
+  background-color: black;
+}
 
-@media screen and (max-width: 800px) {
-  .move_info_master {position: relative; height: 50px;}
-  .player_parent {font-size: 16px;}
-  .number_of_moves {font-size: 15px;}
+@media screen and (max-width: 970px) {
+  .move_info_master {position: relative; height: 50px; color: white}
+  .player_parent {font-size: 16px; color: white}
+  .vertical_bar {background-color: white}
+  .number_of_moves {font-size: 15px; color: white}
   .stone_to_play {width: 20px; height: 20px;}
   .total_score_parent {font-size: 15px;}
   .score_parent{font-size: 15px;}

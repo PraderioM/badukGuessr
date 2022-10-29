@@ -236,16 +236,6 @@ button.button_white:hover {
   color: black;
 }
 
-.vertical_bar {
-  display: inline-block;
-  position: relative;
-  vertical-align: middle;
-  width: 1px;
-  height: 80%;
-  margin: 0 10px 0 10px;
-  background-color: black;
-}
-
 .total_score_parent {
   display: block;
   position: absolute;
@@ -388,52 +378,6 @@ button.button_white:hover {
   85% {opacity: 1; transform: translate(-50%,-50%) scale(1.2, 1.2);}
   100% {opacity: 1; transform: translate(-50%,-50%) scale(1, 1);}
 }
-#logo_bar {
-  display: block;
-  position: absolute;
-  left: 37px;
-  top: 35px;
-  width: 112px;
-  height: 82px;
-  background-color: #1A1A1A;
-  cursor: pointer;
-}
-#logo {
-  display: block;
-  position: absolute;
-  left: 17px;
-  top: 20px;
-  pointer-events: none;
-
-  font-family: 'Catamaran', sans-serif;
-  font-weight: 900;
-  font-size: 26px;
-  color: white;
-  line-height:  0.8em;
-}
-button#info_button {
-  display: block;
-  position: absolute;
-  right: 34px;
-  top: 30px;
-  width: 40px;
-  height: 40px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 50%;
-  transition: .3s ease;
-  background-color: #F0F0F0;
-
-  font-family: 'Secular One', sans-serif;
-  font-size: 20px;
-  text-align: center;
-  line-height: 39px;
-  color: black;
-}
-button#info_button:hover {
-  box-shadow: 0 0 6px rgb(0,0,0,.5);
-}
 
 @media screen and (max-width: 800px) {
   #screen_master {position: relative; left: 0; top: 60px; width: 100vw; height: auto; transform: translate(0%,0%);}
@@ -443,20 +387,6 @@ button#info_button:hover {
   #stones_master {position: relative; width: 100vw; height: 100vw;}
   #bar_and_button_master {position: relative; height: 150px;}
   .checkmark {width: 22px; height: 22px; top: 46%;}
-  #logo_bar {left: 0; top: 0; width: 100vw; height: 60px;}
-  #logo {left: 20px; top: 15px; font-size: 18px;}
-  button#info_button {
-    right: 18px;
-    top: 14px;
-    width: 30px;
-    height: 30px;
-    border: 1px solid white;
-    background-color: black;
-    font-size: 14px;
-    line-height: 29px;
-    color: white;
-  }
-  button#info_button:hover {box-shadow: none;}
   button.button_blue:hover {box-shadow: none;}
   button.button_white:hover {box-shadow: none;}
 }
