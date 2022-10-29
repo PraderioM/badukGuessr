@@ -14,6 +14,7 @@ import { ScoreComponent } from './score/score.component';
 import { ReviewConcludedComponent } from './review-concluded/review-concluded.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ClipboardModule
+    ClipboardModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

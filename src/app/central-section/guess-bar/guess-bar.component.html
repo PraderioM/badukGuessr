@@ -14,7 +14,7 @@
          [style.background-color]="getGuessBackgroundColor(i)">
       <div class="guess_letter">
         <b>
-        <span *ngIf="isCorrectGuess(i)">&#10003;</span>
+        <span *ngIf="isCorrectGuess(i)"><fa-icon [icon]="faCheck"></fa-icon></span>
         <span *ngIf="!isCorrectGuess(i)">{{guessNames[i]}}</span>
         </b>&nbsp;
         <span *ngIf="correctGuess===-1">{{points}}</span>
@@ -24,11 +24,11 @@
   <div style="height: 20px;"></div>
   <div class="buttons_container">
     <button class="control_button move_button" (click)="this.navigateGame.emit(-10);">
-      &#9664;&#9664;
+      <fa-icon [icon]="faCaretLeft"></fa-icon><fa-icon [icon]="faCaretLeft"></fa-icon>
     </button>
     <button class="control_button move_button"
             (click)="this.navigateGame.emit(-1);">
-      &#9664;
+      <fa-icon [icon]="faCaretLeft"></fa-icon>
     </button>
     <button *ngIf="!isReviewing"
             [ngClass]="{control_button: true, guess_button: true, inactive: guesses.length == 0}"
@@ -37,11 +37,11 @@
     </button>
     <button class="control_button move_button"
             (click)="this.navigateGame.emit(1);">
-      &#9654;
+      <fa-icon [icon]="faCaretRight"></fa-icon>
     </button>
     <button class="control_button move_button"
             (click)="this.navigateGame.emit(10);">
-      &#9654;&#9654;
+      <fa-icon [icon]="faCaretRight"></fa-icon><fa-icon [icon]="faCaretRight"></fa-icon>
     </button>
   </div>
 </div>

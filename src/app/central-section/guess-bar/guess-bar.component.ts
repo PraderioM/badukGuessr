@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {getAllGuessPoints, getEarnedPoints, guessNames, maxGuesses} from '../utils';
 import {Move} from '../../games/models';
+import {faCaretLeft, faCaretRight, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-guess-bar',
@@ -20,6 +21,9 @@ export class GuessBarComponent implements OnInit {
   guessNames = guessNames;
   guessMargin = 2.5;
   allGuessPoints: number[] = [];
+  faCaretRight = faCaretRight;
+  faCaretLeft = faCaretLeft;
+  faCheck = faCheck;
 
   constructor() { }
 
