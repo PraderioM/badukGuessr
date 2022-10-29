@@ -17,6 +17,7 @@
 
 </app-central-section>
 
+<div *ngIf="reviewConcludedVisible" class="popup_background" (click)="hideReviewConcludedView();"></div>
 <app-review-concluded *ngIf="reviewConcludedVisible"
                       (closeTab)="hideReviewConcludedView()"></app-review-concluded>
 
@@ -37,7 +38,7 @@
 </app-introduction>
 
 <!--Score popup-->
-<div *ngIf="scoreVisible" id="score_background"></div>
+<div *ngIf="scoreVisible" class="popup_background" (click)="hideScoreView();"></div>
 <app-score *ngIf="scoreVisible"
            [lastMove]="game.lastMove"
            [scoreHistory]="scoreHistory"
@@ -45,7 +46,7 @@
            (restartGame)="closeScoreTabAndRestart()"></app-score>
 
 <!--Info popup-->
-<div *ngIf="infoVisible" id="info_background" (click)="hideInfoView();"></div>
+<div *ngIf="infoVisible" class="popup_background" (click)="hideInfoView();"></div>
 <app-info *ngIf="infoVisible"
           (closeInfo)="hideInfoView()"
           [blackPlayerName]="game.blackPlayerName"

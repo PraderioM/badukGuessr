@@ -27,27 +27,11 @@
   -moz-background-size: cover;
   -o-background-size: cover;
 }
-
-#info_background {
-  display: block;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-}
 .score_summary {
   display: block;
   animation-name: animation_popup_appears;
 }
-.score_summary_background {
-  display: block;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-}
+
 .score_summary_total_score {
   display: block;
   position: relative;
@@ -68,7 +52,7 @@
   transform: translate(-50%,-50%);
   background-color: white;
   border-radius: 30px;
-  box-shadow: 0px 0px 15px rgb(0,0,0,.8);
+  box-shadow: 0 0 15px rgb(0,0,0,.8);
   animation-duration: .3s;
   padding: 40px 30px 40px 30px;
   max-height: 400px;
@@ -112,10 +96,10 @@ button.button_blue {
   display: block;
   position: relative;
   height: 36px;
-  padding: 0px 16px 0px 16px;
+  padding: 0 16px 0 16px;
   border-radius: 18px;
   margin: auto;
-  border: none;
+  /*border: none;*/
   outline: none;
   cursor: pointer;
   transition: .3s ease;
@@ -129,16 +113,16 @@ button.button_blue {
   color: white;
 }
 button.button_blue:hover {
-  box-shadow: 0px 0px 6px rgb(0,0,0,.5);
+  box-shadow: 0 0 6px rgb(0,0,0,.5);
 }
 button.button_white {
   display: block;
   position: relative;
   height: 36px;
-  padding: 0px 16px 0px 16px;
+  padding: 0 16px 0 16px;
   border-radius: 18px;
   margin: auto;
-  border: none;
+  /*border: none;*/
   outline: none;
   cursor: pointer;
   transition: .3s ease;
@@ -152,7 +136,7 @@ button.button_white {
   color: #2EAEF2;
 }
 button.button_white:hover {
-  box-shadow: 0px 0px 6px rgb(0,0,0,.5);
+  box-shadow: 0 0 6px rgb(0,0,0,.5);
 }
 #players_name_parent {
   display: block;
@@ -182,7 +166,7 @@ button.button_white:hover {
   margin-right: 1.6%;
   margin-top: -.5%;
   background-image: radial-gradient(#cccccc, #4d4d4d, #000000, #000000);
-  box-shadow: 0px 0px 1px black;
+  box-shadow: 0 0 1px black;
   transform: rotate(225deg);
   background-position: 7px 50%;
 }
@@ -196,7 +180,7 @@ button.button_white:hover {
   margin-right: 1.6%;
   margin-top: -.5%;
   background-image: radial-gradient(white, #e6e6e6, #cecece, #d2d2d2);
-  box-shadow: 0px 0px 3px .5px black;
+  box-shadow: 0 0 3px .5px black;
   transform: rotate(225deg);
   background-position: 7px 50%;
 }
@@ -211,11 +195,11 @@ button.button_white:hover {
 }
 
 ::selection {
-  color: none;
+  color: unset;
   background: none;
 }
 ::-moz-selection {
-  color: none;
+  color: unset;
   background: none;
 }
 * {
@@ -258,7 +242,7 @@ button.button_white:hover {
   vertical-align: middle;
   width: 1px;
   height: 80%;
-  margin: 0px 10px 0px 10px;
+  margin: 0 10px 0 10px;
   background-color: black;
 }
 
@@ -300,8 +284,8 @@ button.button_white:hover {
   height: 80%;
   background-color: grey;
   -webkit-filter: blur(25px);
-  -moz-filter: blur(25px);
-  -o-filter: blur(25px);
+  /*-moz-filter: blur(25px);*/ /*todo this is not a css property. Check it.*/
+  /*-o-filter: blur(25px);*/ /*todo this is not a css property. Check it.*/
   -ms-filter: blur(25px);
   filter: blur(25px);
   z-index: -1;
@@ -339,14 +323,14 @@ button.button_white:hover {
   width: 4.4%;
   height: 4.4%;
   background-image: radial-gradient(#cccccc, #4d4d4d, #000000, #000000);
-  box-shadow: 0px 0px 2px 2px black;
+  box-shadow: 0 0 2px 2px black;
 }
 
 .white_stone {
   width: 4.6%;
   height: 4.6%;
   background-image: radial-gradient(white, #e6e6e6, #cecece, #d2d2d2);
-  box-shadow: 0px 0px 3px .5px black;
+  box-shadow: 0 0 3px .5px black;
 }
 
 .hover_stone {
@@ -448,7 +432,7 @@ button#info_button {
   color: black;
 }
 button#info_button:hover {
-  box-shadow: 0px 0px 6px rgb(0,0,0,.5);
+  box-shadow: 0 0 6px rgb(0,0,0,.5);
 }
 
 @media screen and (max-width: 800px) {
@@ -459,7 +443,7 @@ button#info_button:hover {
   #stones_master {position: relative; width: 100vw; height: 100vw;}
   #bar_and_button_master {position: relative; height: 150px;}
   .checkmark {width: 22px; height: 22px; top: 46%;}
-  #logo_bar {left: 0px; top: 0px; width: 100vw; height: 60px;}
+  #logo_bar {left: 0; top: 0; width: 100vw; height: 60px;}
   #logo {left: 20px; top: 15px; font-size: 18px;}
   button#info_button {
     right: 18px;
