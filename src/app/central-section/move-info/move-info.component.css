@@ -90,6 +90,13 @@
   .total_score {font-size: 40px;}
 }
 
+@media screen and (max-width: 800px) {
+  .move_info_master {color: black}
+  .player_parent {color: black}
+  .vertical_bar {background-color: black}
+  .number_of_moves {color: black}
+}
+
 @keyframes animation_player_info_appears {
   0% {opacity: 0; top: 150%;}
   100% {opacity: 1; top: 50%;}
