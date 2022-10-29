@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {getAllGuessPoints, getEarnedPoints, guessNames, maxGuesses} from '../utils';
 import {Move} from '../../games/models';
 
@@ -13,12 +13,26 @@ export class GuessBarComponent implements OnInit {
   @Input() guesses: Move[];
   @Input() correctGuess;
   @Input() isReviewing;
+
   guessColors = ['rgb(130, 194, 149)', 'rgb(146, 208, 149)', 'rgb(168, 217, 170)', 'rgb(190, 227, 191)'];
   allWrongGuessColor = 'rgb(255, 137, 158)';
   wrongGuessColor = 'rgb(204, 204, 204)';
   guessNames = guessNames;
   guessMargin = 2.5;
   allGuessPoints = [];
+
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    const key = event.key;
+    if (key === 'ArrowLeft') {
+      this.navigateGame.emit(-1);
+    } else if (key === 'ArrowRight') {
+      this.navigateGame.emit(1);
+    } else if (key === 'Enter') {
+      this.resolveGuess.emit();
+    }
+  }
 
   constructor() { }
 

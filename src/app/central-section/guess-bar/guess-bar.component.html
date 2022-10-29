@@ -1,4 +1,7 @@
-<div class="bar_and_button_master">
+<div class="bar_and_button_master"
+     (keydown.arrowLeft)="this.navigateGame.emit(-1)"
+     (keydown.enter)="this.resolveGuess.emit();"
+     (keydown.arrowRight)="this.navigateGame.emit(1)">
   <div class="animated_number_going_up_parent">
     <div *ngIf="correctGuess!==-1" class="animated_number_going_up">
       {{getEarnedPointsText()}}
@@ -23,7 +26,8 @@
     <button class="control_button move_button" (click)="this.navigateGame.emit(-10);">
       &#9664;&#9664;
     </button>
-    <button class="control_button move_button" (click)="this.navigateGame.emit(-1);">
+    <button class="control_button move_button"
+            (click)="this.navigateGame.emit(-1);">
       &#9664;
     </button>
     <button *ngIf="!isReviewing"
@@ -31,10 +35,12 @@
             (click)="this.resolveGuess.emit();">
       GUESS
     </button>
-    <button class="control_button move_button" (click)="this.navigateGame.emit(1);">
+    <button class="control_button move_button"
+            (click)="this.navigateGame.emit(1);">
       &#9654;
     </button>
-    <button class="control_button move_button" (click)="this.navigateGame.emit(10);">
+    <button class="control_button move_button"
+            (click)="this.navigateGame.emit(10);">
       &#9654;&#9654;
     </button>
   </div>
