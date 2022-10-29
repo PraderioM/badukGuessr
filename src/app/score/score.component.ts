@@ -4,7 +4,7 @@ import {showScoreFrequency} from '../central-section/utils';
 @Component({
   selector: 'app-score',
   templateUrl: './score.component.html',
-  styleUrls: ['./score.component.css']
+  styleUrls: ['./score.component.css', '../app.component.css']
 })
 export class ScoreComponent implements OnInit {
   @Output() closeTab = new EventEmitter<void>();
@@ -22,15 +22,7 @@ export class ScoreComponent implements OnInit {
   }
 
   getCloseText() {
-    return this.hasGameEnded() ? 'RESTART' : 'CONTINUE';
-  }
-
-  processContinueClick() {
-    if (this.hasGameEnded()) {
-      this.restartGame.emit();
-    } else {
-      this.closeTab.emit();
-    }
+    return this.hasGameEnded() ? 'CLOSE' : 'CONTINUE';
   }
 
   getScoreText(score: number, i: number) {
@@ -42,5 +34,19 @@ export class ScoreComponent implements OnInit {
     } else {
       return 'MOVE ' + nMoves.toString() + ': ' + score.toString();
     }
+  }
+
+  getCompleteScoreText() {
+    let outText = '';
+    const n = this.scoreHistory.length;
+    let score: number;
+
+    for (let i = 0; i < n - 1; i++) {
+      score = this.scoreHistory[i];
+      outText = outText + this.getScoreText(score, i) + '\n';
+    }
+
+    score = this.scoreHistory[n - 1];
+    return outText + this.getScoreText(score, n - 1);
   }
 }

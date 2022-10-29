@@ -13,6 +13,7 @@ import { IntroductionComponent } from './introduction/introduction.component';
 import { ScoreComponent } from './score/score.component';
 import { ReviewConcludedComponent } from './review-concluded/review-concluded.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,10 +6,11 @@
     <div style="height: 20px;"></div>
   </div>
   <div style="height: 20px;"></div>
-  <button class="button_white">SHARE SCORE</button>
+  <div class="buttons_container">
+    <button class="button_white"  [cdkCopyToClipboard]="getCompleteScoreText()">COPY</button>
+    <button class="button_blue" (click)="closeTab.emit()">{{getCloseText()}}</button>
+  </div>
   <div style="height: 20px;"></div>
-  <button class="button_blue" (click)="processContinueClick()">{{getCloseText()}}</button>
-  <div style="height: 20px;"></div>
-  <button *ngIf="hasGameEnded()" class="button_blue" (click)="closeTab.emit()">CLOSE</button>
+  <button *ngIf="hasGameEnded()" class="button_blue" (click)="restartGame.emit()">RESTART</button>
   <div *ngIf="hasGameEnded()" style="height: 20px;"></div>
 </div>
