@@ -5,10 +5,11 @@
     <h2>{{getScoreText(score, i)}}</h2>
     <div style="height: 20px;"></div>
   </div>
-<!--  <button class="button_white">SHARE SCORE</button>-->
-<!--  <div style="height: 20px;"></div>-->
-  <button class="button_medley_001 button_blue" (click)="processContinueClick()">{{getCloseText()}}</button>
   <div style="height: 20px;"></div>
-  <button *ngIf="hasGameEnded()" class="button_medley_001 button_blue" (click)="closeTab.emit()">CLOSE</button>
+  <button class="button_white">SHARE SCORE</button>
+  <div style="height: 20px;"></div>
+  <button class="button_blue" (click)="processContinueClick()">{{getCloseText()}}</button>
+  <div style="height: 20px;"></div>
+  <button *ngIf="hasGameEnded()" class="button_blue" (click)="closeTab.emit()">CLOSE</button>
   <div *ngIf="hasGameEnded()" style="height: 20px;"></div>
 </div>
