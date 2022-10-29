@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {getAllGuessPoints, getEarnedPoints, guessNames, maxGuesses} from '../utils';
 import {Move} from '../../games/models';
-import {faCaretLeft, faCaretRight, faCheck } from '@fortawesome/free-solid-svg-icons';
+import {faCaretLeft, faCaretRight, faCheck, faXmark} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-guess-bar',
@@ -24,6 +24,7 @@ export class GuessBarComponent implements OnInit {
   faCaretRight = faCaretRight;
   faCaretLeft = faCaretLeft;
   faCheck = faCheck;
+  faX = faXmark;
 
   constructor() { }
 
@@ -79,5 +80,9 @@ export class GuessBarComponent implements OnInit {
       this.allGuessPoints = getAllGuessPoints(this.guesses.length);
     }
     return this.allGuessPoints;
+  }
+
+  isGuessUnresolved() {
+    return this.correctGuess === -1;
   }
 }

@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {faCheck, faXmark} from '@fortawesome/free-solid-svg-icons';
 import {Move} from '../../games/models';
 import {boardSize, guessNames, maxGuesses, startingMoves} from '../utils';
 
@@ -14,10 +15,13 @@ export class BoardComponent implements OnInit {
   @Input() moveNumber: number = 0;
   @Input() stonesInBoard: Move[] = [];
   @Input() guesses: Move[] = [];
+  @Input() correctGuess: number = -1;
 
   hoveringColumn?: number = undefined;
   hoveringRow?: number = undefined;
   positions: number[][] = [];
+  faCheck = faCheck;
+  faX = faXmark;
 
   constructor() {
   }
@@ -117,13 +121,7 @@ export class BoardComponent implements OnInit {
     };
   }
 
-  getGuessLetter(i: number, guess: Move) {
-    // If the guess coincides with the hovering stone then the letter must be an X.
-    if (guess.row === this.hoveringRow && guess.column === this.hoveringColumn) {
-      return 'X';
-    }
-
-    // Otherwise return a letter corresponding to the guess number.
+  getGuessLetter(i: number) {
     return guessNames[i];
   }
 
@@ -139,4 +137,16 @@ export class BoardComponent implements OnInit {
     }
   }
 
+  isHovering(guess: Move) {
+    // If the guess coincides with the hovering stone then the letter must be an X.
+    return guess.row === this.hoveringRow && guess.column === this.hoveringColumn
+  }
+
+  guessUnresolved() {
+    return this.correctGuess === -1;
+  }
+
+  isCorrectGuess(i: number) {
+    return this.correctGuess === i;
+  }
 }

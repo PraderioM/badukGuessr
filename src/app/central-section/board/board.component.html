@@ -44,7 +44,15 @@
   <div *ngFor="let guess of guesses; let i = index"
        class="intersection letter_on_board"
        [ngStyle]="{'top': getPos(guess.row)+'%', 'left': getPos(guess.column)+'%'}">
-      &nbsp;{{getGuessLetter(i, guess)}}&nbsp;
+    &nbsp;
+    <span *ngIf="!isHovering(guess) && guessUnresolved()">{{getGuessLetter(i)}}</span>
+    <span *ngIf="isHovering(guess) || (!guessUnresolved() && !isCorrectGuess(i))">
+      <fa-icon [icon]="faX" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
+    </span>
+    <span *ngIf="isCorrectGuess(i)">
+      <fa-icon [icon]="faCheck" [styles]="{'stroke': 'green', 'color': 'green'}"></fa-icon>
+    </span>
+    &nbsp;
   </div>
 
   <!--All intersections in the board used for processing click.-->
