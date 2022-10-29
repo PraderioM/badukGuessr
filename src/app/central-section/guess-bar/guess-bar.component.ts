@@ -19,7 +19,7 @@ export class GuessBarComponent implements OnInit {
   allWrongGuessColor = 'rgb(255, 137, 158)';
   wrongGuessColor = 'rgb(204, 204, 204)';
   guessNames = guessNames;
-  guessMargin = 2.5;
+  guessMargin = 1.5;
   allGuessPoints: number[] = [];
   faCaretRight = faCaretRight;
   faCaretLeft = faCaretLeft;
@@ -33,7 +33,7 @@ export class GuessBarComponent implements OnInit {
 
   getGuessWidth(i: number) {
     const n = this.guesses.length;
-    const relWidth: number = this.allGuessPoints[i] / this.getTotalPoints();
+    const relWidth: number = 2 * (n - i + 1) / (n * (n + 3));
 
     return (100 - (n + 1) * this.guessMargin) * relWidth;
   }

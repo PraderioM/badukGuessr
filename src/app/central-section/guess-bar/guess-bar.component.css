@@ -7,6 +7,12 @@
   height: 20%;
 }
 
+.centered_container {
+  text-align: center;
+  vertical-align: center;
+  align-content: center;
+}
+
 .animated_number_going_up_parent {
   display: block;
   position: relative;
@@ -50,7 +56,7 @@
   display: inline-block;
   position: relative;
   height: 100%;
-  vertical-align: top;
+  vertical-align: center;
   border-radius: 2vh;
   transition: .3s ease;
 
@@ -58,11 +64,13 @@
   font-size: 2vh;
   text-align: center;
   color: white;
-  line-height: 1.7em;
+  /*line-height: 1.7em;*/
 }
 
 .guess_letter {
   font-size: 2.5vh;
+  text-align: center;
+  vertical-align: center;
 }
 
 button.control_button {
@@ -79,6 +87,7 @@ button.control_button {
   font-family: 'Secular One', sans-serif;
   font-size: 2vh;
   text-align: center;
+  vertical-align: center;
   line-height: 2.1em;
   color: white;
 }
@@ -103,6 +112,7 @@ button.inactive {
   opacity: 1;
   background-color: #2EAEF2;
   pointer-events: auto;
+  vertical-align: center;
 }
 
 

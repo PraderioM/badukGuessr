@@ -14,14 +14,16 @@
          [style.background-color]="getGuessBackgroundColor(i)">
       <div class="guess_letter">
         <b>
-        <span *ngIf="isCorrectGuess(i)">
-          <fa-icon [icon]="faCheck" [styles]="{'stroke': 'green', 'color': 'green'}"></fa-icon>
-        </span>
-        <span *ngIf="isGuessUnresolved()">{{guessNames[i]}}</span>
-        <span *ngIf="!isGuessUnresolved() && !isCorrectGuess(i)">
-          <fa-icon [icon]="faX" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
-        </span>
-        </b>&nbsp;
+          &nbsp;
+          <span *ngIf="isCorrectGuess(i)" class="centered_container">
+            <fa-icon [icon]="faCheck" [styles]="{'stroke': 'green', 'color': 'green'}"></fa-icon>
+          </span>
+          <span *ngIf="isGuessUnresolved()" class="centered_container">{{guessNames[i]}}</span>
+          <span *ngIf="!isGuessUnresolved() && !isCorrectGuess(i)" class="centered_container">
+            <fa-icon [icon]="faX" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
+          </span>
+          &nbsp;
+        </b>
         <span *ngIf="correctGuess===-1">{{points}}</span>
       </div>
     </div>
