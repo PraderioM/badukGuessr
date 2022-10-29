@@ -12,8 +12,8 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-Type `npx gulp` afterwards to join created files into a single HTML file.
+Run `ng build` to build the project. The build artifacts will be stored in the `docs/` directory. Use the `--prod` flag for a production build.
+IMPORTANT if you push after building your changes will be deployed on the gh-pages.
 
 ## Running unit tests
 
