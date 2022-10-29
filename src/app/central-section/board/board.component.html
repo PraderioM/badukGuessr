@@ -46,7 +46,7 @@
        [ngStyle]="{'top': getPos(guess.row)+'%', 'left': getPos(guess.column)+'%'}">
     &nbsp;
     <span *ngIf="!isHovering(guess) && guessUnresolved()">{{getGuessLetter(i)}}</span>
-    <span *ngIf="isHovering(guess) || (!guessUnresolved() && !isCorrectGuess(i))">
+    <span *ngIf="(guessUnresolved() && isHovering(guess)) || (!guessUnresolved() && !isCorrectGuess(i))">
       <fa-icon [icon]="faX" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
     </span>
     <span *ngIf="isCorrectGuess(i)">
