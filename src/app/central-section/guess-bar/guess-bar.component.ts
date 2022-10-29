@@ -5,7 +5,7 @@ import {Move} from '../../games/models';
 @Component({
   selector: 'app-guess-bar',
   templateUrl: './guess-bar.component.html',
-  styleUrls: ['./guess-bar.component.css']
+  styleUrls: ['./guess-bar.component.css', '../../app.component.css']
 })
 export class GuessBarComponent implements OnInit {
   @Output() resolveGuess = new EventEmitter<void>();
