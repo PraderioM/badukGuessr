@@ -90,6 +90,8 @@ button.control_button:hover {
   opacity: 1;
   background-color: #2EAEF2;
   pointer-events: auto;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 button.inactive {
