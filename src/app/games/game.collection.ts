@@ -20,6 +20,8 @@ import {yamashitaKeigoTakaoShinji20221027} from './games/yamashita.keigo.takao.s
 import {dangYifeiByunSangil20221028} from './games/dang.yifei.byun.sangil.2022.10.28';
 import {fanTingyuKangDongyun20221028} from './games/fan.tingyu.kang.dongyun.2022.10.28';
 import {yangDingxinShinMinjun20221027} from './games/yang.dingxin.shin.minjun.2022.10.27';
+import {linJunyanLiWei20221028} from './games/lin.junyan.li.wei.2022.10.28';
+import {heoSeohyunKimKyeongeun20221029} from './games/heo.seohyun.kim.kyeongeun.2022.10.29';
 
 const startingDate = new Date(2022, 9, 24, 0, 0, 0, 0);
 const startingUTC = getUTCFromDate(startingDate);
@@ -62,5 +64,7 @@ const allGames: Game[] = [
   yamashitaKeigoTakaoShinji20221027,
   dangYifeiByunSangil20221028,
   fanTingyuKangDongyun20221028,
-  yangDingxinShinMinjun20221027
+  yangDingxinShinMinjun20221027,
+  linJunyanLiWei20221028,
+  heoSeohyunKimKyeongeun20221029,
 ];
