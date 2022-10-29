@@ -10,6 +10,7 @@
 
 <!--Main screen-->
 <app-central-section (showScore)="updateAndShowScore($event)"
+                     (closePopups)="processPopupClosing()"
                      (reviewConcluded)="showReviewConcludedView()"
                      [gameRun]="gameRun"
                      [gamePaused]="isGamePaused()"

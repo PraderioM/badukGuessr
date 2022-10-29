@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {startingMoves, showScoreFrequency, maxGuesses, getEarnedPoints} from './utils';
 import {Game, Move} from '../games/models';
 
@@ -10,6 +10,7 @@ import {Game, Move} from '../games/models';
 export class CentralSectionComponent implements OnInit, OnChanges {
   @Output() showScore = new EventEmitter<number[]>();
   @Output() reviewConcluded = new EventEmitter<void>();
+  @Output() closePopups = new EventEmitter<void>();
   @Input() gameRun: number;
   @Input() game: Game;
   @Input() gamePaused: boolean;
@@ -22,6 +23,22 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   nextMoveDelay = 500;
   guesses: Move[] = [];
   correctGuess = -1;
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    const key = event.key;
+    if (key === 'ArrowLeft') {
+      this.changeGameMove(-1);
+    } else if (key === 'ArrowRight') {
+      this.changeGameMove(1);
+    } else if (key === 'Enter') {
+      event.preventDefault();
+      this.processGuesses();
+      if (this.gamePaused) {
+        this.closePopups.emit();
+      }
+    }
+  }
 
   constructor() { }
 
