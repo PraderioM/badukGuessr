@@ -1,5 +1,7 @@
 # BadukGuesser
 
+A game for guessing the moves of professional Go players, inspired by a popular geography game. Play it [here](https://praderiom.github.io/badukGuessr/).
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.9.
 
 ## Development server
