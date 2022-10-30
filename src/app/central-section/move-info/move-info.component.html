@@ -27,7 +27,7 @@
   </div>
 
   <!--Current score.-->
-  <div *ngIf="showMove()" class="player_info score_parent">
+  <div class="player_info score_parent">
     SCORE
     <div class="total_score" (click)="showScore.emit()">{{score}}</div>
   </div>
