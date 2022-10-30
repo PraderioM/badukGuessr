@@ -54,28 +54,28 @@ export class ScoreComponent implements OnInit {
   }
 
   getCompleteScoreText() {
-    let outText = 'baduk Guessr #' + getDailyGameIndex() + 1 + '\n';
-    outText = outText + this.game.blackPlayerName + this.game.blackPlayerRank + "(black)\nvs.\n";
-    outText = outText + this.game.whitePlayerName + this.game.whitePlayerRank + "(white)\n\n";
+    const badukGuessrNumber = getDailyGameIndex() + 1;
+    let outText = 'BadukGuessr #' + badukGuessrNumber + '\n';
+    outText = outText + this.game.blackPlayerName + " " + this.game.blackPlayerRank + " (black)\nvs.\n";
+    outText = outText + this.game.whitePlayerName + " " + this.game.whitePlayerRank + " (white)\n\n";
     const n = this.scoreHistory.length;
     let score: number;
 
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < n -1 ; i++) {
       score = this.scoreHistory[i];
       outText = outText + this.getScoreText(score, i) + '\n';
     }
 
-    return outText + "\nhttps://praderiom.github.io/badukGuessr/";
+    score = this.scoreHistory[n-1];
+    return outText + this.getScoreText(score, n-1);
   }
 
   onCopy() {
     this.isCopied = true;
-    console.log('resetting time');
     setTimeout(this.resetCopy.bind(this), 1500);
   }
 
   resetCopy() {
-    console.log('resetting completed');
     this.isCopied = false;
   }
 }
