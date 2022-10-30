@@ -24,6 +24,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   nextMoveDelay = 500;
   guesses: Move[] = [];
   correctGuess = -1;
+  guessSubmitted = false;
 
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
@@ -73,6 +74,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   restartGuesses() {
     this.guesses = [];
     this.correctGuess = -1;
+    this.guessSubmitted = false;
   }
 
   playFirstMoves() {
@@ -160,13 +162,22 @@ export class CentralSectionComponent implements OnInit, OnChanges {
       return;
     }
 
+    // check that guess hasn't already been submitted and if not we signal that we have just done it.
+    if (this.guessSubmitted) {
+      return;
+    } else {
+      this.guessSubmitted = true;
+    }
+
     // Get the correct guess if any.
     this.correctGuess = maxGuesses; // If no correct guesses this marks it.
     const nextMove = this.game.getMove(this.moveNumber);
 
+    // If no next move we finish here.
     if (nextMove == null) {
       return;
     }
+
     for (let i = 0; i < this.guesses.length; i++) {
       if (this.guesses[i].row === nextMove.row && this.guesses[i].column === nextMove.column) {
         this.correctGuess = i;
