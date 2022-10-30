@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {showScoreFrequency} from '../central-section/utils';
-import {getDailyGame} from '../games/game.collection';
+import {getDailyGame, getDailyGameIndex} from '../games/game.collection';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {faCopy} from '@fortawesome/free-solid-svg-icons';
 
@@ -44,22 +44,28 @@ export class ScoreComponent implements OnInit {
     if (nMoves >= this.lastMove) {
       return 'FINAL SCORE: ' + score.toString();
     } else {
-      return 'MOVE ' + nMoves.toString() + ': ' + score.toString();
+      let outText = 'MOVE ' + nMoves.toString() + ': ' + score.toString();
+      if (i>0) {
+        let scoreDiff = score - this.scoreHistory[i - 1];
+        outText = outText + " (+" + scoreDiff.toString() + ")";
+      }
+      return outText;
     }
   }
 
   getCompleteScoreText() {
-    let outText = '';
+    let outText = 'baduk Guessr #' + getDailyGameIndex() + 1 + '\n';
+    outText = outText + this.game.blackPlayerName + this.game.blackPlayerRank + "(black)\nvs.\n";
+    outText = outText + this.game.whitePlayerName + this.game.whitePlayerRank + "(white)\n\n";
     const n = this.scoreHistory.length;
     let score: number;
 
-    for (let i = 0; i < n - 1; i++) {
+    for (let i = 0; i < n; i++) {
       score = this.scoreHistory[i];
       outText = outText + this.getScoreText(score, i) + '\n';
     }
 
-    score = this.scoreHistory[n - 1];
-    return outText + this.getScoreText(score, n - 1);
+    return outText + "\nhttps://praderiom.github.io/badukGuessr/";
   }
 
   onCopy() {

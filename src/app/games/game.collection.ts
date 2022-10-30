@@ -31,14 +31,17 @@ function getUTCFromDate(date: Date) {
 }
 
 export function getDailyGame() {
+  return allGames[getDailyGameIndex()];
+}
+
+export function getDailyGameIndex() {
   // Get number of days since code was operational.
   const today = new Date();
   const todayUTC = getUTCFromDate(today);
   const dayDiff = Math.floor((todayUTC - startingUTC ) / (1000 * 60 * 60 * 24));
 
   // Pick a different game every day and once the full round is done re-start.
-  const gameIndex = dayDiff % allGames.length;
-  return allGames[gameIndex];
+  return dayDiff % allGames.length;
 }
 
 
