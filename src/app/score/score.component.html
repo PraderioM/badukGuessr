@@ -19,7 +19,7 @@
   <div *ngIf="hasGameEnded()" class="buttons_container">
     <button class="button_blue" (click)="restartGame.emit()">RESTART</button>
     <button class="button_blue">
-      <a [href]="sgfFileUrl" class="normal_text" download="dailyBadukGuessr.sgf">Download SGF</a>
+      <a [href]="sgfFileUrl" class="normal_text" download="dailyBadukGuessr.sgf">GET SGF</a>
     </button>
   </div>
   <div *ngIf="hasGameEnded()" style="height: 20px;"></div>
