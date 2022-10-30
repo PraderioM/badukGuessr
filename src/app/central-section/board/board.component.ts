@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {faCheck, faXmark} from '@fortawesome/free-solid-svg-icons';
 import {Move} from '../../games/models';
 import {boardSize, guessNames, maxGuesses, startingMoves} from '../utils';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class BoardComponent implements OnInit {
   positions: number[][] = [];
   faCheck = faCheck;
   faX = faXmark;
+  deviceService = new DeviceDetectorService(undefined);
 
   constructor() {
   }
@@ -35,6 +37,11 @@ export class BoardComponent implements OnInit {
   }
 
   setHoveringCell(row: number, column: number) {
+    // We are not inserting hovering cell in mobile devices.
+    if (this.deviceService.isMobile() || this.deviceService.isTablet()) {
+      return;
+    }
+
     this.hoveringRow = row;
     this.hoveringColumn = column;
 
