@@ -7,6 +7,8 @@ export const leeSedolHongJansik20030423 = new Game(
         '4p',
         new Date('2003-04-23'),
         'B+R',
+        '6.5',
+        'Japanese',
         [
     new Move('B', 3, 15, 0, undefined),
     new Move('W', 3, 3, 1, undefined),

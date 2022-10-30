@@ -7,6 +7,8 @@ export const tangWeixingYooOhseong20221027 = new Game(
         '7p',
         new Date('2022-10-27'),
         'B+R',
+        '6.5',
+        'Japanese',
         [
     new Move('B', 3, 16, 0, undefined),
     new Move('W', 3, 3, 1, undefined),

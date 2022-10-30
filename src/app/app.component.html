@@ -43,6 +43,7 @@
 <app-score *ngIf="scoreVisible"
            [lastMove]="game.lastMove"
            [scoreHistory]="scoreHistory"
+           [game]="game"
            (closeTab)="hideScoreView()"
            (restartGame)="showConfirmationView()"></app-score>
 

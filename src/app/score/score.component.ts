@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {showScoreFrequency} from '../central-section/utils';
+import {getDailyGame} from '../games/game.collection';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-score',
@@ -11,10 +13,17 @@ export class ScoreComponent implements OnInit {
   @Output() restartGame = new EventEmitter<void>();
   @Input() lastMove: number = 361;
   @Input() scoreHistory: number[] = [];
+  @Input() game = getDailyGame();
 
-  constructor() { }
+  sgfFileUrl?: SafeUrl;
+
+  constructor(private sanitizer: DomSanitizer) {  }
 
   ngOnInit() {
+
+    const blob = new Blob([this.game.convertToSGF()], {type: 'application/octet-stream'});
+
+    this.sgfFileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
   }
 
   hasGameEnded() {

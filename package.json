@@ -23,6 +23,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "matrix-inverse": "^2.0.0",
+    "ngx-device-detector": "^4.0.1",
     "protractor": "^7.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

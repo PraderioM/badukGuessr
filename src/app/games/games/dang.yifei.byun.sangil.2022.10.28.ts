@@ -7,6 +7,8 @@ export const dangYifeiByunSangil20221028 = new Game(
         '9p',
         new Date('2022-10-28'),
         'W+0.5',
+        '6.5',
+        'Japanese',
         [
     new Move('B', 3, 16, 0, undefined),
     new Move('W', 2, 3, 1, undefined),

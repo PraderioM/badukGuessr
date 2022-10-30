@@ -7,6 +7,8 @@ export const yuZhiyingLeeHyungjin20221028 = new Game(
         '6p',
         new Date('2022-10-28'),
         'W+1.5',
+        '6.5',
+        'Japanese',
         [
     new Move('B', 3, 16, 0, undefined),
     new Move('W', 15, 2, 1, undefined),

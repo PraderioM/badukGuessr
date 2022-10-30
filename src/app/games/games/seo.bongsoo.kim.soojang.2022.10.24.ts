@@ -7,6 +7,8 @@ export const seoBongsooKimSoojang20221024 = new Game(
         '9p',
         new Date('2022-10-24'),
         'W+0.5',
+        '6.5',
+        'Japanese',
         [
     new Move('B', 3, 15, 0, 99),
     new Move('W', 15, 3, 1, undefined),

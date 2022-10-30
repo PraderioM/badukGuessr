@@ -7,6 +7,8 @@ export const paekSeonghoAnKwanwuk20221021 = new Game(
         '9p',
         new Date('2022-10-21'),
         'B+1.5',
+  '6.5',
+  'Japanese',
         [
     new Move('B', 3, 15, 0, undefined),
     new Move('W', 15, 3, 1, undefined),

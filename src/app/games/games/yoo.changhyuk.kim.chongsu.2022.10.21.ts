@@ -7,6 +7,8 @@ export const yooChanghyukKimChongsu20221021 = new Game(
         '9p',
         new Date('2022-10-21'),
         'B+R',
+  '6.5',
+  'Japanese',
         [
     new Move('B', 3, 15, 0, undefined),
     new Move('W', 3, 3, 1, undefined),

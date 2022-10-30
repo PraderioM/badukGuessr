@@ -7,6 +7,8 @@ export const fanTingyuKangDongyun20221028 = new Game(
         '9p',
         new Date('2022-10-28'),
         'B+R',
+        '6.5',
+        'Japanese',
         [
     new Move('B', 3, 16, 0, undefined),
     new Move('W', 15, 3, 1, undefined),

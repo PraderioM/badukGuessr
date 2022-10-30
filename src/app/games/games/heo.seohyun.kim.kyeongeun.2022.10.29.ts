@@ -7,6 +7,8 @@ export const heoSeohyunKimKyeongeun20221029 = new Game(
         '3p',
         new Date('2022-10-29'),
         'B+R',
+        '6.5',
+        'Japanese',
         [
     new Move('B', 3, 15, 0, undefined),
     new Move('W', 15, 3, 1, undefined),

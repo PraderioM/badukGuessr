@@ -58,6 +58,8 @@ class Game:
         self._white_rank = self.get_metadata('WR')
         self._date = self.get_metadata('DT')
         self._result = self.get_metadata('RE')
+        self._rules = self.get_metadata('RU')
+        self._komi = self.get_metadata('KM')
 
         self._moves = self._get_moves()
 
@@ -70,6 +72,8 @@ class Game:
         '{self._white_rank}',
         new Date('{self._date}'),
         '{self._result}',
+        '{self.komi}',
+        '{self.rules}',
         [\n    """
 
         # Convert all the moves to angular format.
@@ -240,3 +244,17 @@ class Game:
     @staticmethod
     def _convert_text_to_int(c: str) -> int:
         return 'abcdefghijklmnopqrst'.find(c)
+
+    @property
+    def komi(self) -> str:
+        if self._komi is None:
+            return '6.5'
+
+        return self._komi
+
+    @property
+    def rules(self) -> str:
+        if self._rules is None:
+            return 'Japanese'
+
+        return self._rules
