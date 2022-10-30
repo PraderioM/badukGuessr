@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {showScoreFrequency} from '../central-section/utils';
 import {getDailyGame} from '../games/game.collection';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {faCopy} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-score',
@@ -16,6 +17,8 @@ export class ScoreComponent implements OnInit {
   @Input() game = getDailyGame();
 
   sgfFileUrl?: SafeUrl;
+  isCopied: boolean = false;
+  faCopy = faCopy;
 
   constructor(private sanitizer: DomSanitizer) {  }
 
@@ -57,5 +60,16 @@ export class ScoreComponent implements OnInit {
 
     score = this.scoreHistory[n - 1];
     return outText + this.getScoreText(score, n - 1);
+  }
+
+  onCopy() {
+    this.isCopied = true;
+    console.log('resetting time');
+    setTimeout(this.resetCopy.bind(this), 1500);
+  }
+
+  resetCopy() {
+    console.log('resetting completed');
+    this.isCopied = false;
   }
 }

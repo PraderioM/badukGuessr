@@ -7,7 +7,12 @@
   </div>
   <div style="height: 20px;"></div>
   <div class="buttons_container">
-    <button class="button_white"  [cdkCopyToClipboard]="getCompleteScoreText()">COPY</button>
+    <button *ngIf="!isCopied" class="button_white"  [cdkCopyToClipboard]="getCompleteScoreText()" (click)="onCopy()">
+      COPY <fa-icon [icon]="faCopy"></fa-icon>
+    </button>
+    <button *ngIf="isCopied" class="button_gray">
+      COPIED
+    </button>
     <button class="button_blue" (click)="closeTab.emit()">{{getCloseText()}}</button>
   </div>
   <div style="height: 20px;"></div>
