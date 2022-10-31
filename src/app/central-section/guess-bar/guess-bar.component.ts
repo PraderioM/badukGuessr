@@ -38,14 +38,6 @@ export class GuessBarComponent implements OnInit {
     return (100 - (n + 1) * this.guessMargin) * relWidth;
   }
 
-  getTotalPoints() {
-    let sum = 0;
-    for (const points of this.allGuessPoints) {
-      sum += points;
-    }
-    return sum;
-  }
-
   getGuessBackgroundColor(i: number) {
     if (this.correctGuess === -1) {
       return this.guessColors[i];

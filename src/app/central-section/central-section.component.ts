@@ -85,6 +85,11 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   }
 
   changeGameMove(moveChange: number) {
+    // In the case of having some guesses already submitted this action is equivalent to the processGuesses action.
+    if (moveChange === 1 && this.guesses.length > 0) {
+      return this.processGuesses();
+    }
+
     if (this.gamePaused) {
       return;
     }
