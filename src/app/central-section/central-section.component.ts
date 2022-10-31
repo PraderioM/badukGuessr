@@ -87,7 +87,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   changeGameMove(moveChange: number) {
     // In the case of having some guesses already submitted this action is equivalent to the processGuesses action.
     if (moveChange === 1 && this.guesses.length > 0) {
-      return this.processGuesses();
+      this.processGuesses(false);
     }
 
     if (this.gamePaused) {
@@ -161,7 +161,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     }
   }
 
-  processGuesses() {
+  processGuesses(changeMove: boolean = true) {
     // If the game is over we do nothing else.
     if (this.gameEnded || this.gamePaused) {
       return;
@@ -198,7 +198,9 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     this.score += getEarnedPoints(this.correctGuess, this.guesses.length);
 
     // Go to next after a small delay.
-    setTimeout(this.goToNextMove.bind(this), this.nextMoveDelay);
+    if (changeMove) {
+      setTimeout(this.goToNextMove.bind(this), this.nextMoveDelay);
+    }
   }
 
   getCurrentMoves() {
