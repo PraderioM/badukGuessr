@@ -17,6 +17,7 @@ export class BoardComponent implements OnInit {
   @Input() stonesInBoard: Move[] = [];
   @Input() guesses: Move[] = [];
   @Input() correctGuess: number = -1;
+  @Input() isReviewing: boolean = false;
 
   hoveringColumn?: number = undefined;
   hoveringRow?: number = undefined;
@@ -94,6 +95,11 @@ export class BoardComponent implements OnInit {
   showHoveringStone() {
     // Don't show before game start.
     if (this.moveNumber < startingMoves) {
+      return false;
+    }
+
+    // Don't show hovering stones during review.
+    if (this.isReviewing) {
       return false;
     }
 

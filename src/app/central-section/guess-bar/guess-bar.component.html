@@ -4,7 +4,7 @@
       {{getEarnedPointsText()}}
     </div>
   </div>
-  <div class="guess_bar_parent">
+  <div *ngIf="!isReviewing" class="guess_bar_parent">
     <div *ngFor="let points of getGuessPoints(); let i = index" class="guess"
          [style.width.%]="getGuessWidth(i)"
          [style.margin-left.%]="guessMargin"

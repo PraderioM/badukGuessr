@@ -162,6 +162,11 @@ export class CentralSectionComponent implements OnInit, OnChanges {
       return;
     }
 
+    // If we are going back to review the game we are not allowing guesses to be submitted.
+    if (this.maxMoveNumber > this.moveNumber) {
+      return;
+    }
+
     // check that guess hasn't already been submitted and if not we signal that we have just done it.
     if (this.guessSubmitted) {
       return;
