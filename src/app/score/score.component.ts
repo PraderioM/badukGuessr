@@ -41,16 +41,19 @@ export class ScoreComponent implements OnInit {
     const nMoves = (i + 1) * showScoreFrequency;
 
     // Show different message for final score.
-    if (nMoves >= this.lastMove) {
-      return 'FINAL SCORE: ' + score.toString();
+    let outText: string;
+    if (nMoves >= this.lastMove + 1) {
+      outText = 'FINAL SCORE: ' + score.toString();
     } else {
-      let outText = 'MOVE ' + nMoves.toString() + ': ' + score.toString();
-      if (i>0) {
-        let scoreDiff = score - this.scoreHistory[i - 1];
-        outText = outText + " (+" + scoreDiff.toString() + ")";
-      }
-      return outText;
+      outText = 'MOVE ' + nMoves.toString() + ': ' + score.toString();
     }
+
+    if (i>0) {
+      let scoreDiff = score - this.scoreHistory[i - 1];
+      outText = outText + " (+" + scoreDiff.toString() + ")";
+    }
+
+    return outText;
   }
 
   getCompleteScoreText() {
