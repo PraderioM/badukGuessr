@@ -122,7 +122,11 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     // If the game is over we show progress and end game.
     if (this.moveNumber === this.game.lastMove + 1) {
       if (!this.gameEnded) {
-        this.scoreHistory.push(this.score);
+        // Fill in score in case it was skipped due to fast forwarding.
+        this.fillScoreHistory();
+        if (this.moveNumber !== showScoreFrequency * (this.scoreHistory.length + 1)) {
+          this.scoreHistory.push(this.score);
+        }
         this.showScore.emit(this.scoreHistory);
       }
       this.gameEnded = true;
@@ -131,10 +135,14 @@ export class CentralSectionComponent implements OnInit, OnChanges {
 
     // We periodically show score progress.
     if (this.maxMoveNumber === this.moveNumber && this.moveNumber >= showScoreFrequency * (this.scoreHistory.length + 1)) {
-      while (this.moveNumber >= showScoreFrequency * (this.scoreHistory.length + 1)) {
-        this.scoreHistory.push(this.score);
-      }
+      this.fillScoreHistory();
       this.showScore.emit(this.scoreHistory);
+    }
+  }
+
+  fillScoreHistory() {
+    while (this.moveNumber >= showScoreFrequency * (this.scoreHistory.length + 1)) {
+      this.scoreHistory.push(this.score);
     }
   }
 
