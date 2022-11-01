@@ -2,33 +2,8 @@
   all:unset;
 }
 
-button.button_gray {
-  display: block;
-  position: relative;
-  height: 36px;
-  padding: 0 16px 0 16px;
-  border-radius: 18px;
-  margin: auto;
-  /*border: none;*/
-  outline: none;
-  cursor: pointer;
-  transition: .3s ease;
+button.gray_button {
   border: 1px solid #000000;
   background-color: gray;
-
-  font-family: 'Secular One', sans-serif;
-  font-size: 13px;
-  text-align: center;
-  line-height: 35px;
   color: #000000;
-}
-button.button_gray:hover {
-  box-shadow: 0 0 6px rgb(0,0,0,.5);
-}
-
-
-@media screen and (max-width: 800px) {
-  button.button_gray:hover {
-    box-shadow: none;
-  }
 }

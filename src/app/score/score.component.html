@@ -11,18 +11,18 @@
   </div>
   <div style="height: 20px;"></div>
   <div class="buttons_container">
-    <button *ngIf="!isCopied" class="button_white"  [cdkCopyToClipboard]="getCompleteScoreText()" (click)="onCopy()">
+    <button *ngIf="!isCopied" class="nice_button white_button"  [cdkCopyToClipboard]="getCompleteScoreText()" (click)="onCopy()">
       COPY <fa-icon [icon]="faCopy"></fa-icon>
     </button>
-    <button *ngIf="isCopied" class="button_gray">
+    <button *ngIf="isCopied" class="nice_button gray_button">
       COPIED
     </button>
-    <button class="button_blue" (click)="closeTab.emit()">{{getCloseText()}}</button>
+    <button class="nice_button blue_button" (click)="closeTab.emit()">{{getCloseText()}}</button>
   </div>
   <div style="height: 20px;"></div>
   <div *ngIf="hasGameEnded()" class="buttons_container">
-    <button class="button_blue" (click)="restartGame.emit()">RESTART</button>
-    <button class="button_blue">
+    <button class="nice_button blue_button" (click)="restartGame.emit()">RESTART</button>
+    <button class="nice_button blue_button">
       <a [href]="sgfFileUrl" class="normal_text" download="dailyBadukGuessr.sgf">GET SGF</a>
     </button>
   </div>

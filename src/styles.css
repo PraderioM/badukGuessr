@@ -62,7 +62,7 @@
   scrollbar-width: none;  /* Firefox */
 }
 
-.popup::-webkit-scrollbar {
+.popup::-webkit-scrollbar { /*Chrome*/
   display: none;
 }
 
@@ -101,7 +101,8 @@ a:hover {list-style: none;}
 a:focus {list-style: none;}
 a:active {list-style: none;}
 span.barlow {font-family: 'Barlow Condensed', sans-serif;}
-button.button_blue {
+
+button.nice_button {
   display: block;
   position: relative;
   height: 36px;
@@ -113,40 +114,25 @@ button.button_blue {
   cursor: pointer;
   transition: .3s ease;
   border: 1px solid #2EAEF2;
-  background-color: #2EAEF2;
 
   font-family: 'Secular One', sans-serif;
   font-size: 13px;
   text-align: center;
   line-height: 35px;
+}
+button.nice_button:hover {
+  box-shadow: 0 0 6px rgb(0,0,0,.5);
+}
+
+button.blue_button {
+  background-color: #2EAEF2;
   color: white;
 }
-button.button_blue:hover {
-  box-shadow: 0 0 6px rgb(0,0,0,.5);
-}
-button.button_white {
-  display: block;
-  position: relative;
-  height: 36px;
-  padding: 0 16px 0 16px;
-  border-radius: 18px;
-  margin: auto;
-  /*border: none;*/
-  outline: none;
-  cursor: pointer;
-  transition: .3s ease;
-  border: 1px solid #2EAEF2;
-  background-color: white;
 
-  font-family: 'Secular One', sans-serif;
-  font-size: 13px;
-  text-align: center;
-  line-height: 35px;
-  color: #2EAEF2;
+button.white_button {
+  background-color: white;
 }
-button.button_white:hover {
-  box-shadow: 0 0 6px rgb(0,0,0,.5);
-}
+
 #players_name_parent {
   display: block;
   position: relative;
@@ -396,6 +382,5 @@ button.button_white:hover {
   #stones_master {position: relative; width: 100vw; height: 100vw;}
   #bar_and_button_master {position: relative; height: 150px;}
   .checkmark {width: 22px; height: 22px; top: 46%;}
-  button.button_blue:hover {box-shadow: none;}
-  button.button_white:hover {box-shadow: none;}
+  button.nice_button:hover {box-shadow: none;}
 }
