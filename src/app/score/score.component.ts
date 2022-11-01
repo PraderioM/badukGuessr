@@ -64,13 +64,25 @@ export class ScoreComponent implements OnInit {
     const n = this.scoreHistory.length;
     let score: number;
 
-    for (let i = 0; i < n -1 ; i++) {
+    for (let i = 0; i < n ; i++) {
       score = this.scoreHistory[i];
       outText = outText + this.getScoreText(score, i) + '\n';
     }
 
-    score = this.scoreHistory[n-1];
-    return outText + this.getScoreText(score, n-1);
+    return outText + this.getAverageScoreText();
+  }
+
+  getAverageScoreText() {
+    return 'Points per move: ' + this.getAverageScore().toPrecision(2);
+  }
+
+  getAverageScore() {
+    if (this.scoreHistory.length === 0) {
+      return 0;
+    }
+
+    let movesMade = Math.min(this.scoreHistory.length * showScoreFrequency, this.lastMove + 1);
+    return this.scoreHistory[this.scoreHistory.length-1] / movesMade;
   }
 
   onCopy() {

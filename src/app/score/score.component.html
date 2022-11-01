@@ -5,6 +5,10 @@
     <h2>{{getScoreText(score, i)}}</h2>
     <div style="height: 20px;"></div>
   </div>
+  <div *ngIf="scoreHistory.length > 0">
+    <h2>{{getAverageScoreText()}}</h2>
+    <div style="height: 20px;"></div>
+  </div>
   <div style="height: 20px;"></div>
   <div class="buttons_container">
     <button *ngIf="!isCopied" class="button_white"  [cdkCopyToClipboard]="getCompleteScoreText()" (click)="onCopy()">
