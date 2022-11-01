@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {showScoreFrequency} from '../central-section/utils';
+import {showScoreFrequency, startingMoves} from '../central-section/utils';
 import {getDailyGame, getDailyGameIndex} from '../games/game.collection';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {faCopy} from '@fortawesome/free-solid-svg-icons';
@@ -82,6 +82,7 @@ export class ScoreComponent implements OnInit {
     }
 
     let movesMade = Math.min(this.scoreHistory.length * showScoreFrequency, this.lastMove + 1);
+    movesMade = Math.max(movesMade - startingMoves, 1)
     return this.scoreHistory[this.scoreHistory.length-1] / movesMade;
   }
 
