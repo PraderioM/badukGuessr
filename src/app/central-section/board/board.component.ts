@@ -57,6 +57,10 @@ export class BoardComponent implements OnInit {
   }
 
   processGuess(row: number, column: number) {
+    // Let's start by setting hovering cell to undefined since we don't want it to override what we are about to set in this cell.
+    this.hoveringRow = undefined;
+    this.hoveringColumn = undefined;
+
     // Don't accept obviously invalid guesses.
     for (const stone of this.stonesInBoard) {
       if (stone.row === row && stone.column === column) {
