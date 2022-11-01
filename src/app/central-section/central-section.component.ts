@@ -180,6 +180,11 @@ export class CentralSectionComponent implements OnInit, OnChanges {
       return;
     }
 
+    // If there are no guesses we do nothing.
+    if (this.guesses.length === 0) {
+      return;
+    }
+
     // check that guess hasn't already been submitted and if not we signal that we have just done it.
     if (this.guessSubmitted) {
       return;
