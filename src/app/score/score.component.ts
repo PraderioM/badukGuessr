@@ -73,7 +73,7 @@ export class ScoreComponent implements OnInit {
   }
 
   getAverageScoreText() {
-    return 'Points per move: ' + this.getAverageScore().toPrecision(2);
+    return 'Points per move: ' + this.getAverageScore().toPrecision(1);
   }
 
   getAverageScore() {
