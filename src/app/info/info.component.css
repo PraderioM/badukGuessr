@@ -1,0 +1,20 @@
+.info {
+  display: block;
+  animation-name: animation_popup_appears;
+}
+
+.info_photo {
+  display: block;
+  position: relative;
+  width: 40%;
+  aspect-ratio: 1;
+  margin: auto;
+  border-radius: 50%;
+}
+
+.img_container {
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  width: 100%;
+}

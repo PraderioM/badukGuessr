@@ -1,4 +1,4 @@
-<div id="info" class="popup">
+<div class="info popup">
   <h2>TODAY'S GAME</h2>
   <div style="height: 18px;"></div>
   <div style="display: flex; flex-flow: row;">
@@ -21,13 +21,21 @@
     <strong>Baduk Guessr</strong> allows you to study professional
     <a href="https://en.wikipedia.org/wiki/Go_(game)" target="_blank">games of Go</a> in a fun way, trying to get the
     highest score possible. In every move, pick one (<strong>A</strong>) or more moves (up to <strong>D</strong>)
-    as potential next moves. Then, click "guess". If one of your guesses is correct, you earn points. The less options
-    you pick, the most points you get if you are correct.
+    as potential next moves. Then, click "guess" (or press <strong>ENTER</strong>). If one of your guesses is correct,
+    you earn points. The less options you pick, the most points you get if you are correct.
+    Alternatively you can use the arrow keys or the move buttons in order to navigate the game without guessing.
+    Be warned however that if you see a move this way you won't be allowed to earn points from guessing it later.
   </p>
   <div style="height: 8px;"></div>
   <p>
-    You can <strong>share</strong> your total score with your friends when you reach
-    <strong>50 moves</strong> (opening), <strong>100 moves</strong> (middle-game) or the end of the game.
+    Every {{showScoreFrequency}} moves (or when the end of the game is reached) your score history will be updated
+    and a popup will appear with your score progress so far. You can also access this score progress by clicking
+    on the total score displayed on top of the board.
+    Click <strong>COPY</strong> in order to copy your total score in your clipboard and share it with your friends.
+  </p>
+  <p>
+    Additionally at the end of the game you will have the option of downloading an sgf file with the daily game or,
+    alternatively, re-start the game and give it a second go.
   </p>
   <div style="height: 8px;"></div>
   <p>
@@ -36,16 +44,38 @@
   <div style="height: 20px;"></div>
   <div style="width: 250px; height: 1px; background-color: black;"></div>
   <div style="height: 20px;"></div>
-  <h2>ABOUT ME</h2>
+  <h2>ABOUT US</h2>
   <div style="height: 16px;"></div>
-  <div id="info_photo"></div>
+  <div class="img_container">
+    <img class="info_photo"
+         src="https://i.pinimg.com/originals/75/04/f1/7504f1f08a43b933c59e38a3a2834d17.jpg"
+         alt="Javier"/> <!-- todo change picture? -->
+    <img class="info_photo"
+         src="https://avatars0.githubusercontent.com/u/8282109?type=square&v=3"
+         alt="Marco"/> <!-- todo change picture? -->
+  </div>
+
   <div style="height: 33px;"></div>
   <p>
-    <strong>Hi!</strong> My name is Javier González. I developed <strong>Baduk Guessr</strong> in the wonderful
-    <a href="https://apply.baduk.club/" target="_blank">Baduk House</a>, in june 2022. This project has been possible
-    thanks to <a href="https://baduk.club/welcome" target="_blank">Baduk Club</a> and the
-    <a href="https://www.instagram.com/club_go_canarias/" target="_blank">GoFio - Club de Go de Canarias</a>.
-    You can e-mail me at <a style="font-weight: 300;" href="mailto:javierglezvega@gmail.com">javierglezvega@gmail.com</a>.
+    <strong>baduk Guessr</strong> was developed by two people. Javier González and Marco Praderio.
+    Javier came up with the idea of Baduk Guessr and developed an initial version in the wonderful
+    <a href="https://apply.baduk.club/" target="_blank">Baduk House</a>, in june 2022. Later on in October of that
+    same year Ai Guan (whom introduced Marco to Go) found the project and presented it to Marco whom decided to
+    improve it by adding new daily games among other extra features.
+  <p>
+  <p>
+    This project was made possible thanks to
+    <a href="https://baduk.club/welcome" target="_blank">Baduk Club</a>, the
+    <a href="https://www.instagram.com/club_go_canarias/" target="_blank">GoFio - Club de Go de Canarias</a>
+  and the
+  <a href="https://lancastersu.co.uk/groups/lancaster-go-club" target="_blank">Lancaster Go club</a>
+  </p>
+  <p>
+    You can e-mail us at:
+    <br>
+    &emsp;<span style="font-weight: 300;">javierglezvega<fa-icon [icon]="faAt"></fa-icon>gmail.com</span>.
+    <br>
+    &emsp;<span style="font-weight: 300;">PraderioM<fa-icon [icon]="faAt"></fa-icon>gmail.com</span>.
   </p>
   <div style="height: 20px;"></div>
   <button class="nice_button blue_button" (click)="closeInfo.emit();">CLOSE</button>

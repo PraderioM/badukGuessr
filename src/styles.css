@@ -9,24 +9,6 @@
   padding-top: 28px;
 }
 
-#info {
-  display: block;
-  animation-name: animation_popup_appears;
-}
-#info_photo {
-  display: block;
-  position: relative;
-  width: 130px;
-  height: 130px;
-  margin: auto;
-  border-radius: 50%;
-  /*background: url('./photo_javi.jpg') no-repeat center center; todo get link to Javi image.*/
-  background: url('https://i.pinimg.com/originals/75/04/f1/7504f1f08a43b933c59e38a3a2834d17.jpg') no-repeat center center;
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-}
 .score_summary {
   display: block;
   animation-name: animation_popup_appears;

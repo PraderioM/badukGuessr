@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { faAt } from '@fortawesome/free-solid-svg-icons';
+import {showScoreFrequency} from '../central-section/utils';
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
-  styleUrls: ['./info.component.css']
+  styleUrls: ['./info.component.css', '../../styles.css']
 })
 export class InfoComponent implements OnInit {
   @Output() closeInfo = new EventEmitter<void>();
@@ -12,6 +14,10 @@ export class InfoComponent implements OnInit {
   @Input() blackPlayerName: string = 'B';
   @Input() whitePlayerName: string = 'W';
   @Input() gameDate: string = 'unknown';
+
+  faAt = faAt;
+
+  showScoreFrequency = showScoreFrequency;
 
   constructor() { }
 
