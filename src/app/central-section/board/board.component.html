@@ -65,6 +65,7 @@
          class="intersection"
          [ngStyle]="{'top': getPos(position[0])+'%', 'left': getPos(position[1])+'%', 'z-index': 2}"
          (click)="processGuess(position[0], position[1])"
+         (tap)="removeHoveringCell(position[0], position[1])"
          (mouseenter)="setHoveringCell(position[0], position[1])"
          (mouseleave)="removeHoveringCell(position[0], position[1])">
     </div>
