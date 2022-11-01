@@ -162,4 +162,13 @@ export class BoardComponent implements OnInit {
   isCorrectGuess(i: number) {
     return this.correctGuess === i;
   }
+
+  getGuessOnBoardStyle() {
+    return {
+      intersection: true,
+      letter_on_board: true,
+      black_letter: this.moveNumber % 2 === 0,
+      white_letter: this.moveNumber % 2 === 1
+    };
+  }
 }

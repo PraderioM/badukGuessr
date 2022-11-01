@@ -30,6 +30,15 @@
   background: #FFE3C3;
 }
 
+.white_letter {
+  text-shadow: 0 0 3px black;
+  color: white;
+}
+
+.black_letter {
+  color: black;
+}
+
 .checkmark_on_board {
   display: block;
   position: absolute;
