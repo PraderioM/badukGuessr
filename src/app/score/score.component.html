@@ -1,6 +1,8 @@
 <div class="popup score_summary">
   <div class="score_total_score"></div>
   <div style="height: 20px;"></div>
+  <h2>ATTEMPT {{attempt}}</h2>
+  <div style="height: 20px;"></div>
   <div *ngFor="let score of scoreHistory; let i = index;">
     <h2>{{getScoreText(score, i)}}</h2>
     <div style="height: 20px;"></div>

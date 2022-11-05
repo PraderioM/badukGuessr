@@ -15,6 +15,7 @@ export class ScoreComponent implements OnInit {
   @Input() lastMove: number = 361;
   @Input() scoreHistory: number[] = [];
   @Input() game = getDailyGame();
+  @Input() attempt: number = 1;
 
   sgfFileUrl?: SafeUrl;
   isCopied: boolean = false;
@@ -60,7 +61,8 @@ export class ScoreComponent implements OnInit {
     const badukGuessrNumber = getDailyGameIndex() + 1;
     let outText = 'BadukGuessr #' + badukGuessrNumber + '\n';
     outText = outText + this.game.blackPlayerName + " " + this.game.blackPlayerRank + " (black)\nvs.\n";
-    outText = outText + this.game.whitePlayerName + " " + this.game.whitePlayerRank + " (white)\n\n";
+    outText = outText + this.game.whitePlayerName + " " + this.game.whitePlayerRank + " (white)\n";
+    outText = outText + 'Attempt #' + this.attempt + '\n\n';
     const n = this.scoreHistory.length;
     let score: number;
 
