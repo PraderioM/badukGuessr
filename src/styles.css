@@ -1,19 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-#welcome {
-  display: block;
-  animation-name: animation_popup_appears;
-}
-#introduction {
-  display: block;
-  animation-name: animation_popup_appears;
-  padding-top: 28px;
-}
-
-.score_summary {
-  display: block;
-  animation-name: animation_popup_appears;
-}
-
 .score_summary_total_score {
   display: block;
   position: relative;
@@ -27,6 +12,7 @@
 }
 
 .popup {
+  display: block;
   position: absolute;
   left: 50%;
   top: 43%;
@@ -42,6 +28,7 @@
   overflow-x: hidden;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  animation-name: animation_popup_appears;
 }
 
 .popup::-webkit-scrollbar { /*Chrome*/

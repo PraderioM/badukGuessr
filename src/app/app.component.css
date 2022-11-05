@@ -41,10 +41,9 @@
 }
 
 
-button.info_button {
+button.header_button {
   display: block;
   position: absolute;
-  right: 34px;
   top: 30px;
   width: 40px;
   height: 40px;
@@ -62,7 +61,7 @@ button.info_button {
   color: black;
 }
 
-button.info_button:hover {
+button.header_button:hover {
   box-shadow: 0 0 6px rgb(0,0,0,.5);
 }
 
@@ -75,7 +74,7 @@ button.info_button:hover {
   .logo_bar {left: 0; top: 0; width: 100vw; height: 60px;}
   .logo {left: 20px; top: 15px; font-size: 18px;}
 
-  button.info_button {
+  button.header_button {
     right: 18px;
     top: 14px;
     width: 30px;
@@ -86,5 +85,5 @@ button.info_button:hover {
     line-height: 29px;
     color: white;
   }
-  button.info_button:hover {box-shadow: none;}
+  button.header_button:hover {box-shadow: none;}
 }
