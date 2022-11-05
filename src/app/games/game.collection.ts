@@ -22,6 +22,16 @@ import {fanTingyuKangDongyun20221028} from './games/fan.tingyu.kang.dongyun.2022
 import {yangDingxinShinMinjun20221027} from './games/yang.dingxin.shin.minjun.2022.10.27';
 import {linJunyanLiWei20221028} from './games/lin.junyan.li.wei.2022.10.28';
 import {heoSeohyunKimKyeongeun20221029} from './games/heo.seohyun.kim.kyeongeun.2022.10.29';
+import {leeHyungjinNakamuraSumire20221101} from './games/lee.hyungjin.nakamura.sumire.2022.11.01';
+import {kimChanwuChoiKyubyeong20221102} from './games/kim.chanwu.choi.kyubyeong.2022.11.02';
+import {kimKihunChoDaehyeon20221102} from './games/kim.kihun.cho.daehyeon.2022.11.02';
+import {iyamaYutaShibanoToramaru20221102} from './games/iyama.yuta.shibano.toramaru.2022.11.02';
+import {parkSeungmunYooChanghyuk20221102} from './games/park.seungmun.yoo.changhyuk.2022.11.02';
+import {tangWeixingKimMyounghoon20221031} from './games/tang.weixing.kim.myounghoon.2022.10.31';
+import {kimIlhwanKimChongsu20221102} from './games/kim.ilhwan.kim.chongsu.2022.11.02';
+import {kwonHyojinAnKwanwuk20221102} from './games/kwon.hyojin.an.kwanwuk.2022.11.02';
+import {byunSangilGuZihao20221031} from './games/byun.sangil.gu.zihao.2022.10.31';
+import {choiJeongYangDingxin20221103} from './games/choi.jeong.yang.dingxin.2022.11.03';
 
 const startingDate = new Date(2022, 9, 24, 0, 0, 0, 0);
 const startingUTC = getUTCFromDate(startingDate);
@@ -70,4 +80,14 @@ const allGames: Game[] = [
   yangDingxinShinMinjun20221027,
   linJunyanLiWei20221028,
   heoSeohyunKimKyeongeun20221029,
+  leeHyungjinNakamuraSumire20221101,
+  kimChanwuChoiKyubyeong20221102,
+  kimKihunChoDaehyeon20221102,
+  iyamaYutaShibanoToramaru20221102,
+  parkSeungmunYooChanghyuk20221102,
+  tangWeixingKimMyounghoon20221031,
+  kimIlhwanKimChongsu20221102,
+  kwonHyojinAnKwanwuk20221102,
+  byunSangilGuZihao20221031,
+  choiJeongYangDingxin20221103,
 ];
