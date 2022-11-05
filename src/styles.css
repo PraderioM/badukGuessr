@@ -17,13 +17,13 @@
   left: 50%;
   top: 43%;
   width: 250px;
+  max-height: 400px;
   transform: translate(-50%,-50%);
   background-color: white;
   border-radius: 30px;
   box-shadow: 0 0 15px rgb(0,0,0,.8);
   animation-duration: .3s;
   padding: 40px 30px 40px 30px;
-  max-height: 400px;
   overflow-y: scroll;
   overflow-x: hidden;
   -ms-overflow-style: none;  /* IE and Edge */
@@ -150,12 +150,18 @@ button.white_button {
 }
 
 @keyframes animation_popup_appears {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  0% {opacity: 0; width: 0; max-height: 0;}
+  25% {opacity: .25; width: 62px; max-height: 100px;}
+  50% {opacity: .5; width: 125px; max-height: 200px;}
+  75% {opacity: .75; width: 188px; max-height: 300px;}
+  100% {opacity: 1; width: 250px; max-height: 400px;}
 }
 @keyframes animation_popup_disappears {
-  0% {opacity: 1;}
-  100% {opacity: 0;}
+  0% {opacity: 1; width: 250px; max-height: 400px;}
+  25% {opacity: .75; width: 188px; max-height: 300px;}
+  50% {opacity: .5; width: 125px; max-height: 200px;}
+  75% {opacity: .25; width: 62px; max-height: 100px;}
+  100% {opacity: 0; width: 0; max-height: 0;}
 }
 
 ::selection {
