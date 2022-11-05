@@ -12,7 +12,9 @@
 <app-central-section (showScore)="updateAndShowScore($event)"
                      (closePopups)="processPopupClosing()"
                      (reviewConcluded)="showReviewConcludedView()"
+                     (autoPlayedMove)="updateMoveLoading($event)"
                      [gameRun]="gameRun"
+                     [autoPlay]="loadMoves"
                      [gamePaused]="isGamePaused()"
                      [game]="game">
 

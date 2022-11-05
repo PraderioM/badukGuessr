@@ -1,7 +1,9 @@
 import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {startingMoves, showScoreFrequency, maxGuesses, getEarnedPoints} from './utils';
+import {showScoreFrequency, maxGuesses, getEarnedPoints} from './utils';
 import {Game, Move} from '../games/models';
 import {getDailyGame} from '../games/game.collection';
+import {latestMoveName, latestScoreName, scoreHistoryName} from '../cookies.names';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-central-section',
@@ -12,7 +14,9 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   @Output() showScore = new EventEmitter<number[]>();
   @Output() reviewConcluded = new EventEmitter<void>();
   @Output() closePopups = new EventEmitter<void>();
+  @Output() autoPlayedMove = new EventEmitter<number>();
   @Input() gameRun: number = 0;
+  @Input() autoPlay: boolean = false;
   @Input() game: Game = getDailyGame();
   @Input() gamePaused: boolean = false;
 
@@ -42,24 +46,57 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     }
   }
 
-  constructor() { }
+  constructor(private cookieService: CookieService) {
+    // If there is some score metadata we get it.
+    if (this.cookieService.check(latestMoveName)) {
+      const moveNumber = parseInt(this.cookieService.get(latestMoveName));
+      this.moveNumber = moveNumber;
+      this.maxMoveNumber = moveNumber;
+
+      // Set/get score.
+      if (this.cookieService.check(latestScoreName)) {
+        this.score = parseInt(this.cookieService.get(latestScoreName));
+      } else {
+        this.cookieService.set(latestScoreName, this.score.toString());
+      }
+
+      // Set/get score history.
+      if (this.cookieService.check(scoreHistoryName)) {
+        this.scoreHistory = JSON.parse(this.cookieService.get(scoreHistoryName));
+      } else {
+        this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory));
+      }
+
+      // // Set/get game ended
+      // if (this.cookieService.check(gameEndedName)) {
+      //   this.gameEnded = JSON.parse(this.cookieService.get(gameEndedName));
+      // } else {
+      //   this.cookieService.set(gameEndedName, JSON.stringify(this.gameEnded));
+      // }
+    } else {
+      this.cookieService.set(latestMoveName, this.maxMoveNumber.toString());
+      this.cookieService.set(latestScoreName, this.score.toString());
+      this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory));
+      // this.cookieService.set(gameEndedName, JSON.stringify(this.gameEnded));
+    }
+  }
 
   ngOnInit() {
 
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['gameRun'] === undefined || changes['gameRun'].firstChange) {
+    if (changes['autoPlay'] === undefined || changes['autoPlay'].firstChange) {
       return;
     }
 
-    const currentGameRun: number = changes['gameRun'].currentValue;
-    const previousGameRun: number = changes['gameRun'].previousValue;
+    const currentAutoPlay: number = changes['autoPlay'].currentValue;
+    const previousAutoPlay: number = changes['autoPlay'].previousValue;
 
     // If thief game has started we need to initialize it by playing the first moves.
-    if (previousGameRun != undefined && currentGameRun > previousGameRun) {
+    if (previousAutoPlay != undefined && currentAutoPlay && ! previousAutoPlay) {
       this.restartGameMeta();
-      this.playFirstMoves();
+      this.autoPlayNextMove();
     }
   }
 
@@ -69,6 +106,10 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     this.moveNumber = 0;
     this.maxMoveNumber = 0;
     this.gameEnded = false;
+    this.cookieService.set(scoreHistoryName, '[]');
+    this.cookieService.set(latestScoreName, '0');
+    this.cookieService.set(latestMoveName, '0');
+    // this.cookieService.set(gameEndedName, 'false');
   }
 
   restartGuesses() {
@@ -77,11 +118,13 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     this.guessSubmitted = false;
   }
 
-  playFirstMoves() {
-    this.goToNextMove();
-    if (this.moveNumber < startingMoves) {
-      setTimeout(this.playFirstMoves.bind(this), this.nextMoveDelay);
+  autoPlayNextMove() {
+    if (!this.autoPlay) {
+      return;
     }
+    this.goToNextMove();
+    this.autoPlayedMove.emit(this.moveNumber);
+    setTimeout(this.autoPlayNextMove.bind(this), this.nextMoveDelay);
   }
 
   changeGameMove(moveChange: number) {
@@ -109,7 +152,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     this.moveNumber = Math.min(this.moveNumber, this.game.lastMove + 1);
 
     // Update last checkpoint.
-    this.maxMoveNumber = Math.max(this.moveNumber, this.maxMoveNumber);
+    this.updateMaxMoveNumber(Math.max(this.moveNumber, this.maxMoveNumber));
 
     // If last checkpoint was reached after a review we trigger an event to show a popup with this information.
     if (wasReviewing && this.moveNumber === this.maxMoveNumber) {
@@ -127,7 +170,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
         if (this.moveNumber !== showScoreFrequency * (this.scoreHistory.length + 1)) {
           this.scoreHistory.push(this.score);
         }
-        this.showScore.emit(this.scoreHistory);
+        this.onShowScore();
       }
       this.gameEnded = true;
       return;
@@ -136,7 +179,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     // We periodically show score progress.
     if (this.maxMoveNumber === this.moveNumber && this.moveNumber >= showScoreFrequency * (this.scoreHistory.length + 1)) {
       this.fillScoreHistory();
-      this.showScore.emit(this.scoreHistory);
+      this.onShowScore();
     }
   }
 
@@ -208,7 +251,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     }
 
     // Update score.
-    this.score += getEarnedPoints(this.correctGuess, this.guesses.length);
+    this.updateScore(this.score + getEarnedPoints(this.correctGuess, this.guesses.length));
 
     // Go to next after a small delay.
     if (changeMove) {
@@ -226,5 +269,20 @@ export class CentralSectionComponent implements OnInit, OnChanges {
 
   isReviewing() {
     return this.moveNumber < this.maxMoveNumber || this.moveNumber >= this.game.lastMove + 1;
+  }
+
+  private updateMaxMoveNumber(newNumber: number) {
+    this.maxMoveNumber = newNumber;
+    this.cookieService.set(latestMoveName, this.maxMoveNumber.toString());
+  }
+
+  private onShowScore() {
+    this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory));
+    this.showScore.emit(this.scoreHistory);
+  }
+
+  private updateScore(newScore: number) {
+    this.score = newScore;
+    this.cookieService.set(latestScoreName, this.score.toString());
   }
 }
