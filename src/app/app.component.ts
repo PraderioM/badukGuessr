@@ -13,6 +13,7 @@ import {startingMoves} from './central-section/utils';
 export class AppComponent {
   title = 'baduk-guesser';
   infoVisible = false;
+  moreVisible = false;
   welcomeVisible = true;
   introductionVisible = false;
   reviewConcludedVisible = false;
@@ -46,13 +47,19 @@ export class AppComponent {
   }
 
   showInfoView() {
-    console.log('Showing info view');
     this.infoVisible = true;
   }
 
   hideInfoView() {
-    console.log('hiding info view');
     this.infoVisible = false;
+  }
+
+  showMoreView() {
+    this.moreVisible = true;
+  }
+
+  hideMoreView() {
+    this.moreVisible = false;
   }
 
   showReviewConcludedView() {
@@ -135,7 +142,9 @@ export class AppComponent {
   }
 
   isGamePaused() {
-    return this.welcomeVisible || this.introductionVisible || this.infoVisible || this.reviewConcludedVisible || this.scoreVisible;
+    let isPaused = this.welcomeVisible || this.introductionVisible || this.infoVisible || this.moreVisible;
+    isPaused = isPaused || this.reviewConcludedVisible || this.scoreVisible;
+    return isPaused;
   }
 
   processPopupClosing() {
@@ -149,6 +158,8 @@ export class AppComponent {
       this.hideReviewConcludedView();
     } else if (this.scoreVisible) {
       this.hideScoreView();
+    } else if (this.moreVisible) {
+      this.hideMoreView();
     }
   }
 

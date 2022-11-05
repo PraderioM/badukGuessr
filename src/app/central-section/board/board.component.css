@@ -1,3 +1,36 @@
+.board_shadow {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%,-50%);
+  width: 80%;
+  height: 80%;
+  background-color: grey;
+  -webkit-filter: blur(25px);
+  -ms-filter: blur(25px);
+  filter: blur(25px);
+  z-index: -1;
+}
+
+.board_container {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 8%;
+  width: 100%;
+  height: 77%;
+}
+
+.stones_container {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 8%;
+  width: 100%;
+  height: 70%;
+}
+
 .last-stone-dot {
   display: block;
   position: absolute;

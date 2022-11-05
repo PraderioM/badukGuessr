@@ -177,15 +177,6 @@ button.white_button {
   margin: 0;
   -webkit-tap-highlight-color: transparent;
 }
-#screen_master {
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 70vh;
-  height: 100vh;
-  transform: translate(-50%,0%);
-}
 
 .player_turn {
   display: block;
@@ -206,20 +197,6 @@ button.white_button {
   color: black;
 }
 
-.total_score_parent {
-  display: block;
-  position: absolute;
-  right: 2.5%;
-  top: 50%;
-  transform: translate(0%,-35%);
-  height: 50%;
-  animation-name: animation_total_score_parent_appears;
-  animation-duration: .25s;
-
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.1vh;
-  line-height: 1.5em;
-}
 
 .score_parent {
   right: 2.5%;
@@ -234,38 +211,6 @@ button.white_button {
   100% {opacity: 1; top: 50%;}
 }
 
-#board_shadow {
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 60%;
-  transform: translate(-50%,-50%);
-  width: 80%;
-  height: 80%;
-  background-color: grey;
-  -webkit-filter: blur(25px);
-  /*-moz-filter: blur(25px);*/ /*todo this is not a css property. Check it.*/
-  /*-o-filter: blur(25px);*/ /*todo this is not a css property. Check it.*/
-  -ms-filter: blur(25px);
-  filter: blur(25px);
-  z-index: -1;
-}
-#board_master {
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 8%;
-  width: 100%;
-  height: 77%;
-}
-#stones_master {
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 8%;
-  width: 100%;
-  height: 70%;
-}
 .stone {
   display: block;
   position: absolute;
