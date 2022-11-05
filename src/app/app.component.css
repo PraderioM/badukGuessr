@@ -23,7 +23,21 @@
   width: 112px;
   height: 82px;
   background-color: #1A1A1A;
-  cursor: pointer;
+  animation-name: logo_reduces;
+}
+
+@keyframes logo_reduces {
+  0% {left: 0; top: 0; width: 100vw; height: 60px;}
+  33% {left: 12px; top:12px; width: 75vw; height: 67px;}
+  66% {left: 24px; top:24px; width: 50vw; height: 74px;}
+  100% {left: 37px; top:35px; width: 112px; height: 82px}
+}
+
+@keyframes logo_increases {
+  0% {left: 37px; top:35px; width: 112px; height: 82px}
+  33% {left: 24px; top:24px; width: 50vw; height: 74px;}
+  66% {left: 12px; top:12px; width: 75vw; height: 67px;}
+  100% {left: 0; top: 0; width: 100vw; height: 60px;}
 }
 
 .logo {
@@ -71,7 +85,7 @@ button.header_button:hover {
 
 
 @media screen and (max-width: 970px) {
-  .logo_bar {left: 0; top: 0; width: 100vw; height: 60px;}
+  .logo_bar {left: 0; top: 0; width: 100vw; height: 60px; animation-name: logo_increases}
   .logo {left: 20px; top: 15px; font-size: 18px;}
 
   button.header_button {
