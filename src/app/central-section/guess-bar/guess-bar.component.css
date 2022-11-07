@@ -1,4 +1,4 @@
-.bar_and_button_master {
+.bar_and_button_container {
   display: block;
   position: absolute;
   left: 0;
@@ -113,4 +113,8 @@ button.inactive {
   background-color: #2EAEF2;
   pointer-events: auto;
   vertical-align: center;
+}
+
+@media screen and (max-width: 800px) {
+  .bar_and_button_container {position: relative; height: 150px;}
 }
