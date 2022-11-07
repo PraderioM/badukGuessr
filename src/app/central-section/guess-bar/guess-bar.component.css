@@ -114,16 +114,3 @@ button.inactive {
   pointer-events: auto;
   vertical-align: center;
 }
-
-
-@media screen and (max-width: 800px) {
-  .bar_and_button_master {position: relative; height: 150px;}
-  .animated_number_going_up_parent {height: 36px;}
-  .animated_number_going_up {font-size: 24px;}
-  .guess_bar_parent {height: 30px;}
-  .guess {font-size: 16px; line-height: 28px; border-radius: 15px;}
-  .guess_letter {font-size: 4.3vw;}
-  .guess_button_parent {height: 90px;}
-  .button.control_button {font-size: 16px; width: 99px; height: 45px; border-radius: 23px;}
-  .button.control_button:hover {box-shadow: none;}
-}

@@ -6,6 +6,7 @@
   width: 100%;
   height: 8%;
   overflow: hidden;
+  transition: .3s ease;
 }
 
 .move_loading {
@@ -81,13 +82,9 @@
 
 @media screen and (max-width: 970px) {
   .move_info_master {position: relative; height: 50px; color: white}
-  .player_parent {font-size: 16px; color: white}
+  .player_parent {color: white}
   .vertical_bar {background-color: white}
-  .number_of_moves {font-size: 15px; color: white}
-  .stone_to_play {width: 20px; height: 20px;}
-  .total_score_parent {font-size: 15px;}
-  .score_parent{font-size: 15px;}
-  .total_score {font-size: 40px;}
+  .number_of_moves {color: white}
 }
 
 @media screen and (max-width: 800px) {

@@ -1,0 +1,13 @@
+.screen_master {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 70vh;
+  height: 100vh;
+  transform: translate(-50%,0%);
+}
+
+@media screen and (max-width: 800px) {
+  .screen_master {top: 60px;}
+}

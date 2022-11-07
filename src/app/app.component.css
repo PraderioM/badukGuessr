@@ -23,21 +23,7 @@
   width: 112px;
   height: 82px;
   background-color: #1A1A1A;
-  animation-name: logo_reduces;
-}
-
-@keyframes logo_reduces {
-  0% {left: 0; top: 0; width: 100vw; height: 60px;}
-  33% {left: 12px; top:12px; width: 75vw; height: 67px;}
-  66% {left: 24px; top:24px; width: 50vw; height: 74px;}
-  100% {left: 37px; top:35px; width: 112px; height: 82px}
-}
-
-@keyframes logo_increases {
-  0% {left: 37px; top:35px; width: 112px; height: 82px}
-  33% {left: 24px; top:24px; width: 50vw; height: 74px;}
-  66% {left: 12px; top:12px; width: 75vw; height: 67px;}
-  100% {left: 0; top: 0; width: 100vw; height: 60px;}
+  transition: .3s ease;
 }
 
 .logo {
@@ -52,15 +38,15 @@
   font-size: 26px;
   color: white;
   line-height:  0.8em;
+  transition: .3s ease;
 }
-
 
 button.header_button {
   display: block;
   position: absolute;
   top: 30px;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border: none;
   outline: none;
   cursor: pointer;
@@ -79,25 +65,16 @@ button.header_button:hover {
   box-shadow: 0 0 6px rgb(0,0,0,.5);
 }
 
-@media screen and (max-width: 800px) {
-  .guess_button_parent {height: 90px;}
-}
-
 
 @media screen and (max-width: 970px) {
-  .logo_bar {left: 0; top: 0; width: 100vw; height: 60px; animation-name: logo_increases}
+  .logo_bar {left: 0; top: 0; width: 100vw; height: 60px;}
   .logo {left: 20px; top: 15px; font-size: 18px;}
 
   button.header_button {
-    right: 18px;
     top: 14px;
-    width: 30px;
-    height: 30px;
     border: 1px solid white;
     background-color: black;
-    font-size: 14px;
-    line-height: 29px;
     color: white;
   }
-  button.header_button:hover {box-shadow: none;}
+  button.header_button:hover {box-shadow: rgb(255,255,255,.5);}
 }
