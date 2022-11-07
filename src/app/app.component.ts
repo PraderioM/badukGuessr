@@ -38,11 +38,13 @@ export class AppComponent {
   }
 
   resetCookies() {
-    this.cookieService.set(gameIndexName, getDailyGameIndex().toString());
-    this.cookieService.set(gameRunName, '0');
-    this.cookieService.set(scoreHistoryName, '[]');
-    this.cookieService.set(latestScoreName, '0');
-    this.cookieService.set(latestMoveName, '0');
+    let expiry = new Date();
+    expiry.setDate(expiry.getDate()+1);
+    this.cookieService.set(gameIndexName, getDailyGameIndex().toString(), expiry);
+    this.cookieService.set(gameRunName, '0', expiry);
+    this.cookieService.set(scoreHistoryName, '[]', expiry);
+    this.cookieService.set(latestScoreName, '0', expiry);
+    this.cookieService.set(latestMoveName, '0', expiry);
     // this.cookieService.set(gameEndedName, 'false');
   }
 
@@ -54,9 +56,9 @@ export class AppComponent {
     this.infoVisible = false;
   }
 
-  showMoreView() {
-    this.moreVisible = true;
-  }
+  // showMoreView() {
+  //   this.moreVisible = true;
+  // }
 
   hideMoreView() {
     this.moreVisible = false;
@@ -138,7 +140,9 @@ export class AppComponent {
 
   updateGameRun() {
     this.gameRun += 1;
-    this.cookieService.set(gameRunName, this.gameRun.toString());
+    let expiry = new Date();
+    expiry.setDate(expiry.getDate()+1);
+    this.cookieService.set(gameRunName, this.gameRun.toString(), expiry);
   }
 
   isGamePaused() {

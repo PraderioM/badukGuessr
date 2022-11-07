@@ -47,6 +47,9 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   }
 
   constructor(private cookieService: CookieService) {
+    let expiry = new Date();
+    expiry.setDate(expiry.getDate()+1);
+
     // If there is some score metadata we get it.
     if (this.cookieService.check(latestMoveName)) {
       const moveNumber = parseInt(this.cookieService.get(latestMoveName));
@@ -57,27 +60,27 @@ export class CentralSectionComponent implements OnInit, OnChanges {
       if (this.cookieService.check(latestScoreName)) {
         this.score = parseInt(this.cookieService.get(latestScoreName));
       } else {
-        this.cookieService.set(latestScoreName, this.score.toString());
+        this.cookieService.set(latestScoreName, this.score.toString(), expiry);
       }
 
       // Set/get score history.
       if (this.cookieService.check(scoreHistoryName)) {
         this.scoreHistory = JSON.parse(this.cookieService.get(scoreHistoryName));
       } else {
-        this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory));
+        this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), expiry);
       }
 
       // // Set/get game ended
       // if (this.cookieService.check(gameEndedName)) {
       //   this.gameEnded = JSON.parse(this.cookieService.get(gameEndedName));
       // } else {
-      //   this.cookieService.set(gameEndedName, JSON.stringify(this.gameEnded));
+      //   this.cookieService.set(gameEndedName, JSON.stringify(this.gameEnded), expiry);
       // }
     } else {
-      this.cookieService.set(latestMoveName, this.maxMoveNumber.toString());
-      this.cookieService.set(latestScoreName, this.score.toString());
-      this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory));
-      // this.cookieService.set(gameEndedName, JSON.stringify(this.gameEnded));
+      this.cookieService.set(latestMoveName, this.maxMoveNumber.toString(), expiry);
+      this.cookieService.set(latestScoreName, this.score.toString(), expiry);
+      this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), expiry);
+      // this.cookieService.set(gameEndedName, JSON.stringify(this.gameEnded), expiry);
     }
   }
 
@@ -101,15 +104,18 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   }
 
   restartGameMeta() {
+    let expiry = new Date();
+    expiry.setDate(expiry.getDate()+1);
+
     this.scoreHistory = [];
     this.score = 0;
     this.moveNumber = 0;
     this.maxMoveNumber = 0;
     this.gameEnded = false;
-    this.cookieService.set(scoreHistoryName, '[]');
-    this.cookieService.set(latestScoreName, '0');
-    this.cookieService.set(latestMoveName, '0');
-    // this.cookieService.set(gameEndedName, 'false');
+    this.cookieService.set(scoreHistoryName, '[]', expiry);
+    this.cookieService.set(latestScoreName, '0', expiry);
+    this.cookieService.set(latestMoveName, '0', expiry);
+    // this.cookieService.set(gameEndedName, 'false', expiry);
   }
 
   restartGuesses() {
@@ -272,17 +278,26 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   }
 
   private updateMaxMoveNumber(newNumber: number) {
+    let expiry = new Date();
+    expiry.setDate(expiry.getDate()+1);
+
     this.maxMoveNumber = newNumber;
-    this.cookieService.set(latestMoveName, this.maxMoveNumber.toString());
+    this.cookieService.set(latestMoveName, this.maxMoveNumber.toString(), expiry);
   }
 
   private onShowScore() {
-    this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory));
+    let expiry = new Date();
+    expiry.setDate(expiry.getDate()+1);
+
+    this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), expiry);
     this.showScore.emit(this.scoreHistory);
   }
 
   private updateScore(newScore: number) {
+    let expiry = new Date();
+    expiry.setDate(expiry.getDate()+1);
+
     this.score = newScore;
-    this.cookieService.set(latestScoreName, this.score.toString());
+    this.cookieService.set(latestScoreName, this.score.toString(), expiry);
   }
 }
