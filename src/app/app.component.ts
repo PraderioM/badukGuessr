@@ -22,6 +22,7 @@ export class AppComponent {
   scoreHistory: number[] = [];
   gameRun = 0;
   game: Game = getDailyGame();
+  gameIndex: number = getDailyGameIndex();
   loadMoves = false;
 
   constructor(private cookieService: CookieService) {
