@@ -33,8 +33,12 @@ export class AppComponent {
     // If there are cookies and if we reached this point it means that cookies correspond to today's game. we reload it.
     else if (this.cookieService.check(gameIndexName)) {
       this.loadCookies();
-      // We ask if cookies should be loaded.
-      this.hideWelcomeView();
+      // We load cookies only if a move was played before.
+      if (this.cookieService.check(latestMoveName)) {
+        if (parseInt(this.cookieService.get(latestMoveName)) > startingMoves) {
+          this.hideWelcomeView();
+        }
+      }
     }
   }
 

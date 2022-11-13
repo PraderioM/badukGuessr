@@ -54,6 +54,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     // If there is some score metadata we get it.
     if (this.cookieService.check(latestMoveName)) {
       const moveNumber = parseInt(this.cookieService.get(latestMoveName));
+      // We only load the game if at least one move was played.
       if (moveNumber > startingMoves) {
         this.moveNumber = moveNumber;
         this.maxMoveNumber = moveNumber;
