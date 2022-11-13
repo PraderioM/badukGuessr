@@ -244,20 +244,6 @@ button.white_button {
   opacity: .5;
 }
 
-.checkmark {
-  display: block;
-  position: absolute;
-  width: 3vh;
-  height: 3vh;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  fill: none;
-  stroke: white;
-  stroke-width: 2;
-  animation-name: checkmark_animation;
-  animation-duration: .25s;
-}
 #lock_board_layer {
   display: block;
   position: absolute;
@@ -280,15 +266,4 @@ button.white_button {
   stroke-width: 3;
   pointer-events: none;
   background-color: #FFE3C3;
-}
-
-@keyframes checkmark_animation {
-  0% {opacity: 0; transform: translate(-50%,-50%) scale(0, 0);}
-  20% {opacity: 0; transform: translate(-50%,-50%) scale(0, 0);}
-  85% {opacity: 1; transform: translate(-50%,-50%) scale(1.2, 1.2);}
-  100% {opacity: 1; transform: translate(-50%,-50%) scale(1, 1);}
-}
-
-@media screen and (max-width: 960px) {
-  .checkmark {width: 22px; height: 22px; top: 46%;}
 }

@@ -72,35 +72,6 @@
   color: black;
 }
 
-.checkmark_on_board {
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  fill: none;
-  stroke: #92D095;
-  stroke-width: 3;
-  animation-name: checkmark_animation;
-  animation-duration: .35s;
-}
-.x_on_board {
-  display: block;
-  position: absolute;
-  width: 80%;
-  height: 80%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  fill: none;
-  stroke: #FF899E;
-  stroke-width: 3;
-  animation-name: checkmark_animation;
-  animation-duration: .2s;
-}
-
 
 @keyframes checkmark_animation {
   0% {opacity: 0; transform: translate(-50%,-50%) scale(0, 0);}
