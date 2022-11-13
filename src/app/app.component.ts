@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {Game} from './games/models';
+import {Component, HostListener} from '@angular/core';
+import {Game, Move} from './games/models';
 import {getDailyGame, getDailyGameIndex} from './games/game.collection';
 import {CookieService} from 'ngx-cookie-service';
 import {gameIndexName, gameRunName, latestMoveName, latestScoreName, scoreHistoryName} from './cookies.names';
@@ -25,6 +25,16 @@ export class AppComponent {
   loadMoves = false;
   moveNumber = 0;
   guessSquareSize: number = 1;
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    const key = event.key;
+    if (key === 'ArrowUp') {
+      this.changeGuessSquareSize(1);
+    } else if (key === 'ArrowDown') {
+      this.changeGuessSquareSize(-1);
+    }
+  }
 
   constructor(private cookieService: CookieService) {
     // If there are no cookies or if daily game has changed since last time cookies where saved we reset cookies.
