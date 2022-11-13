@@ -4,7 +4,7 @@ import {showScoreFrequency} from '../central-section/utils';
 @Component({
   selector: 'app-introduction',
   templateUrl: './introduction.component.html',
-  styleUrls: ['./introduction.component.css']
+  styleUrls: ['./introduction.component.css', '../../styles.css']
 })
 export class IntroductionComponent implements OnInit {
   @Output() startGame = new EventEmitter<void>();
