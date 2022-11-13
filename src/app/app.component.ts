@@ -2,11 +2,13 @@ import {Component, HostListener} from '@angular/core';
 import {Game, Move} from './games/models';
 import {getDailyGame, getDailyGameIndex} from './games/game.collection';
 import {CookieService} from 'ngx-cookie-service';
-import {gameIndexName, gameRunName, hintsRequestedName, latestScoreName, scoreHistoryName} from './cookies.names';
+import {gameIndexName, gameRunName, hintsRequestedName, latestScoreName, scoreHistoryName, showScoreFrequencyName} from './cookies.names';
 import {
   boardSize,
   maxGuessSquareSize,
   maxHintSquareSize,
+  maxShowScoreFrequency,
+  minShowScoreFrequency,
   pointsPerSingleGuess,
   showScoreFrequency,
   startingMoves,
@@ -27,6 +29,8 @@ export class AppComponent {
   confirmationVisible = false;
   scoreHistory: number[] = [];
   currentScore: number = 0;
+  minShowScoreFrequency = minShowScoreFrequency;
+  maxShowScoreFrequency = maxShowScoreFrequency;
   showScoreFrequency = showScoreFrequency;
   gameRun = 0;
   game: Game = getDailyGame();
@@ -53,6 +57,9 @@ export class AppComponent {
   }
 
   constructor(private cookieService: CookieService) {
+    // load metadata.
+    this.loadMetaCookies();
+
     // If there are no cookies or if daily game has changed since last time cookies where saved we reset cookies.
     if (!this.cookieService.check(gameIndexName) || getDailyGameIndex() !== parseInt(this.cookieService.get(gameIndexName))) {
       this.resetCookies()
@@ -163,6 +170,11 @@ export class AppComponent {
     this.cookieService.set(latestScoreName, this.currentScore.toString());
   }
 
+  updateShowScoreFrequency(frequency: number) {
+    this.showScoreFrequency = frequency;
+    this.cookieService.set(showScoreFrequencyName, this.showScoreFrequency.toString());
+  }
+
   closeScoreTabAndRestart() {
     this.hideConfirmationView();
     this.updateGameRun();
@@ -204,7 +216,7 @@ export class AppComponent {
     }
   }
 
-  // Load cookies.
+  // Load game dependent cookies.
   private loadCookies() {
     // Load game index.
     if (this.cookieService.check(gameIndexName)) {
@@ -244,6 +256,16 @@ export class AppComponent {
     } else {
       this.scoreHistory = [];
       this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory));
+    }
+  }
+
+  loadMetaCookies() {
+    // Load showScore frequency.
+    if (this.cookieService.check(showScoreFrequencyName)) {
+      this.showScoreFrequency = parseInt(this.cookieService.get(showScoreFrequencyName));
+    } else {
+      this.showScoreFrequency = showScoreFrequency;
+      this.cookieService.set(showScoreFrequencyName, this.showScoreFrequency.toString());
     }
   }
 
@@ -310,6 +332,12 @@ export class AppComponent {
 
   changeHintSquareSize(sizeChange: number) {
     this.hintSquareSize = this.getBoundedChange(this.hintSquareSize, sizeChange, 2, maxHintSquareSize);
+  }
+
+  changeShowScoreFrequency(frequencyChange: number) {
+    this.updateShowScoreFrequency(
+      this.getBoundedChange(this.showScoreFrequency, frequencyChange, minShowScoreFrequency, maxShowScoreFrequency)
+    );
   }
 
   getBoundedChange(val: number, change: number, min: number, max: number) {

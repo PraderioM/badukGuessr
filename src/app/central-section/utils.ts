@@ -8,6 +8,9 @@ export const boardSize = 19;
 export const maxGuessSquareSize = 5;
 export const maxHintSquareSize = 5;
 
+export const minShowScoreFrequency = startingMoves + 1;
+export const maxShowScoreFrequency = 1000;
+
 export const pointsPerSingleGuess = 100;
 
 
