@@ -24,6 +24,7 @@
   height: 82px;
   background-color: #1A1A1A;
   transition: .3s ease;
+  vertical-align: middle;
 }
 
 .logo {
@@ -41,7 +42,7 @@
   transition: .3s ease;
 }
 
-button.header_button {
+.header_button {
   display: block;
   position: absolute;
   top: 30px;
@@ -57,24 +58,26 @@ button.header_button {
   font-family: 'Secular One', sans-serif;
   font-size: 20px;
   text-align: center;
-  line-height: 39px;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
   color: black;
 }
 
-button.header_button:hover {
+.header_button:hover {
   box-shadow: 0 0 6px rgb(0,0,0,.5);
 }
 
 
 @media screen and (max-width: 970px) {
-  .logo_bar {left: 0; top: 0; width: 100vw; height: 60px;}
-  .logo {left: 20px; top: 15px; font-size: 18px;}
+  .logo_bar {left: 0; top: 0; width: 100vw; height: 65px;}
+  .logo {left: 20px; top: 15px;}
 
-  button.header_button {
+  .header_button {
     top: 14px;
     border: 1px solid white;
     background-color: black;
     color: white;
   }
-  button.header_button:hover {box-shadow: rgb(255,255,255,.5);}
+  .header_button:hover {box-shadow: rgb(255,255,255,.5);}
 }

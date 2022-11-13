@@ -115,6 +115,6 @@ button.inactive {
   vertical-align: center;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 960px) {
   .bar_and_button_container {position: relative; height: 150px;}
 }

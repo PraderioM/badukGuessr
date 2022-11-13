@@ -87,7 +87,7 @@
   .number_of_moves {color: white}
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 960px) {
   .move_info_master {color: black}
   .player_parent {color: black}
   .vertical_bar {background-color: black}

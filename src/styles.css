@@ -289,6 +289,6 @@ button.white_button {
   100% {opacity: 1; transform: translate(-50%,-50%) scale(1, 1);}
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 960px) {
   .checkmark {width: 22px; height: 22px; top: 46%;}
 }

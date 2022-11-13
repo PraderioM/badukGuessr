@@ -109,7 +109,7 @@
   100% {opacity: 1; transform: translate(-50%,-50%) scale(1, 1);}
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 960px) {
   .board_container {top: 50px; width: 100vw; height: 110vw;}
   .stones_container {position: relative; width: 100vw; height: 100vw;}
 }

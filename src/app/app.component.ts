@@ -57,9 +57,9 @@ export class AppComponent {
     this.infoVisible = false;
   }
 
-  // showMoreView() {
-  //   this.moreVisible = true;
-  // }
+  showMoreView() {
+    this.moreVisible = true;
+  }
 
   hideMoreView() {
     this.moreVisible = false;
