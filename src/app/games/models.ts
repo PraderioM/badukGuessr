@@ -66,4 +66,14 @@ export class Game {
     }
     return outText + ")";
   }
+
+  getCaptures(color: string, currentMove: number) {
+    let nCaptures = 0;
+    for (const move of this.moves) {
+      if (move.capture !== undefined && move.capture < currentMove && move.color !== color) {
+        nCaptures += 1;
+      }
+    }
+    return nCaptures;
+  }
 }

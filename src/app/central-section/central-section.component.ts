@@ -15,6 +15,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   @Output() reviewConcluded = new EventEmitter<void>();
   @Output() closePopups = new EventEmitter<void>();
   @Output() autoPlayedMove = new EventEmitter<number>();
+  @Output() changeMove = new EventEmitter<number>();
   @Input() gameRun: number = 0;
   @Input() autoPlay: boolean = false;
   @Input() game: Game = getDailyGame();
@@ -158,6 +159,9 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     // Sanity check to make sure move number is not out of bounds.
     this.moveNumber = Math.max(this.moveNumber, 0);
     this.moveNumber = Math.min(this.moveNumber, this.game.lastMove + 1);
+
+    // Notify parent of change.
+    this.changeMove.emit(this.moveNumber);
 
     // Update last checkpoint.
     this.updateMaxMoveNumber(Math.max(this.moveNumber, this.maxMoveNumber));

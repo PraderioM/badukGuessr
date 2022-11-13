@@ -13,7 +13,6 @@ import {startingMoves} from './central-section/utils';
 export class AppComponent {
   title = 'baduk-guesser';
   infoVisible = false;
-  moreVisible = false;
   welcomeVisible = true;
   introductionVisible = false;
   reviewConcludedVisible = false;
@@ -24,6 +23,7 @@ export class AppComponent {
   game: Game = getDailyGame();
   gameIndex: number = getDailyGameIndex();
   loadMoves = false;
+  moveNumber = 0;
 
   constructor(private cookieService: CookieService) {
     // If there are no cookies or if daily game has changed since last time cookies where saved we reset cookies.
@@ -55,14 +55,6 @@ export class AppComponent {
 
   hideInfoView() {
     this.infoVisible = false;
-  }
-
-  showMoreView() {
-    this.moreVisible = true;
-  }
-
-  hideMoreView() {
-    this.moreVisible = false;
   }
 
   showReviewConcludedView() {
@@ -147,7 +139,7 @@ export class AppComponent {
   }
 
   isGamePaused() {
-    let isPaused = this.welcomeVisible || this.introductionVisible || this.infoVisible || this.moreVisible;
+    let isPaused = this.welcomeVisible || this.introductionVisible || this.infoVisible;
     isPaused = isPaused || this.reviewConcludedVisible || this.scoreVisible;
     return isPaused;
   }
@@ -163,8 +155,6 @@ export class AppComponent {
       this.hideReviewConcludedView();
     } else if (this.scoreVisible) {
       this.hideScoreView();
-    } else if (this.moreVisible) {
-      this.hideMoreView();
     }
   }
 
@@ -175,5 +165,9 @@ export class AppComponent {
 
   updateMoveLoading(moveNumber: number) {
     this.loadMoves =  moveNumber < startingMoves;
+  }
+
+  updateMoveNumber(moveNumber: number) {
+    this.moveNumber =  moveNumber;
   }
 }

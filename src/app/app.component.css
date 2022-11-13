@@ -7,6 +7,31 @@
   height: 100vh;
 }
 
+.dropdown_menu {
+  transition: .3s ease;
+  background-color: #F0F0F0;
+}
+
+.difficulty_button {
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.dropdown_menu_item {
+  display: block;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  width: 100%;
+  padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+  clear: both;
+  font-weight: 400;
+  text-align: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
 .buttons_container {
   display: flex;
   position: relative;
@@ -68,6 +93,9 @@
   box-shadow: 0 0 6px rgb(0,0,0,.5);
 }
 
+.dropdown-toggle::after {
+  display:none;
+}
 
 @media screen and (max-width: 970px) {
   .logo_bar {left: 0; top: 0; width: 100vw; height: 65px;}
@@ -80,4 +108,8 @@
     color: white;
   }
   .header_button:hover {box-shadow: rgb(255,255,255,.5);}
+  .dropdown_menu {
+    background-color: black;
+    color: white;
+  }
 }
