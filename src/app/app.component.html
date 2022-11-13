@@ -22,29 +22,51 @@
     </span>
 
     <hr>
-    <!-- Enable an option to change -->
+    <!-- Change difficulty. -->
     <span class="dropdown_menu_item" style="text-align: center">
       GUESS SQUARE SIZE
     </span>
     <span class="dropdown_menu_item buttons_container">
-      <div [ngClass]="getReduceGuessSquareSizeClass()" (click)="changeGuessSquareSize(-1)">-</div>
+      <div [ngClass]="getReduceButtonClass(guessSquareSize, 1)" (click)="changeGuessSquareSize(-1)">-</div>
       {{guessSquareSize}}
-      <div [ngClass]="getIncreaseGuessSquareSizeClass()" (click)="changeGuessSquareSize(1)">+</div>
+      <div [ngClass]="getIncreaseButtonClass(guessSquareSize, maxGuessSquareSize)"
+           (click)="changeGuessSquareSize(1)">+</div>
     </span>
+
+    <hr>
+    <!-- Give hint. -->
+    <span class="dropdown_menu_item" style="text-align: center">
+      HINT SIZE
+    </span>
+    <span class="dropdown_menu_item buttons_container">
+      <div [ngClass]="getReduceButtonClass(hintSquareSize, 2)"
+           (click)="changeHintSquareSize(-1)">-</div>
+      {{hintSquareSize}}
+      <div [ngClass]="getIncreaseButtonClass(hintSquareSize, maxHintSquareSize)"
+           (click)="changeHintSquareSize(1)">+</div>
+    </span>
+    <button *ngIf="!hintGiven()" class="dropdown_menu_item" style="text-align: center" (click)="giveHint()">
+      PAY {{getHintCost()}} FOR A HINT
+    </button>
 
   </div>
 </div>
 <!--</div>-->
 
 <!--Main screen-->
-<app-central-section (showScore)="updateAndShowScore($event)"
-                     (closePopups)="processPopupClosing()"
-                     (reviewConcluded)="showReviewConcludedView()"
+<app-central-section (closePopups)="processPopupClosing()"
+                     (showScore)="showScoreView()"
                      (autoPlayedMove)="updateMoveLoading($event)"
+                     (updateScore)="updateScore($event)"
                      (changeMove)="updateMoveNumber($event)"
                      [gameRun]="gameRun"
                      [autoPlay]="loadMoves"
                      [guessSquareSize]="guessSquareSize"
+                     [hintStart]="hintStart"
+                     [hintSize]="hintSquareSize"
+                     [moveNumber]="moveNumber"
+                     [maxMoveNumber]="getMaxMoveNumber()"
+                     [score]="currentScore"
                      [gamePaused]="isGamePaused()"
                      [game]="game">
 
@@ -75,9 +97,12 @@
 <app-score *ngIf="scoreVisible"
            [lastMove]="game.lastMove"
            [scoreHistory]="scoreHistory"
+           [currentScore]="currentScore"
            [attempt]="gameRun"
            [game]="game"
            [gameIndex]="gameIndex"
+           [totalHintsRequested]="totalHintsRequested"
+           [showScoreFrequency]="showScoreFrequency"
            (closeTab)="hideScoreView()"
            (restartGame)="showConfirmationView()"></app-score>
 

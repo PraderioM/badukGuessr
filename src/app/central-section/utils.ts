@@ -6,8 +6,9 @@ export const startingMoves = 4;
 export const showScoreFrequency = 50;
 export const boardSize = 19;
 export const maxGuessSquareSize = 5;
+export const maxHintSquareSize = 5;
 
-const pointsPerSingleGuess = 100;
+export const pointsPerSingleGuess = 100;
 
 
 export function getEarnedPoints(correctGuess: number, nGuesses: number, splitFactor: number = 1) {

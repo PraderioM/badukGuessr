@@ -12,13 +12,18 @@ import {faCopy} from '@fortawesome/free-solid-svg-icons';
 export class ScoreComponent implements OnInit {
   @Output() closeTab = new EventEmitter<void>();
   @Output() restartGame = new EventEmitter<void>();
+
   @Input() lastMove: number = 361;
+  @Input() totalHintsRequested: number = 0;
+  @Input() showScoreFrequency = showScoreFrequency;
+  @Input() currentScore: number = 0;
   @Input() scoreHistory: number[] = [];
   @Input() game = getDailyGame();
   @Input() gameIndex = getDailyGameIndex();
   @Input() attempt: number = 1;
 
   sgfFileUrl?: SafeUrl;
+  startingMoves = startingMoves;
   isCopied: boolean = false;
   faCopy = faCopy;
 
@@ -32,7 +37,7 @@ export class ScoreComponent implements OnInit {
   }
 
   hasGameEnded() {
-    return showScoreFrequency * this.scoreHistory.length >= this.lastMove + 1;
+    return this.scoreHistory.length + startingMoves >= this.lastMove + 1;
   }
 
   getCloseText() {
@@ -40,7 +45,7 @@ export class ScoreComponent implements OnInit {
   }
 
   getScoreText(score: number, i: number) {
-    const nMoves = (i + 1) * showScoreFrequency;
+    const nMoves = i + 1 + startingMoves;
 
     // Show different message for final score.
     let outText: string;
@@ -50,9 +55,23 @@ export class ScoreComponent implements OnInit {
       outText = 'MOVE ' + nMoves.toString() + ': ' + score.toString();
     }
 
-    if (i>0) {
-      let scoreDiff = score - this.scoreHistory[i - 1];
-      outText = outText + " (+" + scoreDiff.toString() + ")";
+    if (i >= this.showScoreFrequency) {
+      let lastScore = 0;
+      if (nMoves < this.lastMove + 1) {
+        lastScore = this.scoreHistory[i - this.showScoreFrequency];
+      } else if (this.scoreHistory.length + startingMoves > this.showScoreFrequency) {
+        let lastScoreIndex = Math.floor((this.scoreHistory.length + startingMoves) / this.showScoreFrequency);
+        lastScoreIndex = lastScoreIndex * this.showScoreFrequency - startingMoves;
+        lastScore = this.scoreHistory[lastScoreIndex];
+      }
+
+      const scoreDiff = score - lastScore;
+
+
+      if (scoreDiff >= 0) {
+        outText = outText + " (+";
+      }
+      outText = outText + scoreDiff.toString() + ")";
     }
 
     return outText;
@@ -63,14 +82,18 @@ export class ScoreComponent implements OnInit {
     let outText = 'BadukGuessr #' + badukGuessrNumber + '\n';
     outText = outText + this.game.blackPlayerName + " " + this.game.blackPlayerRank + " (black)\nvs.\n";
     outText = outText + this.game.whitePlayerName + " " + this.game.whitePlayerRank + " (white)\n";
-    outText = outText + 'Attempt #' + this.attempt + '\n\n';
+    outText = outText + 'Attempt #' + this.attempt + '\n';
+    outText = outText + 'Hints used: ' + this.totalHintsRequested + '\n\n';
     const n = this.scoreHistory.length;
     let score: number;
 
-    for (let i = 0; i < n ; i++) {
+    for (let i = showScoreFrequency - startingMoves - 1; i < n - 1; i+=showScoreFrequency) {
       score = this.scoreHistory[i];
       outText = outText + this.getScoreText(score, i) + '\n';
     }
+
+    score = this.scoreHistory[n-1];
+    outText = outText + this.getScoreText(score, n-1) + '\n';
 
     return outText + this.getAverageScoreText();
   }
@@ -80,13 +103,11 @@ export class ScoreComponent implements OnInit {
   }
 
   getAverageScore() {
-    if (this.scoreHistory.length === 0) {
+    if (this.scoreHistory.length === 0){
       return 0;
     }
 
-    let movesMade = Math.min(this.scoreHistory.length * showScoreFrequency, this.lastMove + 1);
-    movesMade = Math.max(movesMade - startingMoves, 1)
-    return this.scoreHistory[this.scoreHistory.length-1] / movesMade;
+    return this.currentScore / this.scoreHistory.length;
   }
 
   onCopy() {

@@ -2,10 +2,11 @@
   <div class="separator_flex"></div>
 
   <div class="screen_master">
-    <app-move-info (showScore)="showScore.emit(scoreHistory)"
-                   [moveNumber]="moveNumber"
+    <app-move-info (showScore)="showScore.emit()"
+                   [moveNumber]="moveNumber + 1"
+                   [lastMove]="game.lastMove + 1"
                    [score]="score"
-                   [isGameEnd]="moveNumber >= (game.lastMove + 1)"
+                   [isGameEnd]="maxMoveNumber >= (game.lastMove + 1)"
                    [gameResult]="game.result"
                    [isReviewing]="isReviewing()"
                    [gameStarted]="gameRun>0">
@@ -19,6 +20,8 @@
                [stonesInBoard]="getCurrentMoves()"
                [isReviewing]="isReviewing()"
                [guesses]="guesses"
+               [hintStart]="hintStart"
+               [hintSize]="hintSize"
                [guessSquareSize]="guessSquareSize">
     </app-board>
 

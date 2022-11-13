@@ -1,9 +1,7 @@
 import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {showScoreFrequency, maxGuesses, getEarnedPoints, startingMoves} from './utils';
+import {maxGuesses, getEarnedPoints, boardSize, maxHintSquareSize} from './utils';
 import {Game, Move} from '../games/models';
 import {getDailyGame} from '../games/game.collection';
-import {latestMoveName, latestScoreName, scoreHistoryName} from '../cookies.names';
-import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-central-section',
@@ -11,22 +9,23 @@ import {CookieService} from 'ngx-cookie-service';
   styleUrls: ['./central-section.component.css']
 })
 export class CentralSectionComponent implements OnInit, OnChanges {
-  @Output() showScore = new EventEmitter<number[]>();
-  @Output() reviewConcluded = new EventEmitter<void>();
+  @Output() showScore = new EventEmitter<void>();
+  @Output() updateScore = new EventEmitter<number>();
   @Output() closePopups = new EventEmitter<void>();
   @Output() autoPlayedMove = new EventEmitter<number>();
   @Output() changeMove = new EventEmitter<number>();
+
+  @Input() hintStart: Move = new Move('B', boardSize, boardSize);
+  @Input() hintSize: number = maxHintSquareSize;
+  @Input() moveNumber = 0
+  @Input() maxMoveNumber = 0
+  @Input() score = 0
   @Input() gameRun: number = 0;
   @Input() guessSquareSize: number = 1;
   @Input() autoPlay: boolean = false;
   @Input() game: Game = getDailyGame();
   @Input() gamePaused: boolean = false;
 
-  scoreHistory: number[] = [];
-  score = 0;
-  moveNumber = 0;
-  maxMoveNumber = 0;
-  gameEnded = false;
   nextMoveDelay = 500;
   guesses: Move[] = [];
   correctGuessRow = -1;
@@ -49,45 +48,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     }
   }
 
-  constructor(private cookieService: CookieService) {
-    let expiry = new Date();
-    expiry.setDate(expiry.getDate()+1);
-
-    // If there is some score metadata we get it.
-    if (this.cookieService.check(latestMoveName)) {
-      const moveNumber = parseInt(this.cookieService.get(latestMoveName));
-      // We only load the game if at least one move was played.
-      if (moveNumber > startingMoves) {
-        this.moveNumber = moveNumber;
-        this.maxMoveNumber = moveNumber;
-
-        // Set/get score.
-        if (this.cookieService.check(latestScoreName)) {
-          this.score = parseInt(this.cookieService.get(latestScoreName));
-        } else {
-          this.cookieService.set(latestScoreName, this.score.toString(), expiry);
-        }
-
-        // Set/get score history.
-        if (this.cookieService.check(scoreHistoryName)) {
-          this.scoreHistory = JSON.parse(this.cookieService.get(scoreHistoryName));
-        } else {
-          this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), expiry);
-        }
-
-        // // Set/get game ended
-        // if (this.cookieService.check(gameEndedName)) {
-        //   this.gameEnded = JSON.parse(this.cookieService.get(gameEndedName));
-        // } else {
-        //   this.cookieService.set(gameEndedName, JSON.stringify(this.gameEnded), expiry);
-        // }
-      } else {
-        this.cookieService.set(latestMoveName, this.maxMoveNumber.toString(), expiry);
-        this.cookieService.set(latestScoreName, this.score.toString(), expiry);
-        this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), expiry);
-        // this.cookieService.set(gameEndedName, JSON.stringify(this.gameEnded), expiry);
-      }
-    }
+  constructor() {
   }
 
   ngOnInit() {
@@ -114,25 +75,9 @@ export class CentralSectionComponent implements OnInit, OnChanges {
 
       // If game has started we need to initialize it by playing the first moves.
       if (previousAutoPlay != undefined && currentAutoPlay && !previousAutoPlay) {
-        this.restartGameMeta();
         this.autoPlayNextMove();
       }
     }
-  }
-
-  restartGameMeta() {
-    let expiry = new Date();
-    expiry.setDate(expiry.getDate()+1);
-
-    this.scoreHistory = [];
-    this.score = 0;
-    this.moveNumber = 0;
-    this.maxMoveNumber = 0;
-    this.gameEnded = false;
-    this.cookieService.set(scoreHistoryName, '[]', expiry);
-    this.cookieService.set(latestScoreName, '0', expiry);
-    this.cookieService.set(latestMoveName, '0', expiry);
-    // this.cookieService.set(gameEndedName, 'false', expiry);
   }
 
   restartGuesses() {
@@ -151,18 +96,16 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     setTimeout(this.autoPlayNextMove.bind(this), this.nextMoveDelay);
   }
 
-  changeGameMove(moveChange: number) {
+  changeGameMove(moveChange: number, processGuess: boolean = true) {
     // In the case of having some guesses already submitted this action is equivalent to the processGuesses action.
-    if (moveChange === 1 && this.guesses.length > 0) {
-      this.processGuesses(false);
+    if (moveChange === 1 && this.guesses.length > 0 && processGuess) {
+      this.processGuesses();
+      return;
     }
 
     if (this.gamePaused) {
       return;
     }
-
-    // Check if user was reviewing previous moves.
-    const wasReviewing = this.moveNumber < this.maxMoveNumber;
 
     // If we are moving forward fast we do not want to move past the last move we saw unless we are already there.
     if (moveChange > 1 && this.moveNumber < this.maxMoveNumber) {
@@ -178,47 +121,13 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     // Notify parent of change.
     this.changeMove.emit(this.moveNumber);
 
-    // Update last checkpoint.
-    this.updateMaxMoveNumber(Math.max(this.moveNumber, this.maxMoveNumber));
-
-    // If last checkpoint was reached after a review we trigger an event to show a popup with this information.
-    if (wasReviewing && this.moveNumber === this.maxMoveNumber) {
-      this.reviewConcluded.emit();
-    }
-
     // Guesses are reset every time move changes.
     this.restartGuesses();
-
-    // If the game is over we show progress and end game.
-    if (this.moveNumber === this.game.lastMove + 1) {
-      if (!this.gameEnded) {
-        // Fill in score in case it was skipped due to fast forwarding.
-        this.fillScoreHistory();
-        if (this.moveNumber !== showScoreFrequency * (this.scoreHistory.length + 1)) {
-          this.scoreHistory.push(this.score);
-        }
-        this.onShowScore();
-      }
-      this.gameEnded = true;
-      return;
-    }
-
-    // We periodically show score progress.
-    if (this.maxMoveNumber === this.moveNumber && this.moveNumber >= showScoreFrequency * (this.scoreHistory.length + 1)) {
-      this.fillScoreHistory();
-      this.onShowScore();
-    }
-  }
-
-  fillScoreHistory() {
-    while (this.moveNumber >= showScoreFrequency * (this.scoreHistory.length + 1)) {
-      this.scoreHistory.push(this.score);
-    }
   }
 
   addGuess(guess: Move) {
     // If the game is over we do nothing else.
-    if (this.gameEnded || this.gamePaused) {
+    if (this.hasGameEnded() || this.gamePaused) {
       return;
     }
 
@@ -226,7 +135,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   }
 
   removeGuess(guess: Move) {
-    if (this.gameEnded || this.gamePaused) {
+    if (this.hasGameEnded() || this.gamePaused) {
       return;
     }
 
@@ -239,9 +148,9 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     }
   }
 
-  processGuesses(changeMove: boolean = true) {
+  processGuesses() {
     // If the game is over we do nothing else.
-    if (this.gameEnded || this.gamePaused) {
+    if (this.hasGameEnded() || this.gamePaused) {
       return;
     }
 
@@ -276,12 +185,10 @@ export class CentralSectionComponent implements OnInit, OnChanges {
 
     // Update score.
     const splitFactor = this.guessSquareSize * this.guessSquareSize;
-    this.updateScore(this.score + getEarnedPoints(this.getCorrectGuessIndex(), this.guesses.length, splitFactor));
+    this.updateScore.emit(this.score + getEarnedPoints(this.getCorrectGuessIndex(), this.guesses.length, splitFactor));
 
     // Go to next after a small delay.
-    if (changeMove) {
-      setTimeout(this.goToNextMove.bind(this), this.nextMoveDelay);
-    }
+    setTimeout(this.nextMoveWithNoGuessProcessing.bind(this), this.nextMoveDelay);
   }
 
   getCorrectGuessIndex() {
@@ -309,35 +216,20 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     return this.game.getCurrentMoves(this.moveNumber);
   }
 
+  nextMoveWithNoGuessProcessing() {
+    return this.changeGameMove(1, false);
+  }
+
   goToNextMove() {
     return this.changeGameMove(1);
   }
 
   isReviewing() {
-    return this.moveNumber < this.maxMoveNumber || this.moveNumber >= this.game.lastMove + 1;
+    return this.moveNumber < this.maxMoveNumber || this.hasGameEnded();
   }
 
-  private updateMaxMoveNumber(newNumber: number) {
-    let expiry = new Date();
-    expiry.setDate(expiry.getDate()+1);
-
-    this.maxMoveNumber = newNumber;
-    this.cookieService.set(latestMoveName, this.maxMoveNumber.toString(), expiry);
+  hasGameEnded() {
+    return this.maxMoveNumber >= this.game.lastMove + 1
   }
 
-  private onShowScore() {
-    let expiry = new Date();
-    expiry.setDate(expiry.getDate()+1);
-
-    this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), expiry);
-    this.showScore.emit(this.scoreHistory);
-  }
-
-  private updateScore(newScore: number) {
-    let expiry = new Date();
-    expiry.setDate(expiry.getDate()+1);
-
-    this.score = newScore;
-    this.cookieService.set(latestScoreName, this.score.toString(), expiry);
-  }
 }

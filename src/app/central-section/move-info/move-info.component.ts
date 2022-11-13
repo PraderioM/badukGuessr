@@ -9,6 +9,7 @@ import { startingMoves } from '../utils';
 export class MoveInfoComponent implements OnInit {
   @Output() showScore = new EventEmitter<void>();
   @Input() moveNumber: number = 0;
+  @Input() lastMove: number = 0;
   @Input() score: number = 0;
   @Input() gameStarted: boolean = false;
   @Input() isReviewing: boolean = false;

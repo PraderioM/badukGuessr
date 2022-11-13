@@ -25,7 +25,17 @@
 
 <div class="stones_container">
 
-  <!--Hovering stone.-->
+  <!--Hint.-->
+  <div *ngFor="let row of getHintRows()">
+    <div *ngFor="let col of getHintCols()">
+      <div *ngIf="showHint(row, col)"
+           class="hover_stone blue_stone"
+           [ngStyle]="{'top': getPos(row)+'%', 'left': getPos(col)+'%', 'z-index': 1, 'opacity': .3}">
+      </div>
+    </div>
+  </div>
+
+  <!--Hovering stones.-->
   <div *ngFor="let row of getHoveringRows()">
     <div *ngFor="let col of getHoveringCols()">
       <div *ngIf="showHoveringStone(row, col)"

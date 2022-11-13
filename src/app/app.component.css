@@ -10,6 +10,12 @@
 .dropdown_menu {
   transition: .3s ease;
   background-color: #F0F0F0;
+  max-height: 200px;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .clickable_text {
