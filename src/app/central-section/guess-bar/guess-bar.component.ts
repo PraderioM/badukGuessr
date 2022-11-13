@@ -6,12 +6,13 @@ import {faCaretLeft, faCaretRight, faCheck, faXmark} from '@fortawesome/free-sol
 @Component({
   selector: 'app-guess-bar',
   templateUrl: './guess-bar.component.html',
-  styleUrls: ['./guess-bar.component.css', '../../app.component.css']
+  styleUrls: ['./guess-bar.component.css', '../central-section.component.css', '../../app.component.css']
 })
 export class GuessBarComponent implements OnInit {
   @Output() resolveGuess = new EventEmitter<void>();
   @Output() navigateGame = new EventEmitter<number>();
   @Input() guesses: Move[] = [];
+  @Input() guessSquareArea: number = 1;
   @Input() correctGuess = -1;
   @Input() isReviewing = false;
 
@@ -54,7 +55,7 @@ export class GuessBarComponent implements OnInit {
 
   getEarnedPointsText() {
     // Get points earned due to guess.
-    const points = getEarnedPoints(this.correctGuess, this.guesses.length);
+    const points = getEarnedPoints(this.correctGuess, this.guesses.length, this.guessSquareArea);
 
     // If no points are earned we show nothing.
     if (points === 0) {
@@ -69,7 +70,7 @@ export class GuessBarComponent implements OnInit {
     if (this.guesses.length === 0) {
       this.allGuessPoints = [];
     } else {
-      this.allGuessPoints = getAllGuessPoints(this.guesses.length);
+      this.allGuessPoints = getAllGuessPoints(this.guesses.length, this.guessSquareArea);
     }
     return this.allGuessPoints;
   }

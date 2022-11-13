@@ -5,28 +5,31 @@ export const maxGuesses = guessNames.length;
 export const startingMoves = 4;
 export const showScoreFrequency = 50;
 export const boardSize = 19;
-const pointsPerSingleGuess = 30;
+export const maxGuessSquareSize = 5;
 
-export function getEarnedPoints(correctGuess: number, nGuesses: number) {
+const pointsPerSingleGuess = 100;
+
+
+export function getEarnedPoints(correctGuess: number, nGuesses: number, splitFactor: number = 1) {
   // Points are earned only if the correct guess is one of among the guesses made.
   if (correctGuess < 0 || correctGuess >= nGuesses) {
     return 0;
   }
 
-  return getGuessPoints(correctGuess, nGuesses);
+  return getGuessPoints(correctGuess, nGuesses, splitFactor);
 }
 
-export function getGuessPoints(guess: number, nGuesses: number) {
-  return getAllGuessPoints(nGuesses)[guess];
+export function getGuessPoints(guess: number, nGuesses: number, splitFactor: number = 1) {
+  return getAllGuessPoints(nGuesses, splitFactor)[guess];
 }
 
-export function getAllGuessPoints(nGuesses: number) {
+export function getAllGuessPoints(nGuesses: number, splitFactor: number = 1) {
   // Get all points without rounding.
   const guessPoints = getGuessPointList(nGuesses);
 
   // Round points and give them a minimum of 1 in length.
   for (let i = 0; i < guessPoints.length; i++) {
-    guessPoints[i] = Math.max(1, Math.round(guessPoints[i]));
+    guessPoints[i] = Math.max(0, Math.round(guessPoints[i]/splitFactor));
   }
 
   return guessPoints;

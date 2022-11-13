@@ -17,6 +17,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   @Output() autoPlayedMove = new EventEmitter<number>();
   @Output() changeMove = new EventEmitter<number>();
   @Input() gameRun: number = 0;
+  @Input() guessSquareSize: number = 1;
   @Input() autoPlay: boolean = false;
   @Input() game: Game = getDailyGame();
   @Input() gamePaused: boolean = false;
@@ -28,7 +29,8 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   gameEnded = false;
   nextMoveDelay = 500;
   guesses: Move[] = [];
-  correctGuess = -1;
+  correctGuessRow = -1;
+  correctGuessCol = -1;
   guessSubmitted = false;
 
   @HostListener('window:keydown', ['$event'])
@@ -93,17 +95,28 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['autoPlay'] === undefined || changes['autoPlay'].firstChange) {
-      return;
+    // Logic for resetting guesses on guess square size change.
+    if (changes['guessSquareSize'] !== undefined && !changes['guessSquareSize'].firstChange) {
+      const currentGuessSquareSize: number = changes['guessSquareSize'].currentValue;
+      const previousGuessSquareSize: number = changes['guessSquareSize'].previousValue;
+
+      // If thief game has started we need to initialize it by playing the first moves.
+      if (previousGuessSquareSize != undefined && currentGuessSquareSize !== previousGuessSquareSize) {
+        this.restartGuesses();
+      }
     }
 
-    const currentAutoPlay: number = changes['autoPlay'].currentValue;
-    const previousAutoPlay: number = changes['autoPlay'].previousValue;
+    // Logic for starting and stopping replay.
+    if (changes['autoPlay'] !== undefined && !changes['autoPlay'].firstChange) {
 
-    // If thief game has started we need to initialize it by playing the first moves.
-    if (previousAutoPlay != undefined && currentAutoPlay && ! previousAutoPlay) {
-      this.restartGameMeta();
-      this.autoPlayNextMove();
+      const currentAutoPlay: number = changes['autoPlay'].currentValue;
+      const previousAutoPlay: number = changes['autoPlay'].previousValue;
+
+      // If game has started we need to initialize it by playing the first moves.
+      if (previousAutoPlay != undefined && currentAutoPlay && !previousAutoPlay) {
+        this.restartGameMeta();
+        this.autoPlayNextMove();
+      }
     }
   }
 
@@ -124,7 +137,8 @@ export class CentralSectionComponent implements OnInit, OnChanges {
 
   restartGuesses() {
     this.guesses = [];
-    this.correctGuess = -1;
+    this.correctGuessRow = -1;
+    this.correctGuessCol = -1;
     this.guessSubmitted = false;
   }
 
@@ -249,7 +263,6 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     }
 
     // Get the correct guess if any.
-    this.correctGuess = maxGuesses; // If no correct guesses this marks it.
     const nextMove = this.game.getMove(this.moveNumber);
 
     // If no next move we finish here.
@@ -257,19 +270,39 @@ export class CentralSectionComponent implements OnInit, OnChanges {
       return;
     }
 
-    for (let i = 0; i < this.guesses.length; i++) {
-      if (this.guesses[i].row === nextMove.row && this.guesses[i].column === nextMove.column) {
-        this.correctGuess = i;
-      }
-    }
+    // Set the row and column of what would be the correct guess.
+    this.correctGuessRow = nextMove.row; // If there are no correct guesses this illegal positions mark it.
+    this.correctGuessCol = nextMove.column;
 
     // Update score.
-    this.updateScore(this.score + getEarnedPoints(this.correctGuess, this.guesses.length));
+    const splitFactor = this.guessSquareSize * this.guessSquareSize;
+    this.updateScore(this.score + getEarnedPoints(this.getCorrectGuessIndex(), this.guesses.length, splitFactor));
 
     // Go to next after a small delay.
     if (changeMove) {
       setTimeout(this.goToNextMove.bind(this), this.nextMoveDelay);
     }
+  }
+
+  getCorrectGuessIndex() {
+    // If Guesses are yet to be processed we return -1.
+    if (this.correctGuessRow === -1 && this.correctGuessCol === -1) {
+      return -1;
+    }
+
+    // Check guesses in descending order and return the first one to match.
+    const lowHalf = Math.floor(this.guessSquareSize / 2);
+    const bigHalf = Math.ceil(this.guessSquareSize / 2);
+    for (let i = 0; i < this.guesses.length; i++) {
+      if (this.guesses[i].row - lowHalf <= this.correctGuessRow && this.correctGuessRow < this.guesses[i].row + bigHalf) {
+        if (this.guesses[i].column - lowHalf <= this.correctGuessCol && this.correctGuessCol < this.guesses[i].column + bigHalf) {
+          return  i;
+        }
+      }
+    }
+
+    // If none of the guesses is correct we return the maximum index.
+    return maxGuesses;
   }
 
   getCurrentMoves() {

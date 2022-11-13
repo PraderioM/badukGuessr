@@ -14,16 +14,19 @@
     <app-board (addGuess)="addGuess($event)"
                (removeGuess)="removeGuess($event)"
                [moveNumber]="moveNumber"
-               [correctGuess]="correctGuess"
+               [correctGuessRow]="correctGuessRow"
+               [correctGuessCol]="correctGuessCol"
                [stonesInBoard]="getCurrentMoves()"
                [isReviewing]="isReviewing()"
-               [guesses]="guesses">
+               [guesses]="guesses"
+               [guessSquareSize]="guessSquareSize">
     </app-board>
 
     <app-guess-bar (resolveGuess)="processGuesses()"
                    (navigateGame)="changeGameMove($event)"
                    [guesses]="guesses"
-                   [correctGuess]="correctGuess"
+                   [guessSquareArea]="guessSquareSize*guessSquareSize"
+                   [correctGuess]="getCorrectGuessIndex()"
                    [isReviewing]="isReviewing()">
     </app-guess-bar>
   </div>

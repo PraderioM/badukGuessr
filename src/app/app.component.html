@@ -12,6 +12,7 @@
 <div ngbDropdown>
   <button ngbDropdownToggle class="header_button" style="right: 85px; font-weight: bold" >+</button>
   <div ngbDropdownMenu class="dropdown_menu">
+    <!-- Show The amount of captures of each player. -->
     <span class="dropdown_menu_item" style="text-align: center">
       CAPTURES
     </span>
@@ -19,6 +20,18 @@
       <span style="text-align: left">B: {{game.getCaptures('B', moveNumber)}}</span>
       <span style="text-align: right">W: {{game.getCaptures('W', moveNumber)}}</span>
     </span>
+
+    <hr>
+    <!-- Enable an option to change -->
+    <span class="dropdown_menu_item" style="text-align: center">
+      GUESS SQUARE SIZE
+    </span>
+    <span class="dropdown_menu_item buttons_container">
+      <div [ngClass]="getReduceGuessSquareSizeClass()" (click)="changeGuessSquareSize(-1)">-</div>
+      {{guessSquareSize}}
+      <div [ngClass]="getIncreaseGuessSquareSizeClass()" (click)="changeGuessSquareSize(1)">+</div>
+    </span>
+
   </div>
 </div>
 <!--</div>-->
@@ -31,6 +44,7 @@
                      (changeMove)="updateMoveNumber($event)"
                      [gameRun]="gameRun"
                      [autoPlay]="loadMoves"
+                     [guessSquareSize]="guessSquareSize"
                      [gamePaused]="isGamePaused()"
                      [game]="game">
 

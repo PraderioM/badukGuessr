@@ -8,7 +8,7 @@ import {DeviceDetectorService} from 'ngx-device-detector';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css']
+  styleUrls: ['./board.component.css', '../central-section.component.css']
 })
 export class BoardComponent implements OnInit {
   @Output() addGuess = new EventEmitter<Move>();
@@ -16,11 +16,13 @@ export class BoardComponent implements OnInit {
   @Input() moveNumber: number = 0;
   @Input() stonesInBoard: Move[] = [];
   @Input() guesses: Move[] = [];
-  @Input() correctGuess: number = -1;
+  @Input() guessSquareSize: number = 1;
+  @Input() correctGuessRow: number = -1;
+  @Input() correctGuessCol: number = -1;
   @Input() isReviewing: boolean = false;
 
-  hoveringColumn?: number = undefined;
-  hoveringRow?: number = undefined;
+  hoveringColumn: number = boardSize + this.guessSquareSize;
+  hoveringRow: number = boardSize + this.guessSquareSize;
   positions: number[][] = [];
   faCheck = faCheck;
   faX = faXmark;
@@ -42,30 +44,50 @@ export class BoardComponent implements OnInit {
     if (this.deviceService.isMobile() || this.deviceService.isTablet()) {
       return;
     }
-
     this.hoveringRow = row;
     this.hoveringColumn = column;
-
   }
 
   removeHoveringCell(row: number, column: number) {
     // If the current hovering cell is still the one the mouse is leaving we remove it.
     if (this.hoveringRow === row && this.hoveringColumn === column) {
-      this.hoveringRow = undefined;
-      this.hoveringColumn = undefined;
+      this.hoveringRow = boardSize + this.guessSquareSize;
+      this.hoveringColumn = boardSize + this.guessSquareSize;
     }
+  }
+
+  getHoveringRows() {
+    return this.getCenteredArithmeticProgression(this.hoveringRow, 1, this.guessSquareSize);
+  }
+
+  getHoveringCols() {
+    return this.getCenteredArithmeticProgression(this.hoveringColumn, 1, this.guessSquareSize);
   }
 
   processGuess(row: number, column: number) {
     // Let's start by setting hovering cell to undefined since we don't want it to override what we are about to set in this cell.
-    this.hoveringRow = undefined;
-    this.hoveringColumn = undefined;
+    this.hoveringRow = boardSize;
+    this.hoveringColumn = boardSize;
 
     // Don't accept obviously invalid guesses.
-    for (const stone of this.stonesInBoard) {
-      if (stone.row === row && stone.column === column) {
-        return;
+    let allGuessesPlayed = true;
+    let guessPlayed = false;
+    const lowHalf = Math.floor(this.guessSquareSize / 2);
+    const bigHalf = Math.ceil(this.guessSquareSize / 2);
+    for (let i = row - lowHalf; i < row + bigHalf; i++){
+      for (let j = column - lowHalf; j < column + bigHalf; j++){
+        guessPlayed = false;
+        for (const stone of this.stonesInBoard) {
+          if (stone.row === i && stone.column === j) {
+            guessPlayed = true;
+            break;
+          }
+        }
+        allGuessesPlayed = allGuessesPlayed && guessPlayed;
       }
+    }
+    if (allGuessesPlayed) {
+      return;
     }
 
     // If move is valid we need to either add it or remove it.
@@ -96,7 +118,7 @@ export class BoardComponent implements OnInit {
     };
   }
 
-  showHoveringStone() {
+  showHoveringStone(row: number, col: number) {
     // Don't show before game start.
     if (this.moveNumber < startingMoves) {
       return false;
@@ -108,21 +130,25 @@ export class BoardComponent implements OnInit {
     }
 
     // Don't show hovering stone if there is no hovering.
-    if (this.hoveringRow === undefined || this.hoveringColumn === undefined) {
+    if (row >= boardSize || col >= boardSize) {
       return false;
     }
 
     // Don't show hovering stones if another stone is in there.
     for (const stone of this.stonesInBoard) {
-      if (stone.row === this.hoveringRow && stone.column === this.hoveringColumn) {
+      if (stone.row === row && stone.column === col) {
         return false;
       }
     }
 
     // Don't show hovering stone if it's on top of a guess.
+    const lowHalf = Math.floor(this.guessSquareSize / 2);
+    const bigHalf = Math.ceil(this.guessSquareSize / 2);
     for (const guess of this.guesses) {
-      if (guess.row === this.hoveringRow && guess.column === this.hoveringColumn) {
-        return false;
+      if (guess.row - lowHalf <= row && row < guess.row + bigHalf) {
+        if (guess.column - lowHalf <= col && col < guess.column + bigHalf) {
+          return false;
+        }
       }
     }
 
@@ -155,16 +181,53 @@ export class BoardComponent implements OnInit {
   }
 
   isHovering(guess: Move) {
-    // If the guess coincides with the hovering stone then the letter must be an X.
-    return guess.row === this.hoveringRow && guess.column === this.hoveringColumn
+    // If hovering center matches one of the guesses we return true otherwise we return false.
+    return guess.row === this.hoveringRow && this.hoveringColumn === guess.column;
   }
 
   guessUnresolved() {
-    return this.correctGuess === -1;
+    return this.correctGuessRow === -1 && this.correctGuessCol === -1;
   }
 
-  isCorrectGuess(i: number) {
-    return this.correctGuess === i;
+  isCorrectGuess(guess: Move) {
+    return this.correctGuessRow === guess.row && this.correctGuessCol === guess.column;
+  }
+
+  getSubGuesses(guessIndex: number) {
+    // Get all guesses in the specified diameter that don't already belong to other guesses.
+    const prevGuesses: Move[] = [];
+    for (let i = 0; i < guessIndex; i++) {
+      prevGuesses.push(this.guesses[i]);
+    }
+
+
+    const subGuesses: Move[] = [];
+    const guess = this.guesses[guessIndex];
+    let inPrevGuesses = false;
+    const lowHalf = Math.floor(this.guessSquareSize / 2);
+    const bigHalf = Math.ceil(this.guessSquareSize / 2);
+    // Iterate over all guesses in the guess area.
+    for (let i = guess.row - lowHalf; i < guess.row + bigHalf; i++) {
+      for (let j = guess.column - lowHalf; j < guess.column + bigHalf; j++) {
+        // Check that such guess does not belong to previous guesses.
+        inPrevGuesses = false;
+        for (let prevGuess of prevGuesses) {
+          if (prevGuess.row - lowHalf <= i && i <prevGuess.row + bigHalf) {
+            if (prevGuess.column - lowHalf <= j && j < prevGuess.column + bigHalf) {
+              inPrevGuesses = true;
+              break
+            }
+          }
+        }
+
+        // If guess does not belong ot any of the previous guesses we can submit it.
+        if (!inPrevGuesses) {
+          subGuesses.push(new Move(guess.color, i, j));
+        }
+      }
+    }
+
+    return subGuesses;
   }
 
   getGuessOnBoardStyle() {
@@ -174,5 +237,15 @@ export class BoardComponent implements OnInit {
       black_letter: this.moveNumber % 2 === 0,
       white_letter: this.moveNumber % 2 === 1
     };
+  }
+
+  getCenteredArithmeticProgression(start: number, step:number, length: number) {
+    const lowHalf = Math.floor(length / 2);
+    const bigHalf = Math.ceil(length / 2);
+    const progression: number[] = [];
+    for (let i = start - lowHalf; i < start + bigHalf; i+=step) {
+      progression.push(i);
+    }
+    return progression;
   }
 }

@@ -12,11 +12,16 @@
   background-color: #F0F0F0;
 }
 
-.difficulty_button {
-  color: inherit;
+.clickable_text {
   background-color: transparent;
+  color: inherit;
   cursor: pointer;
 }
+
+.phantom_text {
+   background-color: transparent;
+   color: transparent;
+ }
 
 .dropdown_menu_item {
   display: block;

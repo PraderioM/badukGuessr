@@ -26,9 +26,13 @@
 <div class="stones_container">
 
   <!--Hovering stone.-->
-  <div *ngIf="showHoveringStone()"
-       [ngClass]="getHoveringStoneClass()"
-       [ngStyle]="{'top': getPos(hoveringRow)+'%', 'left': getPos(hoveringColumn)+'%'}">
+  <div *ngFor="let row of getHoveringRows()">
+    <div *ngFor="let col of getHoveringCols()">
+      <div *ngIf="showHoveringStone(row, col)"
+           [ngClass]="getHoveringStoneClass()"
+           [ngStyle]="{'top': getPos(row)+'%', 'left': getPos(col)+'%'}">
+      </div>
+    </div>
   </div>
 
   <!--Played stones.-->
@@ -42,20 +46,25 @@
 
   <!--Guesses-->
   <div *ngIf="!isReviewing">
-    <div *ngFor="let guess of guesses; let i = index"
-         [ngClass]="getGuessOnBoardStyle()"
-         [ngStyle]="{'top': getPos(guess.row)+'%', 'left': getPos(guess.column)+'%'}">
-      &nbsp;
-      <span *ngIf="!isHovering(guess) && guessUnresolved()">
-        {{getGuessLetter(i)}}
-      </span>
-      <span *ngIf="(guessUnresolved() && isHovering(guess)) || (!guessUnresolved() && !isCorrectGuess(i))">
-        <fa-icon [icon]="faX" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
-      </span>
-      <span *ngIf="isCorrectGuess(i)">
-        <fa-icon [icon]="faCheck" [styles]="{'stroke': 'green', 'color': 'green'}"></fa-icon>
-      </span>
-      &nbsp;
+    <div *ngFor="let guess of guesses; let i = index">
+      <div *ngFor="let subGuess of getSubGuesses(i)"
+           [ngClass]="getGuessOnBoardStyle()"
+           [ngStyle]="{'top': getPos(subGuess.row)+'%', 'left': getPos(subGuess.column)+'%'}">
+        &nbsp;
+        <span *ngIf="!isHovering(guess) && guessUnresolved()">
+          {{getGuessLetter(i)}}
+        </span>
+        <span *ngIf="(guessUnresolved() && isHovering(guess))">
+          <fa-icon [icon]="faX" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
+        </span>
+        <span *ngIf="(!guessUnresolved() && !isCorrectGuess(subGuess))" class="appearing_icon">
+          <fa-icon [icon]="faX" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
+        </span>
+        <span *ngIf="isCorrectGuess(subGuess)" class="appearing_icon">
+          <fa-icon [icon]="faCheck" [styles]="{'stroke': 'green', 'color': 'green'}"></fa-icon>
+        </span>
+        &nbsp;
+      </div>
     </div>
   </div>
 

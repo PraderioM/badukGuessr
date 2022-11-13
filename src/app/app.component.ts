@@ -3,7 +3,7 @@ import {Game} from './games/models';
 import {getDailyGame, getDailyGameIndex} from './games/game.collection';
 import {CookieService} from 'ngx-cookie-service';
 import {gameIndexName, gameRunName, latestMoveName, latestScoreName, scoreHistoryName} from './cookies.names';
-import {startingMoves} from './central-section/utils';
+import {maxGuessSquareSize, startingMoves} from './central-section/utils';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +24,7 @@ export class AppComponent {
   gameIndex: number = getDailyGameIndex();
   loadMoves = false;
   moveNumber = 0;
+  guessSquareSize: number = 1;
 
   constructor(private cookieService: CookieService) {
     // If there are no cookies or if daily game has changed since last time cookies where saved we reset cookies.
@@ -173,5 +174,23 @@ export class AppComponent {
 
   updateMoveNumber(moveNumber: number) {
     this.moveNumber =  moveNumber;
+  }
+
+  getReduceGuessSquareSizeClass() {
+    return {
+      'clickable_text': this.guessSquareSize > 1,
+      'phantom_text': this.guessSquareSize == 1
+    };
+  }
+
+  getIncreaseGuessSquareSizeClass() {
+    return {
+      'clickable_text': this.guessSquareSize < maxGuessSquareSize,
+      'phantom_text': this.guessSquareSize == maxGuessSquareSize
+    };
+  }
+
+  changeGuessSquareSize(sizeChange: number) {
+    this.guessSquareSize = Math.max(1, Math.min(this.guessSquareSize + sizeChange, maxGuessSquareSize));
   }
 }
