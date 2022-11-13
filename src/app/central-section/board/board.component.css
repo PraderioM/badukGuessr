@@ -72,14 +72,6 @@
   color: black;
 }
 
-
-@keyframes checkmark_animation {
-  0% {opacity: 0; transform: translate(-50%,-50%) scale(0, 0);}
-  20% {opacity: 0; transform: translate(-50%,-50%) scale(0, 0);}
-  85% {opacity: 1; transform: translate(-50%,-50%) scale(1.2, 1.2);}
-  100% {opacity: 1; transform: translate(-50%,-50%) scale(1, 1);}
-}
-
 @media screen and (max-width: 960px) {
   .board_container {top: 50px; width: 100vw; height: 110vw;}
   .stones_container {position: relative; width: 100vw; height: 100vw;}
