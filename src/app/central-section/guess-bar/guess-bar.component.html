@@ -16,7 +16,7 @@
             <fa-icon [icon]="faCheck" [styles]="{'stroke': 'green', 'color': 'green'}"></fa-icon>
           </span>
           <span *ngIf="isGuessUnresolved()" class="centered_container">{{guessNames[i]}}</span>
-          <span *ngIf="!isGuessUnresolved() && !isCorrectGuess(i)" class="centered_container appearing_icon">
+          <span *ngIf="!isGuessUnresolved() && areAllGuessesWrong()" class="centered_container appearing_icon">
             <fa-icon [icon]="faX" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
           </span>
           &nbsp;

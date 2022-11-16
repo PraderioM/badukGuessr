@@ -42,7 +42,7 @@ export class GuessBarComponent implements OnInit {
   getGuessBackgroundColor(i: number) {
     if (this.correctGuess === -1) {
       return this.guessColors[i];
-    } else if (this.correctGuess === maxGuesses) {
+    } else if (this.areAllGuessesWrong()) {
       return this.allWrongGuessColor;
     } else {
       return this.correctGuess === i ? this.guessColors[i] : this.wrongGuessColor;
@@ -77,5 +77,9 @@ export class GuessBarComponent implements OnInit {
 
   isGuessUnresolved() {
     return this.correctGuess === -1;
+  }
+
+  areAllGuessesWrong() {
+    return this.correctGuess === maxGuesses;
   }
 }
