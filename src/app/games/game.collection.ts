@@ -32,6 +32,11 @@ import {kimIlhwanKimChongsu20221102} from './games/kim.ilhwan.kim.chongsu.2022.1
 import {kwonHyojinAnKwanwuk20221102} from './games/kwon.hyojin.an.kwanwuk.2022.11.02';
 import {byunSangilGuZihao20221031} from './games/byun.sangil.gu.zihao.2022.10.31';
 import {choiJeongYangDingxin20221103} from './games/choi.jeong.yang.dingxin.2022.11.03';
+import {choiJeongByunSangil20221104} from './games/choi.jeong.byun.sangil.2022.11.04';
+import {leeHyungjinByunSangil20221103} from './games/lee.hyungjin.byun.sangil.2022.11.03';
+import {choiJeongShinJinseo20221108} from './games/choi.jeong.shin.jinseo.2022.11.08';
+import {shinJinseoChoiJeong20221107} from './games/shin.jinseo.choi.jeong.2022.11.07';
+import {shinJinseoKimMyounghoon20221105} from './games/shin.jinseo.kim.myounghoon.2022.11.05';
 
 const startingDate = new Date(2022, 9, 24, 0, 0, 0, 0);
 const startingUTC = getUTCFromDate(startingDate);
@@ -90,4 +95,9 @@ const allGames: Game[] = [
   kwonHyojinAnKwanwuk20221102,
   byunSangilGuZihao20221031,
   choiJeongYangDingxin20221103,
+  choiJeongByunSangil20221104,
+  leeHyungjinByunSangil20221103,
+  choiJeongShinJinseo20221108,
+  shinJinseoChoiJeong20221107,
+  shinJinseoKimMyounghoon20221105,
 ];
