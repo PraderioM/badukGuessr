@@ -391,7 +391,7 @@ export class AppComponent {
 
   getCookieExpiryDate() {
     let expiry = new Date();
-    expiry.setDate(expiry.getDate()+1);
+    expiry.setDate(expiry.getDate()+2);
     return expiry;
   }
 }
