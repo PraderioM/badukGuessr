@@ -11,15 +11,17 @@ import {getDailyGame} from '../games/game.collection';
 export class CentralSectionComponent implements OnInit, OnChanges {
   @Output() showScore = new EventEmitter<void>();
   @Output() updateScore = new EventEmitter<number>();
+  @Output() updateGuessHistory = new EventEmitter<number>();
   @Output() closePopups = new EventEmitter<void>();
   @Output() autoPlayedMove = new EventEmitter<number>();
   @Output() changeMove = new EventEmitter<number>();
 
   @Input() hintStart: Move = new Move('B', boardSize, boardSize);
   @Input() hintSize: number = maxHintSquareSize;
-  @Input() moveNumber = 0
-  @Input() maxMoveNumber = 0
-  @Input() score = 0
+  @Input() moveNumber = 0;
+  @Input() maxMoveNumber = 0;
+  @Input() score = 0;
+  @Input() streak = 0;
   @Input() gameRun: number = 0;
   @Input() guessSquareSize: number = 1;
   @Input() autoPlay: boolean = false;
@@ -185,7 +187,9 @@ export class CentralSectionComponent implements OnInit, OnChanges {
 
     // Update score.
     const splitFactor = this.guessSquareSize * this.guessSquareSize;
-    this.updateScore.emit(this.score + getEarnedPoints(this.getCorrectGuessIndex(), this.guesses.length, splitFactor));
+    const correctGuessIndex = this.getCorrectGuessIndex()
+    this.updateGuessHistory.emit(correctGuessIndex)
+    this.updateScore.emit(this.score + getEarnedPoints(correctGuessIndex, this.guesses.length, splitFactor));
 
     // Go to next after a small delay.
     setTimeout(this.nextMoveWithNoGuessProcessing.bind(this), this.nextMoveDelay);

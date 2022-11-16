@@ -28,6 +28,11 @@
 
   <!--Current score.-->
   <div class="player_info score_parent">
+    <span *ngIf="streak > 1">
+      STREAK
+      <div [ngClass]="getStreakClass()">{{streak}}</div>
+    <div class="vertical_bar"></div>
+    </span>
     SCORE
     <div class="total_score" (click)="showScore.emit()">{{score}}</div>
   </div>

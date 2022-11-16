@@ -1,21 +1,44 @@
 <div class="popup">
   <div style="height: 20px;"></div>
   <h2>ATTEMPT #{{attempt}}</h2>
-  <h2>HINTS USED: {{totalHintsRequested}}</h2>
+  <h2 class="meta_container">
+    <span>HINTS: {{totalHintsRequested}}</span>
+    <span>STREAK: {{longestStreak}}</span>
+  </h2>
   <div style="height: 20px;"></div>
-  <div *ngFor="let score of scoreHistory; let i = index;">
-    <div *ngIf="(i+1+startingMoves) % showScoreFrequency === 0 || i === scoreHistory.length - 1">
-      <h2>{{getScoreText(score, i)}}</h2>
-      <div style="height: 20px;"></div>
-    </div>
-  </div>
+  <table *ngIf="scoreHistory.length > 0" class="score_container">
+    <thead>
+    <tr>
+      <th style="text-align: left">MOVE</th>
+      <th style="text-align: center">SCORE</th>
+      <th style="text-align: right">CORRECT</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of getShowData();">
+      <th style="text-align: left">
+        {{data['move']}}
+      </th>
+      <th  style="text-align: center">
+        {{data['score']}}
+      </th>
+      <th  style="text-align: right">
+        {{data['guesses']}}
+      </th>
+    </tr>
+    </tbody>
+  </table>
   <div *ngIf="scoreHistory.length > 0">
-    <h2>{{getAverageScoreText()}}</h2>
     <div style="height: 20px;"></div>
+    <h2>{{getAverageScoreText()}}</h2>
+    <h2>{{getCorrectPercentageText()}}</h2>
   </div>
   <div style="height: 20px;"></div>
   <div class="buttons_container">
-    <button *ngIf="!isCopied" class="nice_button white_button"  [cdkCopyToClipboard]="getCompleteScoreText()" (click)="onCopy()">
+    <button *ngIf="!isCopied"
+            class="nice_button white_button"
+            [cdkCopyToClipboard]="getCompleteScoreText()"
+            (click)="onCopy()">
       COPY <fa-icon [icon]="faCopy"></fa-icon>
     </button>
     <button *ngIf="isCopied" class="nice_button gray_button">

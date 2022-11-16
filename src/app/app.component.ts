@@ -2,9 +2,17 @@ import {Component, HostListener} from '@angular/core';
 import {Game, Move} from './games/models';
 import {getDailyGame, getDailyGameIndex} from './games/game.collection';
 import {CookieService} from 'ngx-cookie-service';
-import {gameIndexName, gameRunName, hintsRequestedName, latestScoreName, scoreHistoryName, showScoreFrequencyName} from './cookies.names';
 import {
-  boardSize,
+  gameIndexName,
+  gameRunName,
+  guessHistoryName,
+  hintsRequestedName,
+  latestScoreName,
+  scoreHistoryName,
+  showScoreFrequencyName
+} from './cookies.names';
+import {
+  boardSize, maxGuesses,
   maxGuessSquareSize,
   maxHintSquareSize,
   maxShowScoreFrequency,
@@ -28,6 +36,7 @@ export class AppComponent {
   scoreVisible = false;
   confirmationVisible = false;
   scoreHistory: number[] = [];
+  guessHistory: number[] = [];
   currentScore: number = 0;
   minShowScoreFrequency = minShowScoreFrequency;
   maxShowScoreFrequency = maxShowScoreFrequency;
@@ -190,7 +199,8 @@ export class AppComponent {
 
 
   initGameMeta() {
-    this.updateScoreScoreHistory([]);
+    this.updateGuessHistory([]);
+    this.updateScoreHistory([]);
     this.updateScore(0);
     this.updateTotalHintsRequested(0);
     this.updateMoveNumber(0);
@@ -257,6 +267,14 @@ export class AppComponent {
       this.scoreHistory = [];
       this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory));
     }
+
+    // Load history of correct guesses.
+    if (this.cookieService.check(guessHistoryName)) {
+      this.guessHistory = JSON.parse(this.cookieService.get(guessHistoryName));
+    } else {
+      this.guessHistory = [];
+      this.cookieService.set(guessHistoryName, JSON.stringify(this.guessHistory));
+    }
   }
 
   loadMetaCookies() {
@@ -302,14 +320,18 @@ export class AppComponent {
     }
   }
 
-  updateScoreScoreHistory(scoreHistory: number[]) {
+  updateScoreHistory(scoreHistory: number[]) {
     this.scoreHistory = scoreHistory;
     this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), this.getCookieExpiryDate());
   }
 
+  updateGuessHistory(guessHistory: number[]) {
+    this.guessHistory = guessHistory;
+    this.cookieService.set(guessHistoryName, JSON.stringify(this.guessHistory), this.getCookieExpiryDate());
+  }
+
   addScoreToHistory(score: number) {
-    this.scoreHistory.push(score);
-    this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), this.getCookieExpiryDate());
+    this.updateScoreHistory(this.scoreHistory.concat([score]));
   }
 
   getReduceButtonClass(val: number, minVal: number) {
@@ -393,5 +415,51 @@ export class AppComponent {
     let expiry = new Date();
     expiry.setDate(expiry.getDate()+2);
     return expiry;
+  }
+
+  addGuess(guessNumber: number) {
+    if (guessNumber === -1) {
+      return;
+    } else {
+      this.updateGuessHistory(this.guessHistory.concat([guessNumber]));
+    }
+  }
+
+  getLongestStreak() {
+    let maxStreak = 0;
+    let streak: number;
+    let i = this.guessHistory.length - 1;
+    while (i >= 0) {
+       streak = this.getGuessStreak(i);
+       i = i - streak - 1;
+       maxStreak = Math.max(streak, maxStreak);
+    }
+    return maxStreak;
+  }
+
+  getGuessStreak(streakEnd: number) {
+    let i = streakEnd
+    while (i >= 0 && this.guessHistory[i] < maxGuesses) {
+      i -= 1;
+    }
+    return streakEnd - i;
+  }
+
+
+  getCumulativeCorrectGuesses() {
+    let correctGuessSum: number[] = [];
+    let guessValue: number = 0;
+    let n = 0;
+    for (let guess of this.guessHistory) {
+      guessValue = guess < maxGuesses? 1: 0;
+      if (correctGuessSum.length === 0) {
+        correctGuessSum.push(guessValue)
+      } else {
+        correctGuessSum.push(correctGuessSum[n-1]+guessValue);
+      }
+      n += 1;
+    }
+
+    return correctGuessSum;
   }
 }

@@ -11,10 +11,14 @@ export class MoveInfoComponent implements OnInit {
   @Input() moveNumber: number = 0;
   @Input() lastMove: number = 0;
   @Input() score: number = 0;
+  @Input() streak: number = 0;
   @Input() gameStarted: boolean = false;
   @Input() isReviewing: boolean = false;
   @Input() isGameEnd: boolean = false;
   @Input() gameResult: string = 'jigo';
+
+  minSilverStreak = 5;
+  minGoldenStreak = 10;
 
   constructor() { }
 
@@ -31,5 +35,14 @@ export class MoveInfoComponent implements OnInit {
 
   showMove() {
     return !this.showLoading() && this.gameStarted && !this.isGameEnd;
+  }
+
+  getStreakClass() {
+    return {
+      streak: true,
+      bronze_streak: this.streak < this.minSilverStreak,
+      silver_streak: this.streak >= this.minSilverStreak && this.streak < this.minGoldenStreak,
+      golden_streak: this.streak >= this.minGoldenStreak
+    };
   }
 }

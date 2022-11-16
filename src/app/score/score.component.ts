@@ -15,15 +15,16 @@ export class ScoreComponent implements OnInit {
 
   @Input() lastMove: number = 361;
   @Input() totalHintsRequested: number = 0;
+  @Input() longestStreak: number = 0;
   @Input() showScoreFrequency = showScoreFrequency;
   @Input() currentScore: number = 0;
   @Input() scoreHistory: number[] = [];
+  @Input() guessHistory: number[] = [];
   @Input() game = getDailyGame();
   @Input() gameIndex = getDailyGameIndex();
   @Input() attempt: number = 1;
 
   sgfFileUrl?: SafeUrl;
-  startingMoves = startingMoves;
   isCopied: boolean = false;
   faCopy = faCopy;
 
@@ -44,58 +45,55 @@ export class ScoreComponent implements OnInit {
     return this.hasGameEnded() ? 'CLOSE' : 'CONTINUE';
   }
 
-  getScoreText(score: number, i: number) {
-    const nMoves = i + 1 + startingMoves;
-
-    // Show different message for final score.
-    let outText: string;
-    if (nMoves >= this.lastMove + 1) {
-      outText = 'FINAL SCORE: ' + score.toString();
-    } else {
-      outText = 'MOVE ' + nMoves.toString() + ': ' + score.toString();
-    }
-
-    if (i >= this.showScoreFrequency) {
-      let lastScore = 0;
-      if (nMoves < this.lastMove + 1) {
-        lastScore = this.scoreHistory[i - this.showScoreFrequency];
-      } else if (this.scoreHistory.length + startingMoves > this.showScoreFrequency) {
-        let lastScoreIndex = Math.floor((this.scoreHistory.length + startingMoves) / this.showScoreFrequency);
-        lastScoreIndex = lastScoreIndex * this.showScoreFrequency - startingMoves;
-        lastScore = this.scoreHistory[lastScoreIndex];
-      }
-
-      const scoreDiff = score - lastScore;
-
-
-      if (scoreDiff >= 0) {
-        outText = outText + " (+";
-      }
-      outText = outText + scoreDiff.toString() + ")";
-    }
-
-    return outText;
-  }
-
   getCompleteScoreText() {
     const badukGuessrNumber = this.gameIndex + 1;
     let outText = 'BadukGuessr #' + badukGuessrNumber + '\n';
     outText = outText + this.game.blackPlayerName + " " + this.game.blackPlayerRank + " (black)\nvs.\n";
     outText = outText + this.game.whitePlayerName + " " + this.game.whitePlayerRank + " (white)\n";
     outText = outText + 'Attempt #' + this.attempt + '\n';
-    outText = outText + 'Hints used: ' + this.totalHintsRequested + '\n\n';
     const n = this.scoreHistory.length;
-    let score: number;
 
-    for (let i = showScoreFrequency - startingMoves - 1; i < n - 1; i+=showScoreFrequency) {
-      score = this.scoreHistory[i];
-      outText = outText + this.getScoreText(score, i) + '\n';
+    // If there is nothing else to show we return now.
+    if (n === 0) {
+      return outText;
     }
 
-    score = this.scoreHistory[n-1];
-    outText = outText + this.getScoreText(score, n-1) + '\n';
+    outText = outText + 'Hints used: ' + this.totalHintsRequested + '\n';
+    outText = outText + 'Longest streak: ' + this.longestStreak + '\n\n';
 
-    return outText + this.getAverageScoreText();
+    // Get all the data.
+    const headerData = {'move': 'Move', 'score': 'Score', 'guesses': 'Correct'};
+
+    const dataList = [headerData].concat(this.getShowData());
+    const padding = 4;
+
+    const moveLength = this.getMaxDataSize(dataList, 'move') + padding;
+    const scoreLength = this.getMaxDataSize(dataList, 'score') + padding;
+
+    for (let data of dataList) {
+      outText = outText + this.getPaddedText(data['move'], moveLength);
+      outText = outText + this.getPaddedText(data['score'], scoreLength);
+      outText = outText + data['guesses'] + '\n';
+    }
+
+    outText = outText + '\n' + this.getAverageScoreText() + '\n';
+    return outText + this.getCorrectPercentageText();
+  }
+
+  getMaxDataSize(dataList: {[key:string]: string}[], key: string) {
+    let maxDataSize = 0;
+    for (let data of dataList) {
+      maxDataSize = Math.max(maxDataSize, data[key].length);
+    }
+    return maxDataSize;
+  }
+
+  getPaddedText(text: string, outLength: number) {
+    let outText = text;
+    while (outText.length < outLength) {
+      outText = outText + ' ';
+    }
+    return outText;
   }
 
   getAverageScoreText() {
@@ -117,5 +115,68 @@ export class ScoreComponent implements OnInit {
 
   resetCopy() {
     this.isCopied = false;
+  }
+
+  getIncrementText(previous: number, current: number, showIncrement: boolean = true) {
+    let outText = current.toString();
+    if (showIncrement) {
+      outText = outText + ' (';
+      const increment = current - previous;
+      const sign = increment>=0? '+' : '-';
+      outText = outText + sign + increment.toString() + ')';
+    }
+    return outText;
+  }
+
+  getShowData() {
+    if (this.scoreHistory.length === 0) {
+      return [];
+    }
+
+    const dataList = [];
+    let lastGuesses = 0;
+    let lastScore = 0;
+    let move = 0;
+    const lastIndex = this.scoreHistory.length - 1
+    for (let i = 0; i < lastIndex; i++) {
+      move = i + 1 + startingMoves;
+      if (move % showScoreFrequency === 0) {
+        dataList.push(
+          {
+            'move': move.toString(),
+            'score': this.getIncrementText(lastScore, this.scoreHistory[i], move > showScoreFrequency),
+            'guesses': this.getIncrementText(lastGuesses, this.guessHistory[i], move > showScoreFrequency)
+        });
+        lastScore = this.scoreHistory[i];
+        lastGuesses = this.guessHistory[i];
+      }
+    }
+
+    // Add last move info.
+    const nMoves = lastIndex + 1 + startingMoves + 1
+    const isGameEnd = nMoves >= this.lastMove;
+    const moveText = isGameEnd? 'GAME END' : nMoves.toString();
+    const isFirstShow= nMoves < showScoreFrequency;
+
+    dataList.push(
+      {
+        'move': moveText,
+        'score': this.getIncrementText(lastScore, this.scoreHistory[lastIndex], !isGameEnd && !isFirstShow),
+        'guesses': this.getIncrementText(lastGuesses, this.guessHistory[lastIndex], !isGameEnd && !isFirstShow)
+      });
+
+    return dataList;
+  }
+
+  getCorrectPercentage() {
+    const n = this.guessHistory.length;
+    if (n === 0){
+      return 0;
+    }
+    return 100 * this.guessHistory[n-1] / n;
+  }
+
+  getCorrectPercentageText() {
+    return 'Correct percentage: ' + Math.round(this.getCorrectPercentage()).toString() + '%';
   }
 }
