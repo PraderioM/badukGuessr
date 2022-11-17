@@ -128,19 +128,19 @@
 }
 
 @keyframes animation_bronze_streak {
-  0% {opacity: 0; font-size: 0; font-weight: 0}
-  80% {opacity: 1; font-size: 5vh; font-weight: 900; rotate: 0}
+  0% {opacity: 0; font-size: 0; font-weight: 0; rotate: 0}
+  80% {opacity: 1; font-size: 5vh; font-weight: 900; rotate: 360deg}
   100% {opacity: 1; font-size: 3vh; font-weight: 600; rotate: 360deg}
 }
 
 @keyframes animation_silver_streak {
-  0% {opacity: 0; font-size: 0; font-weight: 0}
-  80% {opacity: 1; font-size: 5vh; font-weight: 900; rotate: 0}
-  100% {opacity: 1; font-size: 3vh; font-weight: 600; rotate: 360deg}
+  0% {opacity: 0; font-size: 0; font-weight: 0; rotate: 0}
+  80% {opacity: 1; font-size: 5vh; font-weight: 900; rotate: 720deg}
+  100% {opacity: 1; font-size: 3vh; font-weight: 600; rotate: 720deg}
 }
 
 @keyframes animation_gold_streak {
-  0% {opacity: 0; font-size: 0; font-weight: 0}
-  80% {opacity: 1; font-size: 5vh; font-weight: 900; rotate: 0}
-  100% {opacity: 1; font-size: 3vh; font-weight: 600; rotate: 360deg}
+  0% {opacity: 0; font-size: 0; font-weight: 0; rotate: 0}
+  80% {opacity: 1; font-size: 5vh; font-weight: 900; rotate: 1080deg}
+  100% {opacity: 1; font-size: 3vh; font-weight: 600; rotate: 1080deg}
 }
