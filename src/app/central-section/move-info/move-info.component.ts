@@ -42,7 +42,7 @@ export class MoveInfoComponent implements OnInit {
       streak: true,
       bronze_streak: this.streak < this.minSilverStreak,
       silver_streak: this.streak >= this.minSilverStreak && this.streak < this.minGoldenStreak,
-      golden_streak: this.streak >= this.minGoldenStreak
+      gold_streak: this.streak >= this.minGoldenStreak
     };
   }
 }

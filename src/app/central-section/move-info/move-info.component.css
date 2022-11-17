@@ -76,18 +76,20 @@
 
 .bronze_streak {
   color: #905921;
+  animation-name: animation_bronze_streak;
+  animation-duration: .5s;
 }
 
 .silver_streak {
   color: #A8A9AD;
-  animation-name: animation_streak_upgrade;
-  animation-duration: .3s;
+  animation-name: animation_silver_streak;
+  animation-duration: .5s;
 }
 
-.golden_streak {
+.gold_streak {
   color: #A57C00;
-  animation-name: animation_streak_upgrade;
-  animation-duration: .3s;
+  animation-name: animation_gold_streak;
+  animation-duration: .5s;
 }
 
 .number_of_moves {
@@ -125,8 +127,20 @@
   100% {opacity: 1; top: 50%;}
 }
 
-@keyframes animation_streak_upgrade {
+@keyframes animation_bronze_streak {
   0% {opacity: 0; font-size: 0; font-weight: 0}
-  80% {opacity: 1; font-size: 4vh; font-weight: 800;}
-  100% {opacity: 1; font-size: 3vh; font-weight: 600;}
+  80% {opacity: 1; font-size: 5vh; font-weight: 900; rotate: 0}
+  100% {opacity: 1; font-size: 3vh; font-weight: 600; rotate: 360deg}
+}
+
+@keyframes animation_silver_streak {
+  0% {opacity: 0; font-size: 0; font-weight: 0}
+  80% {opacity: 1; font-size: 5vh; font-weight: 900; rotate: 0}
+  100% {opacity: 1; font-size: 3vh; font-weight: 600; rotate: 360deg}
+}
+
+@keyframes animation_gold_streak {
+  0% {opacity: 0; font-size: 0; font-weight: 0}
+  80% {opacity: 1; font-size: 5vh; font-weight: 900; rotate: 0}
+  100% {opacity: 1; font-size: 3vh; font-weight: 600; rotate: 360deg}
 }
