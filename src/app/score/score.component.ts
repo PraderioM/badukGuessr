@@ -153,10 +153,10 @@ export class ScoreComponent implements OnInit {
     }
 
     // Add last move info.
-    const nMoves = lastIndex + 1 + startingMoves + 1
+    const nMoves = lastIndex + startingMoves + 1
     const isGameEnd = nMoves >= this.lastMove;
+    const isFirstShow= nMoves <= showScoreFrequency;
     const moveText = isGameEnd? 'GAME END' : nMoves.toString();
-    const isFirstShow= nMoves < showScoreFrequency;
 
     dataList.push(
       {
