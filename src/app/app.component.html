@@ -58,7 +58,7 @@
     <span class="dropdown_menu_item buttons_container">
       <div [ngClass]="getReduceButtonClass(showScoreFrequency, minShowScoreFrequency)"
            (click)="changeShowScoreFrequency(-1)">-</div>
-      {{hintSquareSize}} MOVES
+      {{showScoreFrequency}} MOVES
       <div [ngClass]="getIncreaseButtonClass(showScoreFrequency, maxShowScoreFrequency)"
            (click)="changeShowScoreFrequency(1)">+</div>
     </span>
