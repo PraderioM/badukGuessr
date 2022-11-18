@@ -212,6 +212,21 @@ export class BoardComponent implements OnInit {
     return this.correctGuessRow === guess.row && this.correctGuessCol === guess.column;
   }
 
+  isCorrectGuessInGuessSquare(guess: Move) {
+    const correctRow = guess.row <= this.correctGuessRow && this.correctGuessRow < guess.row + this.guessSquareSize;
+    const correctCol = guess.column <= this.correctGuessCol && this.correctGuessCol < guess.column + this.guessSquareSize;
+    return correctRow && correctCol;
+  }
+
+  areAllGuessesWrong() {
+    for (let guess of this.guesses) {
+      if (this.isCorrectGuessInGuessSquare(guess)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   getSubGuesses(guessIndex: number) {
     // Get all guesses in the specified diameter that don't already belong to other guesses.
     const prevGuesses: Move[] = [];
@@ -278,14 +293,5 @@ export class BoardComponent implements OnInit {
       progression.push(i);
     }
     return progression;
-  }
-
-  inBoard(guess: Move) {
-    for (const stone of this.stonesInBoard) {
-      if (stone.row === guess.row && stone.column === guess.column) {
-        return true;
-      }
-    }
-    return false;
   }
 }

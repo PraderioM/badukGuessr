@@ -61,13 +61,13 @@
            [ngClass]="getGuessOnBoardStyle()"
            [ngStyle]="{'top': getPos(subGuess.row)+'%', 'left': getPos(subGuess.column)+'%'}">
         &nbsp;
-        <span *ngIf="!isHovering(guess) && guessUnresolved()">
+        <span *ngIf="(!isHovering(guess) && guessUnresolved()) || (!guessUnresolved() && !isCorrectGuess(subGuess) && !areAllGuessesWrong())">
           {{getGuessLetter(i)}}
         </span>
         <span *ngIf="(guessUnresolved() && isHovering(guess))">
           <fa-icon [icon]="faX" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
         </span>
-        <span *ngIf="(!guessUnresolved() && !isCorrectGuess(subGuess))" class="appearing_icon">
+        <span *ngIf="(!guessUnresolved() && areAllGuessesWrong())" class="appearing_icon">
           <fa-icon [icon]="faX" [styles]="{'stroke': 'red', 'color': 'red'}"></fa-icon>
         </span>
         <span *ngIf="isCorrectGuess(subGuess)" class="appearing_icon">
