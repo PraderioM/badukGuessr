@@ -58,9 +58,10 @@
   align-items: center;
 
   transition: .3s ease;
+  border-radius: 50%;
   font-family: 'Secular One', sans-serif;
   font-size: 3vh;
-  background: #FFE3C3;
+  background: #FFE3C3 7px 50%;
 }
 
 .white_letter {
