@@ -90,7 +90,9 @@ export class ScoreComponent implements OnInit {
 
   getPaddedText(text: string, outLength: number) {
     let outText = text;
-    while (outText.length < outLength) {
+    const n = outText.length;
+    const scalingFactor = 1.1;
+    for (let i = 0; i < (outLength - n)*scalingFactor; i++) {
       outText = outText + ' ';
     }
     return outText;
