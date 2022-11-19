@@ -448,7 +448,7 @@ export class AppComponent {
 
   getGuessStreak(streakEnd: number) {
     let i = streakEnd
-    while (i >= 0 && this.guessHistory[i] < maxGuesses) {
+    while (i >= 0 && this.guessHistory[i] >= 0 && this.guessHistory[i] < maxGuesses) {
       i -= 1;
     }
     return streakEnd - i;
