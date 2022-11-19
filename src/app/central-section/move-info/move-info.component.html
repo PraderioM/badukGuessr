@@ -7,12 +7,13 @@
 
   <!--Message displayed afterwards.-->
   <!--Player color and move number.-->
-  <!-- Need to switch visibility to trigger appearance -->
   <div *ngIf="showMove()" class="player_info player_parent">
     <div [ngClass]="getStoneToPlayClass()"></div>
     {{getPlayerColor()}} to play
     <div class="vertical_bar"></div>
-    <span class="number_of_moves">MOVE <span>{{moveNumber}} / {{lastMove}} </span></span>
+    <span class="number_of_moves">
+      MOVE <span>{{moveNumber}}<span class="show_on_wide_screen"> / {{lastMove}}</span></span>
+    </span>
   </div>
   <div *ngIf="isGameEnd" class="player_info player_parent">
     Game ends
@@ -23,13 +24,13 @@
   <!--Current score.-->
   <div class="player_info score_parent">
     <span *ngIf="streak > 1">
-      STREAK
-      <div [ngClass]="getStreakClass()">{{streak}}</div>
+      <span class="show_on_wide_screen">STREAK</span>
+      <span [ngClass]="getStreakClass()">{{streak}}</span>
     <div class="vertical_bar"></div>
     </span>
     <span *ngIf="showTotalScore">
       SCORE
       <div class="total_score" (click)="showScore.emit()">{{score}}</div>
-      </span>
+    </span>
   </div>
 </div>

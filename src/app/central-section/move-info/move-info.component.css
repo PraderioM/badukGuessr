@@ -119,6 +119,14 @@
   background-color: black;
 }
 
+.show_on_wide_screen {
+  visibility: visible;
+}
+
+@media screen and (max-width: 600px) {
+  .show_on_wide_screen {visibility: hidden; width: 0; height: 0}
+}
+
 @media screen and (max-width: 970px) {
   .move_info_master {position: relative; height: 50px; color: white}
   .player_parent {color: white}
