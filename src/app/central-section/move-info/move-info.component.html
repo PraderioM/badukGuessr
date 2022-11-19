@@ -33,7 +33,9 @@
       <div [ngClass]="getStreakClass()">{{streak}}</div>
     <div class="vertical_bar"></div>
     </span>
-    SCORE
-    <div class="total_score" (click)="showScore.emit()">{{score}}</div>
+    <span *ngIf="showTotalScore">
+      SCORE
+      <div class="total_score" (click)="showScore.emit()">{{score}}</div>
+      </span>
   </div>
 </div>

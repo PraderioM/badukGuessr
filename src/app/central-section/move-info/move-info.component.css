@@ -62,6 +62,8 @@
   font-weight: 900;
   margin-left: 5px;
   cursor: pointer;
+  animation: animation_total_score_appears;
+  animation-duration: .25s;
 }
 
 .streak {
@@ -69,6 +71,7 @@
   vertical-align: middle;
   position: relative;
   font-family: 'Catamaran', sans-serif;
+  transition: ease;
   font-size: 3vh;
   font-weight: 600;
   margin-left: 5px;
@@ -125,6 +128,11 @@
 @keyframes animation_player_info_appears {
   0% {opacity: 0; top: 150%;}
   100% {opacity: 1; top: 50%;}
+}
+
+@keyframes animation_total_score_appears {
+  0% {opacity: 0; top: 150%;}
+  100% {opacity: 1; top: 0}
 }
 
 @keyframes animation_bronze_streak {

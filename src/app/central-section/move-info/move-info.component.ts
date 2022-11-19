@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import { startingMoves } from '../utils';
 
 @Component({
@@ -6,7 +6,7 @@ import { startingMoves } from '../utils';
   templateUrl: './move-info.component.html',
   styleUrls: ['./move-info.component.css']
 })
-export class MoveInfoComponent implements OnInit {
+export class MoveInfoComponent implements OnInit, OnChanges {
   @Output() showScore = new EventEmitter<void>();
   @Input() moveNumber: number = 0;
   @Input() lastMove: number = 0;
@@ -19,10 +19,24 @@ export class MoveInfoComponent implements OnInit {
 
   minSilverStreak = 5;
   minGoldenStreak = 10;
+  showTotalScore = true;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // Logic for resetting guesses on guess square size change.
+    if (changes['score'] !== undefined && !changes['score'].firstChange) {
+      const currentScore: number = changes['score'].currentValue;
+      const previousScore: number = changes['score'].previousValue;
+
+      // If thief game has started we need to initialize it by playing the first moves.
+      if (previousScore != undefined && previousScore !== currentScore) {
+        this.activateScoreAnimation();
+      }
+    }
   }
 
   isBlackTurn() {
@@ -44,5 +58,14 @@ export class MoveInfoComponent implements OnInit {
       silver_streak: this.streak >= this.minSilverStreak && this.streak < this.minGoldenStreak,
       gold_streak: this.streak >= this.minGoldenStreak
     };
+  }
+
+  activateScoreAnimation() {
+    this.showTotalScore = false;
+    setTimeout(this.resetShowTotalScore.bind(this), 2);
+  }
+
+  resetShowTotalScore() {
+    this.showTotalScore = true;
   }
 }
