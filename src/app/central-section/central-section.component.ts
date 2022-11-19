@@ -41,7 +41,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
       this.changeGameMove(-1);
     } else if (key === 'ArrowRight') {
       this.changeGameMove(1);
-    } else if (key === 'Enter') {
+    } else if (key === 'Enter' || key === ' ') {
       event.preventDefault();
       this.processGuesses();
       if (this.gamePaused) {
