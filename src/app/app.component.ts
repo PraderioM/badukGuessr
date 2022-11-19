@@ -306,6 +306,11 @@ export class AppComponent {
     // If move number has exceeded the max move number then we store the current score as the score at last move.
     while (this.moveNumber > this.getMaxMoveNumber()) {
       this.addScoreToHistory(this.currentScore);
+      // If guess history has fewer elements than score history it means that some guesses have been skipped.
+      // We need to record this in the history.
+      if (this.guessHistory.length < this.scoreHistory.length) {
+        this.addGuessToHistory(-1);
+      }
 
       // Show score when needed.
       const maxMoveNumber = this.getMaxMoveNumber();
@@ -332,6 +337,10 @@ export class AppComponent {
 
   addScoreToHistory(score: number) {
     this.updateScoreHistory(this.scoreHistory.concat([score]));
+  }
+
+  addGuessToHistory(guess: number) {
+    this.updateGuessHistory(this.guessHistory.concat([guess]));
   }
 
   getReduceButtonClass(val: number, minVal: number) {
@@ -445,13 +454,12 @@ export class AppComponent {
     return streakEnd - i;
   }
 
-
   getCumulativeCorrectGuesses() {
     let correctGuessSum: number[] = [];
     let guessValue: number = 0;
     let n = 0;
     for (let guess of this.guessHistory) {
-      guessValue = guess < maxGuesses? 1: 0;
+      guessValue = (0 <= guess && guess < maxGuesses)? 1: 0;
       if (correctGuessSum.length === 0) {
         correctGuessSum.push(guessValue)
       } else {
@@ -461,5 +469,14 @@ export class AppComponent {
     }
 
     return correctGuessSum;
+  }
+
+  getMadeGuesses() {
+    let madeGuessSum: number = 0;
+    for (let guess of this.guessHistory) {
+      madeGuessSum += -1 !== guess? 1: 0;
+    }
+
+    return madeGuessSum;
   }
 }

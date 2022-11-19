@@ -20,6 +20,7 @@ export class ScoreComponent implements OnInit {
   @Input() currentScore: number = 0;
   @Input() scoreHistory: number[] = [];
   @Input() guessHistory: number[] = [];
+  @Input() madeGuesses: number = 0;
   @Input() game = getDailyGame();
   @Input() gameIndex = getDailyGameIndex();
   @Input() attempt: number = 1;
@@ -171,11 +172,11 @@ export class ScoreComponent implements OnInit {
   }
 
   getCorrectPercentage() {
-    const n = this.guessHistory.length;
-    if (n === 0){
+    if (this.madeGuesses === 0){
       return 0;
     }
-    return 100 * this.guessHistory[n-1] / n;
+    const  n = this.guessHistory.length;
+    return 100 * this.guessHistory[n-1] / this.madeGuesses;
   }
 
   getCorrectPercentageText() {
