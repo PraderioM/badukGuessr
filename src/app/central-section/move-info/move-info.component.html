@@ -8,15 +8,9 @@
   <!--Message displayed afterwards.-->
   <!--Player color and move number.-->
   <!-- Need to switch visibility to trigger appearance -->
-  <div *ngIf="showMove() && isBlackTurn()" class="player_info player_parent">
-    <div class="stone_to_play" style="background-image: radial-gradient(#cccccc, #4d4d4d, #000000, #000000)"></div>
-    Black to play
-    <div class="vertical_bar"></div>
-    <span class="number_of_moves">MOVE <span>{{moveNumber}} / {{lastMove}} </span></span>
-  </div>
-  <div *ngIf="showMove() && !isBlackTurn()" class="player_info player_parent">
-    <div class="stone_to_play" style="background-image: radial-gradient(white, #e6e6e6, #cecece, #d2d2d2)"></div>
-    White to play
+  <div *ngIf="showMove()" class="player_info player_parent">
+    <div [ngClass]="getStoneToPlayClass()"></div>
+    {{getPlayerColor()}} to play
     <div class="vertical_bar"></div>
     <span class="number_of_moves">MOVE <span>{{moveNumber}} / {{lastMove}} </span></span>
   </div>

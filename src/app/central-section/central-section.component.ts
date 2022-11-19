@@ -188,10 +188,11 @@ export class CentralSectionComponent implements OnInit, OnChanges {
     // Update score.
     const splitFactor = this.guessSquareSize * this.guessSquareSize;
     const correctGuessIndex = this.getCorrectGuessIndex()
-    this.updateGuessHistory.emit(correctGuessIndex)
-    this.updateScore.emit(this.score + getEarnedPoints(correctGuessIndex, this.guesses.length, splitFactor));
+    const newScore = this.score + getEarnedPoints(correctGuessIndex, this.guesses.length, splitFactor);
 
-    // Go to next after a small delay.
+    // Update data after a small delay.
+    setTimeout(() => {this.updateGuessHistory.emit(correctGuessIndex)}, this.nextMoveDelay);
+    setTimeout(() => this.updateScore.emit(newScore), this.nextMoveDelay);
     setTimeout(this.nextMoveWithNoGuessProcessing.bind(this), this.nextMoveDelay);
   }
 

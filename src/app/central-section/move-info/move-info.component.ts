@@ -20,6 +20,7 @@ export class MoveInfoComponent implements OnInit, OnChanges {
   minSilverStreak = 5;
   minGoldenStreak = 10;
   showTotalScore = true;
+  resetPlayerInfo = false;
 
   constructor() { }
 
@@ -27,7 +28,7 @@ export class MoveInfoComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // Logic for resetting guesses on guess square size change.
+    // Logic for resetting guesses on score change.
     if (changes['score'] !== undefined && !changes['score'].firstChange) {
       const currentScore: number = changes['score'].currentValue;
       const previousScore: number = changes['score'].previousValue;
@@ -35,6 +36,17 @@ export class MoveInfoComponent implements OnInit, OnChanges {
       // If thief game has started we need to initialize it by playing the first moves.
       if (previousScore != undefined && previousScore !== currentScore) {
         this.activateScoreAnimation();
+      }
+    }
+
+    // Logic for resetting player info on move change.
+    if (changes['moveNumber'] !== undefined && !changes['moveNumber'].firstChange) {
+      const currentMove: number = changes['moveNumber'].currentValue;
+      const previousMove: number = changes['moveNumber'].previousValue;
+
+      // If thief game has started we need to initialize it by playing the first moves.
+      if (previousMove != undefined && previousMove !== currentMove) {
+        this.activatePlayerInfoAnimation();
       }
     }
   }
@@ -48,7 +60,7 @@ export class MoveInfoComponent implements OnInit, OnChanges {
   }
 
   showMove() {
-    return !this.showLoading() && this.gameStarted && !this.isGameEnd;
+    return !this.showLoading() && this.gameStarted && !this.isGameEnd && !this.resetPlayerInfo;
   }
 
   getStreakClass() {
@@ -67,5 +79,22 @@ export class MoveInfoComponent implements OnInit, OnChanges {
 
   resetShowTotalScore() {
     this.showTotalScore = true;
+  }
+
+  activatePlayerInfoAnimation() {
+    this.resetPlayerInfo = true;
+    setTimeout((() => {this.resetPlayerInfo = false}), 2);
+  }
+
+  getPlayerColor() {
+    return this.isBlackTurn()? 'Black': 'White';
+  }
+
+  getStoneToPlayClass() {
+    return {
+      stone_to_play: true,
+      black_stone_to_play: this.isBlackTurn(),
+      white_stone_to_play: !this.isBlackTurn(),
+    };
   }
 }

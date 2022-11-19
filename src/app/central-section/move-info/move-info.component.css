@@ -42,6 +42,14 @@
   background-position: 7px 50%;
 }
 
+.black_stone_to_play {
+  background-image: radial-gradient(#cccccc, #4d4d4d, #000000, #000000);
+}
+
+.white_stone_to_play {
+  background-image: radial-gradient(white, #e6e6e6, #cecece, #d2d2d2);
+}
+
 .player_info {
   display: block;
   position: absolute;
