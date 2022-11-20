@@ -37,6 +37,16 @@ import {leeHyungjinByunSangil20221103} from './games/lee.hyungjin.byun.sangil.20
 import {choiJeongShinJinseo20221108} from './games/choi.jeong.shin.jinseo.2022.11.08';
 import {shinJinseoChoiJeong20221107} from './games/shin.jinseo.choi.jeong.2022.11.07';
 import {shinJinseoKimMyounghoon20221105} from './games/shin.jinseo.kim.myounghoon.2022.11.05';
+import {kimSeungjunSeoBongsoo20221118} from './games/kim.seungjun.seo.bongsoo.2022.11.18';
+import {kimHyeoiminChoiJeong20221118} from './games/kim.hyeoimin.choi.jeong.2022.11.18';
+import {paekSeonghoOhKyuchul20221118} from './games/paek.seongho.oh.kyuchul.2022.11.18';
+import {yamashitaKeigoShibanoToramaru20221118} from './games/yamashita.keigo.shibano.toramaru.2022.11.18';
+import {kimIlhwanKimChanwu20221118} from './games/kim.ilhwan.kim.chanwu.2022.11.18';
+import {yuZhengqiIyamaYuta20221118} from './games/yu.zhengqi.iyama.yuta.2022.11.18';
+import {keJieYangKaiwen20221118} from './games/ke.jie.yang.kaiwen.2022.11.18';
+import {wangXinghaoDangYifei20221118} from './games/wang.xinghao.dang.yifei.2022.11.18';
+import {guZihaoMiYuting20221118} from './games/gu.zihao.mi.yuting.2022.11.18';
+import {tangWeixingZhaoChenyu20221118} from './games/tang.weixing.zhao.chenyu.2022.11.18';
 
 const startingDate = new Date(2022, 9, 24, 0, 0, 0, 0);
 const startingUTC = getUTCFromDate(startingDate);
@@ -100,4 +110,14 @@ const allGames: Game[] = [
   choiJeongShinJinseo20221108,
   shinJinseoChoiJeong20221107,
   shinJinseoKimMyounghoon20221105,
+  kimSeungjunSeoBongsoo20221118,
+  kimHyeoiminChoiJeong20221118,
+  paekSeonghoOhKyuchul20221118,
+  yamashitaKeigoShibanoToramaru20221118,
+  kimIlhwanKimChanwu20221118,
+  yuZhengqiIyamaYuta20221118,
+  keJieYangKaiwen20221118,
+  wangXinghaoDangYifei20221118,
+  guZihaoMiYuting20221118,
+  tangWeixingZhaoChenyu20221118,
 ];

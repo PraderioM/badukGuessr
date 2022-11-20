@@ -96,7 +96,7 @@ class Game:
         with open(out_file_path, 'w') as out_file:
             out_file.write(text)
 
-        return name
+        return out_file_path, name
 
     def get_angular_game_name(self):
         name_components = self._get_angular_game_name_components()
