@@ -52,7 +52,7 @@ export class MoveInfoComponent implements OnInit, OnChanges {
   }
 
   isBlackTurn() {
-    return this.moveNumber % 2 === 0;
+    return this.moveNumber % 2 !== 0;
   }
 
   showLoading() {
@@ -93,8 +93,8 @@ export class MoveInfoComponent implements OnInit, OnChanges {
   getStoneToPlayClass() {
     return {
       stone_to_play: true,
-      black_stone_to_play: !this.isBlackTurn(),
-      white_stone_to_play: this.isBlackTurn(),
+      black_stone_to_play: this.isBlackTurn(),
+      white_stone_to_play:! this.isBlackTurn(),
     };
   }
 }
