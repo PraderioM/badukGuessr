@@ -52,16 +52,28 @@ class Game:
             self._sgf_game = f.read().strip()
 
         # Get all necessary metadata from file
-        self._black_name = self.get_metadata('PB')
-        self._black_rank = self.get_metadata('BR')
-        self._white_name = self.get_metadata('PW')
-        self._white_rank = self.get_metadata('WR')
-        self._date = self.get_metadata('DT')
+        self._board_size = self.get_metadata('SZ')
+        self._initial_W_stones = self.get_metadata('AW')
+        self._initial_B_stones = self.get_metadata('AB')
+        self._black_name = self._post_process_name(self.get_metadata('PB'))
+        self._black_rank = self._post_process_rank(self.get_metadata('BR'))
+        self._white_name = self._post_process_name(self.get_metadata('PW'))
+        self._white_rank = self._post_process_rank(self.get_metadata('WR'))
+        self._date = self._post_process_date(self.get_metadata('DT'))
         self._result = self.get_metadata('RE')
         self._rules = self.get_metadata('RU')
         self._komi = self.get_metadata('KM')
 
         self._moves = self._get_moves()
+
+    def empty_board_start(self):
+        return self._initial_W_stones is None and self._initial_B_stones is None
+
+    def are_rank_known(self):
+        return self._white_rank is not None and self._black_rank is not None
+
+    def is_19_by_19(self):
+        return self._board_size is None or self._board_size == '19'
 
     def convert_to_angular_game(self):
         # Start writing the metadata.
@@ -70,7 +82,7 @@ class Game:
         '{self._white_name}',
         '{self._black_rank}',
         '{self._white_rank}',
-        new Date('{self._date}'),
+        new Date('{"2000-01-01" if self._date == "unknown" else self._date}'),
         '{self._result}',
         '{self.komi}',
         '{self.rules}',
@@ -104,8 +116,12 @@ class Game:
         return name
 
     def _get_angular_game_name_components(self) -> List[str]:
-        black_name = [part.lower() for part in self._black_name.split(' ') if part != '']
-        white_name = [part.lower() for part in self._white_name.split(' ') if part != '']
+        black_name = [
+            self._remove_non_alphabetic_characters(part.lower()) for part in self._black_name.split(' ') if part != ''
+        ]
+        white_name = [
+            self._remove_non_alphabetic_characters(part.lower()) for part in self._white_name.split(' ') if part != ''
+        ]
         date = self._date.split('-')
         return black_name + white_name + date
 
@@ -150,9 +166,77 @@ class Game:
             # Convert text to numbers and add move to the existing moves.
             col = self._convert_text_to_int(col_as_txt)
             row = self._convert_text_to_int(row_as_txt)
-            moves = self._add_move(row=row, column=col, color=color, moves=moves)
+            if 0 <= row < self.BOARD_SIZE and 0 <= col < self.BOARD_SIZE:
+                moves = self._add_move(row=row, column=col, color=color, moves=moves)
 
         return moves
+
+    def _post_process_name(self, name: Optional[str]) -> Optional[str]:
+        if name is None:
+            return None
+
+        # Remove things between parenthesis.
+        name = self._remove_parenthesis(name)
+
+        # Replace '-' and '_'  by spaces.
+        name = name.replace('-', ' ')
+        return name.replace('_', ' ')
+
+    @staticmethod
+    def _post_process_date(date_str: Optional[str]) -> Optional[str]:
+        search_result = re.search('[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]', date_str)
+
+        # If not found return unknown. If found complete date.
+        if search_result is None:
+            search_result = re.search('[0-9][0-9][0-9][0-9]-[0-9][0-9]', date_str)
+            if search_result is None:
+                search_result = re.search('[0-9][0-9][0-9][0-9]', date_str)
+                if search_result is None:
+                    return 'unknown'
+                else:
+                    return search_result.group(0) + '-01-01'
+            else:
+                return search_result.group(0) + '-01'
+        else:
+            return search_result.group(0)
+
+    @staticmethod
+    def _post_process_rank(rank: Optional[str]) -> Optional[str]:
+        if rank is None:
+            return None
+
+        # We only accept ranks having 2 characters a number from 1-9 and a letter (either d or p)
+        rank = rank.strip()
+        rank = rank.replace('d', 'p')
+        if len(rank) != 2:
+            return None
+
+        if not rank[0].isdigit():
+            return None
+
+        if rank[1] != 'p':
+            return None
+
+        return rank
+
+    @staticmethod
+    def _remove_parenthesis(text: str) -> str:
+        for open_par, close_par in [('(', ')'), ('[', ']'), ('{', '}')]:
+            par_start = text.find(open_par)
+            while par_start != -1:
+                par_end = text.find(close_par)
+                if par_end != -1:
+                    text = text[:par_start]
+                else:
+                    text = text[:par_start] + text[par_end:]
+                par_start = text.find(open_par)
+
+        return text
+
+    @staticmethod
+    def _remove_non_alphabetic_characters(text: str) -> str:
+        alpha_chars = [char for char in text if char.isalpha()]
+        return ''.join(alpha_chars)
 
     @staticmethod
     def _add_move(row: int, column: int, color: str, moves: List[Move]) -> List[Move]:
@@ -200,7 +284,7 @@ class Game:
                 cell_color = board[r][c]
                 if cell_color == Game.LIBERTY_LETTER:
                     return []
-                # If otherwise the neighbour is of the correct color we add it to the component and get it's neighbours.
+                # If otherwise the neighbour is of the correct color we add it to the component and get its neighbours.
                 elif cell_color == color:
                     cell_neighbours = Game._get_neighbours(r, c)
                     # Check that neighbours are not repeated before adding them to the next list of neighbours.
