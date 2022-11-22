@@ -1,7 +1,6 @@
 import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {maxGuesses, getEarnedPoints, boardSize, maxHintSquareSize} from './utils';
-import {Game, Move} from '../games/models';
-import {getDailyGame} from '../games/game.collection';
+import {Game, Move, dummyGame} from '../games/models';
 
 @Component({
   selector: 'app-central-section',
@@ -25,7 +24,7 @@ export class CentralSectionComponent implements OnInit, OnChanges {
   @Input() gameRun: number = 0;
   @Input() guessSquareSize: number = 1;
   @Input() autoPlay: boolean = false;
-  @Input() game: Game = getDailyGame();
+  @Input() game: Game = dummyGame;
   @Input() gamePaused: boolean = false;
 
   nextMoveDelay = 500;

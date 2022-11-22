@@ -15,6 +15,18 @@ export class Move {
   }
 }
 
+export function getGameFromJSON(data: string) {
+  const gameData = JSON.parse(data);
+  const date = gameData['DT'].length === 0? new Date() : new Date(gameData['DT']);
+  const moves = [];
+  for (let moveData of gameData['moves']) {
+    const capture = moveData['capture'].length === 0? undefined : moveData['capture'];
+    moves.push(new Move(moveData['color'], moveData['row'], moveData['column'], moveData['entrance'], capture))
+  }
+  return new Game(gameData['B'], gameData['W'], gameData['BR'], gameData['WR'], date, gameData['RE'], gameData['KM'], gameData['RU'],
+    moves);
+}
+
 export class Game {
   public lastMove = 0;
   constructor(public blackPlayerName: string,
@@ -77,3 +89,8 @@ export class Game {
     return nCaptures;
   }
 }
+
+export const dummyGame = new Game('B', 'W',
+  'BR', 'WR',
+  new Date(),
+  'result', 'komi', 'rules', []);

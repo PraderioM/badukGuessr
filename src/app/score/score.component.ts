@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {showScoreFrequency, startingMoves} from '../central-section/utils';
-import {getDailyGame, getDailyGameIndex} from '../games/game.collection';
+import { getDailyGameIndex} from '../games/game.collection';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {faCopy} from '@fortawesome/free-solid-svg-icons';
+import {dummyGame} from '../games/models';
 
 @Component({
   selector: 'app-score',
@@ -21,7 +22,7 @@ export class ScoreComponent implements OnInit {
   @Input() scoreHistory: number[] = [];
   @Input() guessHistory: number[] = [];
   @Input() madeGuesses: number = 0;
-  @Input() game = getDailyGame();
+  @Input() game = dummyGame;
   @Input() gameIndex = getDailyGameIndex();
   @Input() attempt: number = 1;
 
