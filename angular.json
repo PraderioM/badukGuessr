@@ -15,6 +15,7 @@
           "options": {
             "outputPath": "docs",
             "baseHref": "/badukGuessr/",
+            "deployUrl": "/badukGuessr/",
             "index": {
               "input": "src/index.html",
               "output": "404.html"
