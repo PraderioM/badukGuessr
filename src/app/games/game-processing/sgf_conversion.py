@@ -3,7 +3,7 @@ from typing import Optional, Tuple
 from models import Game
 
 
-def convert_sgf_to_angular_model(file_path: str, out_dir: str, models_dir: str) -> Optional[Tuple[str, str]]:
+def convert_sgf_to_angular_model(file_path: str, out_dir: str) -> Optional[str]:
     game = Game(file_path)
 
     if not game.are_rank_known():
@@ -13,5 +13,5 @@ def convert_sgf_to_angular_model(file_path: str, out_dir: str, models_dir: str) 
     elif not game.is_19_by_19():
         return None
     else:
-        return game.save_as_angular_game(out_dir, models_dir)
+        return game.save_as_JSON_file(out_dir)
 

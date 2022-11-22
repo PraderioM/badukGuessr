@@ -1,3 +1,5 @@
+import json
+from uuid import uuid4
 import os
 import re
 from typing import List, Optional, Tuple
@@ -13,9 +15,15 @@ class Move:
         self._entrance = entrance
         self._capture = capture
 
-    def convert_to_angular_game(self) -> str:
-        capture_text = 'undefined' if self._capture is None else self._capture
-        return f"new Move('{self._color}', {self._row}, {self._column}, {self._entrance}, {capture_text})"
+    def to_json(self):
+        capture_text = '' if self._capture is None else self._capture
+        return {
+            'color': self._color,
+            'row': self._row,
+            'column': self._column,
+            'entrance': self._entrance,
+            'capture': capture_text
+        }
 
     def add_capture(self, capture: int):
         if self._capture is None:
@@ -75,40 +83,28 @@ class Game:
     def is_19_by_19(self):
         return self._board_size is None or self._board_size == '19'
 
-    def convert_to_angular_game(self):
-        # Start writing the metadata.
-        out_game = f"""new Game(
-        '{self._black_name}',
-        '{self._white_name}',
-        '{self._black_rank}',
-        '{self._white_rank}',
-        new Date('{"2000-01-01" if self._date == "unknown" else self._date}'),
-        '{self._result}',
-        '{self.komi}',
-        '{self.rules}',
-        [\n    """
+    def to_json(self):
+        return {
+            'B': self._black_name,
+            'W': self._white_name,
+            'BR': self._black_rank,
+            'WR': self._white_rank,
+            'DT': self._date,
+            'RE': self._result,
+            'KM': self.komi,
+            'RU': self.rules,
+            'moves': [move.to_json() for move in self._moves]
+        }
 
-        # Convert all the moves to angular format.
-        angular_format_moves = [move.convert_to_angular_game() for move in self._moves]
-        out_game = out_game + ',\n    '.join(angular_format_moves) + '\n  ]\n);\n'
-
-        return out_game
-
-    def save_as_angular_game(self, out_dir: str, models_dir: str):
-        name_components = self._get_angular_game_name_components() + ['ts']
+    def save_as_JSON_file(self, out_dir: str) -> str:
+        name_components = self._get_angular_game_name_components() + [str(uuid4()), 'json']
         out_file_name = '.'.join(name_components)
         out_file_path = os.path.join(out_dir, out_file_name)
-        relative_models_path = os.path.relpath(models_dir, out_dir)
-        models_file = os.path.join(relative_models_path, 'models')
 
-        name = self.get_angular_game_name()
-        preamble = "import { Game, Move } from " + f"'{models_file}';"
-        preamble = preamble + f"\n\nexport const {name} = "
-        text = preamble + self.convert_to_angular_game()
         with open(out_file_path, 'w') as out_file:
-            out_file.write(text)
+            json.dump(self.to_json(), out_file)
 
-        return out_file_path, name
+        return out_file_path
 
     def get_angular_game_name(self):
         name_components = self._get_angular_game_name_components()
@@ -127,14 +123,14 @@ class Game:
 
     def get_metadata(self, key: str) -> Optional[str]:
         # Look for the requested metadata via key search.
-        search_result = re.search(key+'\[[^\]]*\]', self._sgf_game)
+        search_result = re.search(key + '\[[^\]]*\]', self._sgf_game)
 
         # If not found return none.
         if search_result is None:
             return None
 
         # Otherwise extract the metadata and return.
-        return search_result.group(0)[len(key)+1:-1]
+        return search_result.group(0)[len(key) + 1:-1]
 
     def _get_moves(self) -> List[Move]:
         # Get a copy of the game info. We will be iterating until there are no more moves left.
@@ -160,8 +156,8 @@ class Game:
                 break
 
             # Otherwise we extract the move and update the sgf_text.
-            col_as_txt, row_as_txt = sgf_text[pos+3:pos+5]
-            sgf_text = sgf_text[pos+6:]
+            col_as_txt, row_as_txt = sgf_text[pos + 3:pos + 5]
+            sgf_text = sgf_text[pos + 6:]
 
             # Convert text to numbers and add move to the existing moves.
             col = self._convert_text_to_int(col_as_txt)
@@ -192,7 +188,7 @@ class Game:
             if search_result is None:
                 search_result = re.search('[0-9][0-9][0-9][0-9]', date_str)
                 if search_result is None:
-                    return 'unknown'
+                    return ''
                 else:
                     return search_result.group(0) + '-01-01'
             else:
@@ -318,7 +314,7 @@ class Game:
 
     @staticmethod
     def _get_board_position(moves: List[Move]) -> List[List[str]]:
-        board = [[Game.LIBERTY_LETTER]*Game.BOARD_SIZE for _ in range(Game.BOARD_SIZE)]
+        board = [[Game.LIBERTY_LETTER] * Game.BOARD_SIZE for _ in range(Game.BOARD_SIZE)]
         for move in moves:
             if move.capture is None or move.capture >= len(moves):
                 board[move.row][move.column] = move.color
