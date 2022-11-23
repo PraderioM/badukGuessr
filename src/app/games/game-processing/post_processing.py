@@ -5,7 +5,7 @@ from typing import List
 
 def store_processed_out_paths(name_list: List[str],
                               out_file: str = './processing-results/processed_files.txt') -> None:
-    url_list = [f"'assets/{name}'," for name in name_list]
+    url_list = [f"'assets/games/{name}'," for name in name_list]
     return store_string_list(str_list=url_list,
                              out_file=out_file)
 
