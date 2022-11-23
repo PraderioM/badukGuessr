@@ -185,12 +185,12 @@ export class AppComponent {
 
   updateScore(score: number) {
     this.currentScore = score;
-    this.cookieService.set(latestScoreName, this.currentScore.toString());
+    this.cookieService.set(latestScoreName, this.currentScore.toString(), this.getCookieExpiryDate());
   }
 
   updateShowScoreFrequency(frequency: number) {
     this.showScoreFrequency = frequency;
-    this.cookieService.set(showScoreFrequencyName, this.showScoreFrequency.toString());
+    this.cookieService.set(showScoreFrequencyName, this.showScoreFrequency.toString(), this.getCookieExpiryDate());
   }
 
   closeScoreTabAndRestart() {
@@ -242,7 +242,7 @@ export class AppComponent {
       this.gameRun = parseInt(this.cookieService.get(gameRunName));
     } else {
       this.gameRun = 0;
-      this.cookieService.set(gameRunName, this.gameRun.toString());
+      this.cookieService.set(gameRunName, this.gameRun.toString(), this.getCookieExpiryDate());
     }
 
     // Load number of hints requested.
@@ -250,7 +250,7 @@ export class AppComponent {
       this.totalHintsRequested = parseInt(this.cookieService.get(hintsRequestedName));
     } else {
       this.totalHintsRequested = 0;
-      this.cookieService.set(hintsRequestedName, this.totalHintsRequested.toString());
+      this.cookieService.set(hintsRequestedName, this.totalHintsRequested.toString(), this.getCookieExpiryDate());
     }
 
     // Load current score might have info regarding requested hints.
@@ -258,7 +258,7 @@ export class AppComponent {
       this.currentScore = parseInt(this.cookieService.get(latestScoreName));
     } else {
       this.currentScore = 0;
-      this.cookieService.set(latestScoreName, this.currentScore.toString());
+      this.cookieService.set(latestScoreName, this.currentScore.toString(), this.getCookieExpiryDate());
     }
 
     // Load full score history.
@@ -266,7 +266,7 @@ export class AppComponent {
       this.scoreHistory = JSON.parse(this.cookieService.get(scoreHistoryName));
     } else {
       this.scoreHistory = [];
-      this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory));
+      this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), this.getCookieExpiryDate());
     }
 
     // Load history of correct guesses.
@@ -274,7 +274,7 @@ export class AppComponent {
       this.guessHistory = JSON.parse(this.cookieService.get(guessHistoryName));
     } else {
       this.guessHistory = [];
-      this.cookieService.set(guessHistoryName, JSON.stringify(this.guessHistory));
+      this.cookieService.set(guessHistoryName, JSON.stringify(this.guessHistory), this.getCookieExpiryDate());
     }
   }
 
@@ -284,7 +284,7 @@ export class AppComponent {
       this.showScoreFrequency = parseInt(this.cookieService.get(showScoreFrequencyName));
     } else {
       this.showScoreFrequency = showScoreFrequency;
-      this.cookieService.set(showScoreFrequencyName, this.showScoreFrequency.toString());
+      this.cookieService.set(showScoreFrequencyName, this.showScoreFrequency.toString(), this.getCookieExpiryDate());
     }
   }
 
@@ -294,7 +294,7 @@ export class AppComponent {
 
   updateTotalHintsRequested(totalHintsRequested: number){
     this.totalHintsRequested = totalHintsRequested;
-    this.cookieService.set(hintsRequestedName, this.totalHintsRequested.toString());
+    this.cookieService.set(hintsRequestedName, this.totalHintsRequested.toString(), this.getCookieExpiryDate());
   }
 
   updateMoveNumber(moveNumber: number) {
