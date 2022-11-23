@@ -7,7 +7,7 @@ import {
   gameRunName,
   guessHistoryName,
   hintsRequestedName,
-  latestScoreName,
+  latestScoreName, maxCorrectPercentName, maxScorePerMoveName, maxStreakName,
   scoreHistoryName,
   showScoreFrequencyName
 } from './cookies.names';
@@ -315,14 +315,62 @@ export class AppComponent {
 
       // Show score when needed.
       const maxMoveNumber = this.getMaxMoveNumber();
-      if (maxMoveNumber % this.showScoreFrequency === 0 || maxMoveNumber === this.game.lastMove + 1) {
+      const gameEnded = maxMoveNumber === this.game.lastMove + 1;
+      if (maxMoveNumber % this.showScoreFrequency === 0 || gameEnded) {
         this.showScoreView();
+        if (gameEnded) {
+          this.updateMaxScorePerMove();
+          this.updateMaxCorrectPercent();
+        }
       }
     }
 
+    // If the current move is the last move then we update the max streak.
+    const maxMoveNumber = this.getMaxMoveNumber();
+    if (this.moveNumber === maxMoveNumber) {
+      this.updateMaxStreak();
+    }
+
     // If review was being performed and update ended it then we show it in a popup.
-    if (wasReviewing && this.moveNumber === this.getMaxMoveNumber() && this.moveNumber >= startingMoves) {
+    if (wasReviewing && this.moveNumber === maxMoveNumber && this.moveNumber >= startingMoves) {
       this.showReviewConcludedView();
+    }
+  }
+
+  updateMaxScorePerMove() {
+    this.cookieService.set(maxScorePerMoveName, Math.max(this.getAverageScore(), this.getMaxScorePerMove()).toString());
+  }
+
+  getMaxScorePerMove() {
+    if (this.cookieService.check(maxScorePerMoveName)) {
+      return parseFloat(this.cookieService.get(maxScorePerMoveName));
+    } else {
+      return this.getAverageScore();
+    }
+  }
+
+  updateMaxCorrectPercent() {
+    this.cookieService.set(maxCorrectPercentName, Math.max(this.getPercentCorrect(), this.getMaxCorrectPercent()).toString());
+  }
+
+  getMaxCorrectPercent() {
+    if (this.cookieService.check(maxCorrectPercentName)) {
+      return parseFloat(this.cookieService.get(maxCorrectPercentName));
+    } else {
+      return this.getPercentCorrect();
+    }
+  }
+
+  updateMaxStreak() {
+    const currentStreak = this.getGuessStreak(this.guessHistory.length-1);
+    this.cookieService.set(maxStreakName, Math.max(currentStreak, this.getMaxStreak()).toString());
+  }
+
+  getMaxStreak() {
+    if (this.cookieService.check(maxStreakName)) {
+      return parseInt(this.cookieService.get(maxStreakName));
+    } else {
+      return this.getLongestStreak();
     }
   }
 
@@ -455,6 +503,36 @@ export class AppComponent {
     return streakEnd - i;
   }
 
+  getPercentCorrect() {
+    return 100 * this.getGuessAccuracy();
+  }
+
+  getGuessAccuracy() {
+    const n = this.getNMadeGuesses();
+    if (n === 0) {
+      return 0;
+    }
+    return this.getNCorrectGuesses() / n;
+  }
+
+  getAverageScore() {
+    const n = this.getNMadeGuesses();
+    if (n === 0) {
+      return 0;
+    }
+    return this.currentScore / n;
+  }
+
+  getNCorrectGuesses() {
+    let n = 0;
+    for (let guess of this.guessHistory) {
+      if (0 <= guess && guess < maxGuesses) {
+        n += 1;
+      }
+    }
+    return n;
+  }
+
   getCumulativeCorrectGuesses() {
     let correctGuessSum: number[] = [];
     let guessValue: number = 0;
@@ -472,7 +550,7 @@ export class AppComponent {
     return correctGuessSum;
   }
 
-  getMadeGuesses() {
+  getNMadeGuesses() {
     let madeGuessSum: number = 0;
     for (let guess of this.guessHistory) {
       madeGuessSum += -1 !== guess? 1: 0;

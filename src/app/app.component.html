@@ -63,6 +63,19 @@
            (click)="changeShowScoreFrequency(1)">+</div>
     </span>
 
+
+    <hr>
+    <!-- Show maximum performances. -->
+    <span class="dropdown_menu_item" style="text-align: center">
+      MAX AV. SCORE {{getMaxScorePerMove().toFixed(1)}}
+    </span>
+    <span class="dropdown_menu_item" style="text-align: center">
+      MAX CORRECT {{getMaxCorrectPercent().toFixed(0)}}%
+    </span>
+    <span class="dropdown_menu_item" style="text-align: center">
+      MAX STREAK {{getMaxStreak()}}
+    </span>
+
   </div>
 </div>
 <!--</div>-->
@@ -114,7 +127,9 @@
            [lastMove]="game.lastMove"
            [scoreHistory]="scoreHistory"
            [guessHistory]="getCumulativeCorrectGuesses()"
-           [madeGuesses]="getMadeGuesses()"
+           [madeGuesses]="getNMadeGuesses()"
+           [averageScore]="getAverageScore()"
+           [percentCorrect]="getPercentCorrect()"
            [currentScore]="currentScore"
            [attempt]="gameRun"
            [game]="game"

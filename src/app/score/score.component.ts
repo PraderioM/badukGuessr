@@ -15,6 +15,8 @@ export class ScoreComponent implements OnInit {
   @Output() restartGame = new EventEmitter<void>();
 
   @Input() lastMove: number = 361;
+  @Input() averageScore: number = 0;
+  @Input() percentCorrect: number = 0;
   @Input() totalHintsRequested: number = 0;
   @Input() longestStreak: number = 0;
   @Input() showScoreFrequency = showScoreFrequency;
@@ -101,15 +103,7 @@ export class ScoreComponent implements OnInit {
   }
 
   getAverageScoreText() {
-    return 'Points per move: ' + this.getAverageScore().toFixed(1);
-  }
-
-  getAverageScore() {
-    if (this.scoreHistory.length === 0){
-      return 0;
-    }
-
-    return this.currentScore / this.scoreHistory.length;
+    return 'Points per move: ' + this.averageScore.toFixed(1);
   }
 
   onCopy() {
@@ -172,15 +166,7 @@ export class ScoreComponent implements OnInit {
     return dataList;
   }
 
-  getCorrectPercentage() {
-    if (this.madeGuesses === 0){
-      return 0;
-    }
-    const  n = this.guessHistory.length;
-    return 100 * this.guessHistory[n-1] / this.madeGuesses;
-  }
-
   getCorrectPercentageText() {
-    return 'Correct percentage: ' + Math.round(this.getCorrectPercentage()).toString() + '%';
+    return 'Correct percentage: ' + Math.round(this.percentCorrect).toString() + '%';
   }
 }
