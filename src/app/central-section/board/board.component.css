@@ -61,7 +61,7 @@
   border-radius: 50%;
   font-family: 'Secular One', sans-serif;
   font-size: 3vh;
-  background: #FFE3C3 7px 50%;
+  background: #FFE3C3 7px 48%;
 }
 
 .white_letter {
@@ -78,13 +78,6 @@
   height: 4.5%;
   background-image: radial-gradient(#0000ff, #0000e6, #0000ce, #0000d2);
   box-shadow: 0 0 3px 1px blue;
-}
-
-.white_stone {
-  width: 4.6%;
-  height: 4.6%;
-  background-image: radial-gradient(white, #e6e6e6, #cecece, #d2d2d2);
-  box-shadow: 0 0 3px .5px black;
 }
 
 @media screen and (max-width: 960px) {
