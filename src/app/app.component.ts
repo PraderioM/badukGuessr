@@ -95,13 +95,11 @@ export class AppComponent {
   }
 
   getDailyGame() {
-    // const str = '{"B": "Byun Sangil", "W": "Gu Zihao", "BR": "9p", "WR": "9p", "DT": "2022-10-31", "RE": "B+R", "KM": "6.5", "RU": "Japanese", "moves": [{"color": "B", "row": 3, "column": 16, "entrance": 0, "capture": ""}, {"color": "W", "row": 15, "column": 15, "entrance": 1, "capture": ""}, {"color": "B", "row": 3, "column": 2, "entrance": 2, "capture": ""}, {"color": "W", "row": 15, "column": 3, "entrance": 3, "capture": ""}, {"color": "B", "row": 3, "column": 5, "entrance": 4, "capture": ""}, {"color": "W", "row": 2, "column": 14, "entrance": 5, "capture": ""}, {"color": "B", "row": 5, "column": 15, "entrance": 6, "capture": 175}, {"color": "W", "row": 16, "column": 5, "entrance": 7, "capture": ""}, {"color": "B", "row": 16, "column": 16, "entrance": 8, "capture": ""}, {"color": "W", "row": 16, "column": 15, "entrance": 9, "capture": ""}, {"color": "B", "row": 15, "column": 16, "entrance": 10, "capture": ""}, {"color": "W", "row": 13, "column": 16, "entrance": 11, "capture": ""}, {"color": "B", "row": 14, "column": 16, "entrance": 12, "capture": ""}, {"color": "W", "row": 14, "column": 15, "entrance": 13, "capture": ""}, {"color": "B", "row": 13, "column": 17, "entrance": 14, "capture": 163}, {"color": "W", "row": 6, "column": 2, "entrance": 15, "capture": ""}, {"color": "B", "row": 12, "column": 16, "entrance": 16, "capture": ""}, {"color": "W", "row": 13, "column": 15, "entrance": 17, "capture": ""}, {"color": "B", "row": 17, "column": 16, "entrance": 18, "capture": ""}, {"color": "W", "row": 3, "column": 3, "entrance": 19, "capture": ""}, {"color": "B", "row": 2, "column": 3, "entrance": 20, "capture": ""}, {"color": "W", "row": 2, "column": 2, "entrance": 21, "capture": ""}, {"color": "B", "row": 2, "column": 1, "entrance": 22, "capture": ""}, {"color": "W", "row": 1, "column": 2, "entrance": 23, "capture": ""}, {"color": "B", "row": 1, "column": 3, "entrance": 24, "capture": ""}, {"color": "W", "row": 4, "column": 2, "entrance": 25, "capture": ""}, {"color": "B", "row": 3, "column": 1, "entrance": 26, "capture": ""}, {"color": "W", "row": 2, "column": 4, "entrance": 27, "capture": ""}, {"color": "B", "row": 1, "column": 4, "entrance": 28, "capture": ""}, {"color": "W", "row": 4, "column": 3, "entrance": 29, "capture": ""}, {"color": "B", "row": 1, "column": 1, "entrance": 30, "capture": ""}, {"color": "W", "row": 10, "column": 3, "entrance": 31, "capture": ""}, {"color": "B", "row": 12, "column": 15, "entrance": 32, "capture": ""}, {"color": "W", "row": 15, "column": 11, "entrance": 33, "capture": ""}, {"color": "B", "row": 12, "column": 13, "entrance": 34, "capture": ""}, {"color": "W", "row": 2, "column": 11, "entrance": 35, "capture": ""}, {"color": "B", "row": 16, "column": 9, "entrance": 36, "capture": ""}, {"color": "W", "row": 16, "column": 7, "entrance": 37, "capture": ""}, {"color": "B", "row": 15, "column": 12, "entrance": 38, "capture": ""}, {"color": "W", "row": 16, "column": 12, "entrance": 39, "capture": ""}, {"color": "B", "row": 16, "column": 13, "entrance": 40, "capture": ""}, {"color": "W", "row": 17, "column": 11, "entrance": 41, "capture": ""}, {"color": "B", "row": 14, "column": 11, "entrance": 42, "capture": ""}, {"color": "W", "row": 14, "column": 10, "entrance": 43, "capture": ""}, {"color": "B", "row": 15, "column": 10, "entrance": 44, "capture": ""}, {"color": "W", "row": 16, "column": 11, "entrance": 45, "capture": ""}, {"color": "B", "row": 15, "column": 13, "entrance": 46, "capture": ""}, {"color": "W", "row": 17, "column": 13, "entrance": 47, "capture": ""}, {"color": "B", "row": 13, "column": 11, "entrance": 48, "capture": ""}, {"color": "W", "row": 17, "column": 15, "entrance": 49, "capture": ""}, {"color": "B", "row": 15, "column": 6, "entrance": 50, "capture": ""}, {"color": "W", "row": 14, "column": 9, "entrance": 51, "capture": ""}, {"color": "B", "row": 16, "column": 6, "entrance": 52, "capture": ""}, {"color": "W", "row": 17, "column": 6, "entrance": 53, "capture": ""}, {"color": "B", "row": 15, "column": 7, "entrance": 54, "capture": ""}, {"color": "W", "row": 17, "column": 7, "entrance": 55, "capture": ""}, {"color": "B", "row": 14, "column": 8, "entrance": 56, "capture": ""}, {"color": "W", "row": 12, "column": 10, "entrance": 57, "capture": ""}, {"color": "B", "row": 15, "column": 9, "entrance": 58, "capture": ""}, {"color": "W", "row": 12, "column": 9, "entrance": 59, "capture": ""}, {"color": "B", "row": 12, "column": 7, "entrance": 60, "capture": ""}, {"color": "W", "row": 15, "column": 5, "entrance": 61, "capture": ""}, {"color": "B", "row": 14, "column": 5, "entrance": 62, "capture": ""}, {"color": "W", "row": 14, "column": 4, "entrance": 63, "capture": ""}, {"color": "B", "row": 13, "column": 5, "entrance": 64, "capture": ""}, {"color": "W", "row": 12, "column": 3, "entrance": 65, "capture": ""}, {"color": "B", "row": 17, "column": 4, "entrance": 66, "capture": ""}, {"color": "W", "row": 17, "column": 5, "entrance": 67, "capture": ""}, {"color": "B", "row": 10, "column": 7, "entrance": 68, "capture": ""}, {"color": "W", "row": 9, "column": 9, "entrance": 69, "capture": ""}, {"color": "B", "row": 16, "column": 2, "entrance": 70, "capture": ""}, {"color": "W", "row": 14, "column": 1, "entrance": 71, "capture": ""}, {"color": "B", "row": 16, "column": 3, "entrance": 72, "capture": ""}, {"color": "W", "row": 11, "column": 8, "entrance": 73, "capture": ""}, {"color": "B", "row": 11, "column": 7, "entrance": 74, "capture": ""}, {"color": "W", "row": 8, "column": 8, "entrance": 75, "capture": ""}, {"color": "B", "row": 8, "column": 7, "entrance": 76, "capture": ""}, {"color": "W", "row": 7, "column": 7, "entrance": 77, "capture": ""}, {"color": "B", "row": 8, "column": 6, "entrance": 78, "capture": ""}, {"color": "W", "row": 16, "column": 4, "entrance": 79, "capture": ""}, {"color": "B", "row": 7, "column": 3, "entrance": 80, "capture": ""}, {"color": "W", "row": 6, "column": 9, "entrance": 81, "capture": ""}, {"color": "B", "row": 8, "column": 10, "entrance": 82, "capture": ""}, {"color": "W", "row": 7, "column": 6, "entrance": 83, "capture": ""}, {"color": "B", "row": 7, "column": 8, "entrance": 84, "capture": ""}, {"color": "W", "row": 7, "column": 9, "entrance": 85, "capture": ""}, {"color": "B", "row": 8, "column": 9, "entrance": 86, "capture": ""}, {"color": "W", "row": 9, "column": 8, "entrance": 87, "capture": ""}, {"color": "B", "row": 6, "column": 8, "entrance": 88, "capture": ""}, {"color": "W", "row": 9, "column": 7, "entrance": 89, "capture": ""}, {"color": "B", "row": 9, "column": 6, "entrance": 90, "capture": ""}, {"color": "W", "row": 10, "column": 6, "entrance": 91, "capture": 94}, {"color": "B", "row": 10, "column": 5, "entrance": 92, "capture": ""}, {"color": "W", "row": 9, "column": 5, "entrance": 93, "capture": ""}, {"color": "B", "row": 11, "column": 6, "entrance": 94, "capture": ""}, {"color": "W", "row": 8, "column": 5, "entrance": 95, "capture": ""}, {"color": "B", "row": 10, "column": 6, "entrance": 96, "capture": ""}, {"color": "W", "row": 5, "column": 8, "entrance": 97, "capture": ""}, {"color": "B", "row": 6, "column": 7, "entrance": 98, "capture": ""}, {"color": "W", "row": 7, "column": 5, "entrance": 99, "capture": ""}, {"color": "B", "row": 5, "column": 7, "entrance": 100, "capture": ""}, {"color": "W", "row": 10, "column": 11, "entrance": 101, "capture": ""}, {"color": "B", "row": 10, "column": 4, "entrance": 102, "capture": ""}, {"color": "W", "row": 9, "column": 3, "entrance": 103, "capture": ""}, {"color": "B", "row": 9, "column": 4, "entrance": 104, "capture": ""}, {"color": "W", "row": 8, "column": 11, "entrance": 105, "capture": ""}, {"color": "B", "row": 7, "column": 10, "entrance": 106, "capture": ""}, {"color": "W", "row": 5, "column": 9, "entrance": 107, "capture": ""}, {"color": "B", "row": 4, "column": 7, "entrance": 108, "capture": ""}, {"color": "W", "row": 8, "column": 3, "entrance": 109, "capture": ""}, {"color": "B", "row": 8, "column": 4, "entrance": 110, "capture": ""}, {"color": "W", "row": 7, "column": 4, "entrance": 111, "capture": ""}, {"color": "B", "row": 11, "column": 3, "entrance": 112, "capture": ""}, {"color": "W", "row": 7, "column": 2, "entrance": 113, "capture": ""}, {"color": "B", "row": 7, "column": 11, "entrance": 114, "capture": ""}, {"color": "W", "row": 8, "column": 12, "entrance": 115, "capture": ""}, {"color": "B", "row": 9, "column": 10, "entrance": 116, "capture": ""}, {"color": "W", "row": 10, "column": 10, "entrance": 117, "capture": ""}, {"color": "B", "row": 7, "column": 12, "entrance": 118, "capture": ""}, {"color": "W", "row": 7, "column": 13, "entrance": 119, "capture": ""}, {"color": "B", "row": 6, "column": 13, "entrance": 120, "capture": 167}, {"color": "W", "row": 8, "column": 13, "entrance": 121, "capture": ""}, {"color": "B", "row": 12, "column": 8, "entrance": 122, "capture": ""}, {"color": "W", "row": 10, "column": 8, "entrance": 123, "capture": ""}, {"color": "B", "row": 11, "column": 2, "entrance": 124, "capture": ""}, {"color": "W", "row": 12, "column": 4, "entrance": 125, "capture": ""}, {"color": "B", "row": 11, "column": 4, "entrance": 126, "capture": ""}, {"color": "W", "row": 10, "column": 1, "entrance": 127, "capture": ""}, {"color": "B", "row": 11, "column": 9, "entrance": 128, "capture": 139}, {"color": "W", "row": 10, "column": 9, "entrance": 129, "capture": ""}, {"color": "B", "row": 9, "column": 11, "entrance": 130, "capture": ""}, {"color": "W", "row": 10, "column": 12, "entrance": 131, "capture": ""}, {"color": "B", "row": 9, "column": 12, "entrance": 132, "capture": ""}, {"color": "W", "row": 11, "column": 13, "entrance": 133, "capture": ""}, {"color": "B", "row": 10, "column": 13, "entrance": 134, "capture": ""}, {"color": "W", "row": 11, "column": 14, "entrance": 135, "capture": ""}, {"color": "B", "row": 11, "column": 12, "entrance": 136, "capture": ""}, {"color": "W", "row": 12, "column": 14, "entrance": 137, "capture": ""}, {"color": "B", "row": 11, "column": 11, "entrance": 138, "capture": ""}, {"color": "W", "row": 11, "column": 10, "entrance": 139, "capture": ""}, {"color": "B", "row": 12, "column": 11, "entrance": 140, "capture": ""}, {"color": "W", "row": 9, "column": 13, "entrance": 141, "capture": ""}, {"color": "B", "row": 10, "column": 14, "entrance": 142, "capture": ""}, {"color": "W", "row": 6, "column": 12, "entrance": 143, "capture": ""}, {"color": "B", "row": 6, "column": 11, "entrance": 144, "capture": ""}, {"color": "W", "row": 5, "column": 12, "entrance": 145, "capture": ""}, {"color": "B", "row": 5, "column": 11, "entrance": 146, "capture": ""}, {"color": "W", "row": 4, "column": 11, "entrance": 147, "capture": ""}, {"color": "B", "row": 4, "column": 12, "entrance": 148, "capture": ""}, {"color": "W", "row": 5, "column": 13, "entrance": 149, "capture": ""}, {"color": "B", "row": 4, "column": 10, "entrance": 150, "capture": ""}, {"color": "W", "row": 3, "column": 11, "entrance": 151, "capture": ""}, {"color": "B", "row": 5, "column": 10, "entrance": 152, "capture": ""}, {"color": "W", "row": 10, "column": 15, "entrance": 153, "capture": ""}, {"color": "B", "row": 9, "column": 14, "entrance": 154, "capture": ""}, {"color": "W", "row": 12, "column": 17, "entrance": 155, "capture": ""}, {"color": "B", "row": 9, "column": 15, "entrance": 156, "capture": ""}, {"color": "W", "row": 9, "column": 16, "entrance": 157, "capture": ""}, {"color": "B", "row": 8, "column": 15, "entrance": 158, "capture": ""}, {"color": "W", "row": 14, "column": 17, "entrance": 159, "capture": ""}, {"color": "B", "row": 11, "column": 17, "entrance": 160, "capture": ""}, {"color": "W", "row": 8, "column": 16, "entrance": 161, "capture": ""}, {"color": "B", "row": 7, "column": 15, "entrance": 162, "capture": ""}, {"color": "W", "row": 13, "column": 18, "entrance": 163, "capture": ""}, {"color": "B", "row": 10, "column": 16, "entrance": 164, "capture": ""}, {"color": "W", "row": 11, "column": 15, "entrance": 165, "capture": ""}, {"color": "B", "row": 9, "column": 17, "entrance": 166, "capture": ""}, {"color": "W", "row": 6, "column": 14, "entrance": 167, "capture": ""}, {"color": "B", "row": 4, "column": 13, "entrance": 168, "capture": ""}, {"color": "W", "row": 6, "column": 15, "entrance": 169, "capture": ""}, {"color": "B", "row": 7, "column": 16, "entrance": 170, "capture": ""}, {"color": "W", "row": 5, "column": 14, "entrance": 171, "capture": ""}, {"color": "B", "row": 4, "column": 14, "entrance": 172, "capture": ""}, {"color": "W", "row": 4, "column": 15, "entrance": 173, "capture": ""}, {"color": "B", "row": 3, "column": 15, "entrance": 174, "capture": ""}, {"color": "W", "row": 5, "column": 16, "entrance": 175, "capture": ""}, {"color": "B", "row": 3, "column": 14, "entrance": 176, "capture": ""}, {"color": "W", "row": 4, "column": 17, "entrance": 177, "capture": ""}, {"color": "B", "row": 3, "column": 17, "entrance": 178, "capture": ""}, {"color": "W", "row": 2, "column": 15, "entrance": 179, "capture": ""}, {"color": "B", "row": 4, "column": 16, "entrance": 180, "capture": ""}, {"color": "W", "row": 5, "column": 17, "entrance": 181, "capture": ""}, {"color": "B", "row": 1, "column": 16, "entrance": 182, "capture": ""}, {"color": "W", "row": 2, "column": 16, "entrance": 183, "capture": ""}, {"color": "B", "row": 2, "column": 17, "entrance": 184, "capture": ""}, {"color": "W", "row": 1, "column": 15, "entrance": 185, "capture": ""}, {"color": "B", "row": 1, "column": 17, "entrance": 186, "capture": ""}, {"color": "W", "row": 6, "column": 16, "entrance": 187, "capture": ""}, {"color": "B", "row": 2, "column": 13, "entrance": 188, "capture": ""}, {"color": "W", "row": 1, "column": 13, "entrance": 189, "capture": ""}, {"color": "B", "row": 0, "column": 15, "entrance": 190, "capture": ""}, {"color": "W", "row": 1, "column": 14, "entrance": 191, "capture": ""}, {"color": "B", "row": 7, "column": 17, "entrance": 192, "capture": ""}, {"color": "W", "row": 3, "column": 18, "entrance": 193, "capture": ""}, {"color": "B", "row": 2, "column": 18, "entrance": 194, "capture": ""}, {"color": "W", "row": 4, "column": 18, "entrance": 195, "capture": ""}, {"color": "B", "row": 7, "column": 14, "entrance": 196, "capture": ""}, {"color": "W", "row": 3, "column": 12, "entrance": 197, "capture": ""}, {"color": "B", "row": 6, "column": 17, "entrance": 198, "capture": ""}, {"color": "W", "row": 3, "column": 13, "entrance": 199, "capture": ""}, {"color": "B", "row": 6, "column": 18, "entrance": 200, "capture": ""}, {"color": "W", "row": 0, "column": 14, "entrance": 201, "capture": ""}, {"color": "B", "row": 5, "column": 18, "entrance": 202, "capture": ""}]}';
-    // this.game = getGameFromJSON(str);
     this.httpClient.get(getGameLinkByIndex(this.gameIndex), {responseType: 'text'}).subscribe(data => this.game = getGameFromJSON(data))
   }
 
   resetCookies() {
-    const expiry = this.getCookieExpiryDate();
+    const expiry = this.getCookieShortExpiryDate();
     this.cookieService.set(gameIndexName, getDailyGameIndex().toString(), expiry);
     this.cookieService.set(gameRunName, this.gameRun.toString(), expiry);
     this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), expiry);
@@ -185,12 +183,12 @@ export class AppComponent {
 
   updateScore(score: number) {
     this.currentScore = score;
-    this.cookieService.set(latestScoreName, this.currentScore.toString(), this.getCookieExpiryDate());
+    this.cookieService.set(latestScoreName, this.currentScore.toString(), this.getCookieShortExpiryDate());
   }
 
   updateShowScoreFrequency(frequency: number) {
     this.showScoreFrequency = frequency;
-    this.cookieService.set(showScoreFrequencyName, this.showScoreFrequency.toString(), this.getCookieExpiryDate());
+    this.cookieService.set(showScoreFrequencyName, this.showScoreFrequency.toString(), this.getCookieShortExpiryDate());
   }
 
   closeScoreTabAndRestart() {
@@ -202,7 +200,7 @@ export class AppComponent {
 
   updateGameRun() {
     this.gameRun += 1;
-    this.cookieService.set(gameRunName, this.gameRun.toString(), this.getCookieExpiryDate());
+    this.cookieService.set(gameRunName, this.gameRun.toString(), this.getCookieShortExpiryDate());
     this.initGameMeta();
   }
 
@@ -242,7 +240,7 @@ export class AppComponent {
       this.gameRun = parseInt(this.cookieService.get(gameRunName));
     } else {
       this.gameRun = 0;
-      this.cookieService.set(gameRunName, this.gameRun.toString(), this.getCookieExpiryDate());
+      this.cookieService.set(gameRunName, this.gameRun.toString(), this.getCookieShortExpiryDate());
     }
 
     // Load number of hints requested.
@@ -250,7 +248,7 @@ export class AppComponent {
       this.totalHintsRequested = parseInt(this.cookieService.get(hintsRequestedName));
     } else {
       this.totalHintsRequested = 0;
-      this.cookieService.set(hintsRequestedName, this.totalHintsRequested.toString(), this.getCookieExpiryDate());
+      this.cookieService.set(hintsRequestedName, this.totalHintsRequested.toString(), this.getCookieShortExpiryDate());
     }
 
     // Load current score might have info regarding requested hints.
@@ -258,7 +256,7 @@ export class AppComponent {
       this.currentScore = parseInt(this.cookieService.get(latestScoreName));
     } else {
       this.currentScore = 0;
-      this.cookieService.set(latestScoreName, this.currentScore.toString(), this.getCookieExpiryDate());
+      this.cookieService.set(latestScoreName, this.currentScore.toString(), this.getCookieShortExpiryDate());
     }
 
     // Load full score history.
@@ -266,7 +264,7 @@ export class AppComponent {
       this.scoreHistory = JSON.parse(this.cookieService.get(scoreHistoryName));
     } else {
       this.scoreHistory = [];
-      this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), this.getCookieExpiryDate());
+      this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), this.getCookieShortExpiryDate());
     }
 
     // Load history of correct guesses.
@@ -274,7 +272,7 @@ export class AppComponent {
       this.guessHistory = JSON.parse(this.cookieService.get(guessHistoryName));
     } else {
       this.guessHistory = [];
-      this.cookieService.set(guessHistoryName, JSON.stringify(this.guessHistory), this.getCookieExpiryDate());
+      this.cookieService.set(guessHistoryName, JSON.stringify(this.guessHistory), this.getCookieShortExpiryDate());
     }
   }
 
@@ -284,7 +282,7 @@ export class AppComponent {
       this.showScoreFrequency = parseInt(this.cookieService.get(showScoreFrequencyName));
     } else {
       this.showScoreFrequency = showScoreFrequency;
-      this.cookieService.set(showScoreFrequencyName, this.showScoreFrequency.toString(), this.getCookieExpiryDate());
+      this.cookieService.set(showScoreFrequencyName, this.showScoreFrequency.toString(), this.getCookieShortExpiryDate());
     }
   }
 
@@ -294,7 +292,7 @@ export class AppComponent {
 
   updateTotalHintsRequested(totalHintsRequested: number){
     this.totalHintsRequested = totalHintsRequested;
-    this.cookieService.set(hintsRequestedName, this.totalHintsRequested.toString(), this.getCookieExpiryDate());
+    this.cookieService.set(hintsRequestedName, this.totalHintsRequested.toString(), this.getCookieShortExpiryDate());
   }
 
   updateMoveNumber(moveNumber: number) {
@@ -338,32 +336,66 @@ export class AppComponent {
   }
 
   updateMaxScorePerMove() {
-    this.cookieService.set(maxScorePerMoveName, Math.max(this.getAverageScore(), this.getMaxScorePerMove()).toString());
+    const maxScore = this.getMaxScorePerMove();
+    const averageScore = this.getAverageScore();
+    let newScore;
+    if (maxScore === undefined) {
+      newScore = averageScore;
+    } else {
+      newScore = Math.max(maxScore, averageScore);
+    }
+    this.cookieService.set(maxScorePerMoveName, newScore.toString(), this.getCookieLongExpiryDate());
   }
 
   getMaxScorePerMove() {
     if (this.cookieService.check(maxScorePerMoveName)) {
       return parseFloat(this.cookieService.get(maxScorePerMoveName));
     } else {
-      return this.getAverageScore();
+      return undefined;
+    }
+  }
+
+  getMaxScorePerMoveText() {
+    const maxScore = this.getMaxScorePerMove();
+    if (maxScore === undefined) {
+      return '---';
+    } else {
+      return maxScore.toFixed(1).toString();
     }
   }
 
   updateMaxCorrectPercent() {
-    this.cookieService.set(maxCorrectPercentName, Math.max(this.getPercentCorrect(), this.getMaxCorrectPercent()).toString());
+    const maxPercent = this.getMaxCorrectPercent();
+    const currentPercent = this.getPercentCorrect();
+    let newPercent;
+    if (maxPercent === undefined) {
+      newPercent = currentPercent;
+    } else {
+      newPercent = Math.max(currentPercent, maxPercent);
+    }
+    this.cookieService.set(maxCorrectPercentName, newPercent.toString(), this.getCookieLongExpiryDate());
   }
 
   getMaxCorrectPercent() {
     if (this.cookieService.check(maxCorrectPercentName)) {
       return parseFloat(this.cookieService.get(maxCorrectPercentName));
     } else {
-      return this.getPercentCorrect();
+      return undefined;
+    }
+  }
+
+  getMaxCorrectPercentText() {
+    const maxPercent = this.getMaxCorrectPercent();
+    if (maxPercent === undefined) {
+      return '---';
+    } else {
+      return Math.round(maxPercent).toString();
     }
   }
 
   updateMaxStreak() {
     const currentStreak = this.getGuessStreak(this.guessHistory.length-1);
-    this.cookieService.set(maxStreakName, Math.max(currentStreak, this.getMaxStreak()).toString());
+    this.cookieService.set(maxStreakName, Math.max(currentStreak, this.getMaxStreak()).toString(), this.getCookieLongExpiryDate());
   }
 
   getMaxStreak() {
@@ -376,12 +408,12 @@ export class AppComponent {
 
   updateScoreHistory(scoreHistory: number[]) {
     this.scoreHistory = scoreHistory;
-    this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), this.getCookieExpiryDate());
+    this.cookieService.set(scoreHistoryName, JSON.stringify(this.scoreHistory), this.getCookieShortExpiryDate());
   }
 
   updateGuessHistory(guessHistory: number[]) {
     this.guessHistory = guessHistory;
-    this.cookieService.set(guessHistoryName, JSON.stringify(this.guessHistory), this.getCookieExpiryDate());
+    this.cookieService.set(guessHistoryName, JSON.stringify(this.guessHistory), this.getCookieShortExpiryDate());
   }
 
   addScoreToHistory(score: number) {
@@ -469,10 +501,14 @@ export class AppComponent {
     return startingMoves + this.scoreHistory.length;
   }
 
-  getCookieExpiryDate() {
+  getCookieShortExpiryDate() {
     let expiry = new Date();
     expiry.setDate(expiry.getDate()+2);
     return expiry;
+  }
+
+  getCookieLongExpiryDate() {
+    return new Date('2500-12-30');
   }
 
   addGuess(guessNumber: number) {

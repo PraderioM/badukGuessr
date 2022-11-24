@@ -66,14 +66,17 @@
 
     <hr>
     <!-- Show maximum performances. -->
-    <span class="dropdown_menu_item" style="text-align: center">
-      MAX AV. SCORE {{getMaxScorePerMove().toFixed(1)}}
+    <span class="dropdown_menu_item buttons_container" style="text-align: center">
+      <span style="text-align: left">MAX AV. SCORE</span>
+      <span style="text-align: right">{{getMaxScorePerMoveText()}}</span>
     </span>
-    <span class="dropdown_menu_item" style="text-align: center">
-      MAX CORRECT {{getMaxCorrectPercent().toFixed(0)}}%
+    <span class="dropdown_menu_item buttons_container" style="text-align: center">
+      <span style="text-align: left">MAX CORRECT</span>
+      <span style="text-align: right">{{getMaxCorrectPercentText()}}</span>
     </span>
-    <span class="dropdown_menu_item" style="text-align: center">
-      MAX STREAK {{getMaxStreak()}}
+    <span class="dropdown_menu_item buttons_container" style="text-align: center">
+      <span style="text-align: left">MAX STREAK</span>
+      <span style="text-align: right">{{getMaxStreak()}}</span>
     </span>
 
   </div>
