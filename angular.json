@@ -27,7 +27,11 @@
             "assets": [
               "src/assets/favicon.ico",
               "src/assets",
-              "src/assets/games"
+              "src/assets/games",
+              {"glob": "google476dae2101856c39.html",
+                "input": "src/",
+                "output": "./"
+              }
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -91,7 +95,12 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/games",
+              {"glob": "google476dae2101856c39.html",
+                "input": "src/",
+                "output": "./"
+              }
             ],
             "styles": [
               "src/styles.css"
